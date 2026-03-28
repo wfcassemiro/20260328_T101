@@ -1,0 +1,26 @@
+
+[30-Oct-2025 12:39:53 UTC] Script iniciado - sync_hotmart_progress.php
+[30-Oct-2025 12:39:53 UTC] [HOTMART_CLASS] Credenciais carregadas de constantes.
+[30-Oct-2025 12:39:53 UTC] [HOTMART_CLASS] Hotmart API Base URL: https://developers.hotmart.com, OAuth URL: https://api-sec-vlc.hotmart.com/security/oauth/token, Subscriptions URL: https://developers.hotmart.com/payments/api/v1, Club URL: https://developers.hotmart.com/club/api/v1, HOT Token: Não configurado
+[30-Oct-2025 12:39:53 UTC] [SYNC_PROGRESS] Iniciando sincronização de progresso de aulas.
+[30-Oct-2025 12:39:53 UTC] [HOTMART_CLUB_USERS] Tentando endpoint: /users com parâmetros: {"subdomain":"t101"}
+[30-Oct-2025 12:39:53 UTC] [HOTMART_API_REQUEST] Fazendo requisição GET para: https://developers.hotmart.com/club/api/v1/users?subdomain=t101
+[30-Oct-2025 12:39:53 UTC] [HOTMART_TOKEN_REQUEST] Solicitando access token para: https://api-sec-vlc.hotmart.com/security/oauth/token
+[30-Oct-2025 12:39:54 UTC] [HOTMART_TOKEN_RESPONSE] Resposta do token HTTP 401: {"error":"unauthorized","error_description":"Full authentication is required to access this resource"}...
+[30-Oct-2025 12:39:54 UTC] [HOTMART_TOKEN_ERROR] Falha ao obter access token: {"error":"unauthorized","error_description":"Full authentication is required to access this resource"}
+[30-Oct-2025 12:39:54 UTC] [HOTMART_CLUB_USERS_WARN] Falha no endpoint /users: {"success":false,"message":"Falha ao obter token de acesso"}
+[30-Oct-2025 12:39:54 UTC] [HOTMART_CLUB_USERS] Tentando endpoint: /subscriptions/subscribers com parâmetros: []
+[30-Oct-2025 12:39:54 UTC] [HOTMART_API_REQUEST] Fazendo requisição GET para: https://developers.hotmart.com/club/api/v1/subscriptions/subscribers
+[30-Oct-2025 12:39:54 UTC] [HOTMART_TOKEN_REQUEST] Solicitando access token para: https://api-sec-vlc.hotmart.com/security/oauth/token
+[30-Oct-2025 12:39:54 UTC] [HOTMART_TOKEN_RESPONSE] Resposta do token HTTP 401: {"error":"unauthorized","error_description":"Full authentication is required to access this resource"}...
+[30-Oct-2025 12:39:54 UTC] [HOTMART_TOKEN_ERROR] Falha ao obter access token: {"error":"unauthorized","error_description":"Full authentication is required to access this resource"}
+[30-Oct-2025 12:39:54 UTC] [HOTMART_CLUB_USERS_WARN] Falha no endpoint /subscriptions/subscribers: {"success":false,"message":"Falha ao obter token de acesso"}
+[30-Oct-2025 12:39:54 UTC] [SYNC_PROGRESS_WARN] Falha ao obter usuários do Club: {"success":false,"message":"Falha ao obter token de acesso"}
+[30-Oct-2025 12:39:54 UTC] [HOTMART_SUBSCRIPTIONS] Buscando assinaturas com parâmetros: {"max_results":100}
+[30-Oct-2025 12:39:54 UTC] [HOTMART_API_REQUEST] Fazendo requisição GET para: https://developers.hotmart.com/payments/api/v1/subscriptions?max_results=100
+[30-Oct-2025 12:39:54 UTC] [HOTMART_TOKEN_REQUEST] Solicitando access token para: https://api-sec-vlc.hotmart.com/security/oauth/token
+[30-Oct-2025 12:39:55 UTC] [HOTMART_TOKEN_RESPONSE] Resposta do token HTTP 401: {"error":"unauthorized","error_description":"Full authentication is required to access this resource"}...
+[30-Oct-2025 12:39:55 UTC] [HOTMART_TOKEN_ERROR] Falha ao obter access token: {"error":"unauthorized","error_description":"Full authentication is required to access this resource"}
+[30-Oct-2025 12:39:55 UTC] [SYNC_PROGRESS_ERROR] Falha ao obter assinaturas: {"success":false,"message":"Falha ao obter token de acesso"}
+[30-Oct-2025 12:39:55 UTC] [SYNC_PROGRESS] Total de usuários/assinaturas encontrados: 0
+[30-Oct-2025 12:39:55 UTC] [SYNC_PROGRESS_SUCCESS] Sincronização de progresso de aulas concluída.

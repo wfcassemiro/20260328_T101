@@ -1,0 +1,2657 @@
+<?php
+session_start(); // CRÍTICO: Iniciar sessão para funções de autenticação funcionarem
+
+// Inclui o arquivo de funções de autenticação e conexão com o banco de dados
+require_once __DIR__ . '/config/database.php';
+
+// --- Funções de Acesso (Devem ser garantidas no ambiente de produção) ---
+// ATENÇÃO: Presumindo que estas funções estão definidas no ambiente (ex: database.php)
+if (!function_exists('isLoggedIn')) {
+    function isLoggedIn() {
+        return isset($_SESSION['user_id']);
+    }
+}
+if (!function_exists('isAdmin')) {
+    function isAdmin() {
+        return (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
+    }
+}
+
+// Verifica se o usuário está logado
+$is_logged_in = isLoggedIn();
+$is_admin = isAdmin();
+
+// Se estiver logado, redireciona para a videoteca
+if ($is_logged_in && !$is_admin) {
+    header('Location: /videoteca.php');
+    exit();
+}
+
+// Configurações da página
+$page_title = 'Black Friday Translators101 - Assinatura anual com desconto especial';
+$page_description = 'Black Friday Translators101: plano anual com mais de 400 palestras, ferramentas exclusivas e uma nova palestra por semana, com desconto especial para você se manter atualizade em um mercado transformado pela IA.';
+
+// --- 2. BUSCAR PRÓXIMAS PALESTRAS (upcoming_announcements) ---
+$upcomingLectures = [];
+try {
+    // Ordenação: data mais próxima para a mais distante
+    $stmt = $pdo->query("
+        SELECT id, title, speaker, description, image_path, announcement_date, lecture_time
+        FROM upcoming_announcements
+        WHERE is_active = 1
+        AND announcement_date >= CURDATE()
+        ORDER BY announcement_date ASC, display_order ASC
+        LIMIT 3
+    ");
+    $upcomingLectures = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (Exception $e) {
+    // Em caso de erro, a lista fica vazia.
+    $upcomingLectures = [];
+}
+
+// Fallback de dados (apenas para garantir o layout em caso de lista vazia)
+if (empty($upcomingLectures)) {
+    $upcomingLectures = [
+        [
+            'id' => 'default-1',
+            'title' => 'Técnicas Avançadas de Interpretação Simultânea',
+            'speaker' => 'Dra. Maria Silva',
+            'description' => 'Aprenda as técnicas mais modernas de interpretação simultânea utilizadas em eventos internacionais.',
+            'image_path' => '/images/palestra-placeholder.jpg',
+            'announcement_date' => date('Y-m-d', strtotime('+15 days')),
+            'lecture_time' => '19:00:00'
+        ],
+        [
+            'id' => 'default-2',
+            'title' => 'Tradução Jurídica: Contratos Internacionais',
+            'speaker' => 'Dr. Carlos Santos',
+            'description' => 'Domine a terminologia e as nuances da tradução de documentos jurídicos.',
+            'image_path' => '/images/palestra-placeholder.jpg',
+            'announcement_date' => date('Y-m-d', strtotime('+22 days')),
+            'lecture_time' => '19:00:00'
+        ],
+        [
+            'id' => 'default-3',
+            'title' => 'IA na Tradução: Como Usar sem Perder Qualidade',
+            'speaker' => 'Prof. Ana Costa',
+            'description' => 'Descubra como integrar ferramentas de IA no seu workflow mantendo a qualidade.',
+            'image_path' => '/images/palestra-placeholder.jpg',
+            'announcement_date' => date('Y-m-d', strtotime('+29 days')),
+            'lecture_time' => '19:00:00'
+        ]
+    ];
+}
+
+include __DIR__ . '/vision/includes/head.php';
+?>
+
+<?php include __DIR__ . '/vision/includes/header.php'; ?>
+
+<?php include __DIR__ . '/vision/includes/sidebar.php'; ?>
+
+<main class="main-content">
+    <section class="glass-hero fade-item" id="home">
+        <div class="hero-logo">
+            <div class="translators-logo">
+                <img src="/images/Logo-t101.webp" alt="Translators 101" class="main-logo" width="280" height="100" loading="lazy">
+            </div>
+        </div>
+
+        <div class="hero-content-conversion">
+            <div class="bf-badge">
+                <span class="bf-label">Black Friday Translators101</span>
+                <span class="bf-deadline">Oferta válida até 30/11, às 23h59</span>
+            </div>
+
+            <h1 class="hero-headline">
+                Garanta 12 meses de educação continuada por R$ 399,99, em até 12x
+            </h1>
+
+            <p class="hero-subheadline">
+                Mais de 400 palestras, nova palestra toda semana e ferramentas criadas para quem traduz e interpreta em um mercado transformado pela IA. 
+                Um ano inteiro para cuidar da sua atualização sem pesar no bolso.
+            </p>
+
+            <div class="social-proof-hero">
+                <div class="proof-item">
+                    <i class="fas fa-users"></i>
+                    <span><strong>+1.500</strong> profissionais de tradução e interpretação já confiam na Translators101</span>
+                </div>
+                <div class="proof-item">
+                    <i class="fas fa-video"></i>
+                    <span><strong>+400</strong> palestras disponíveis</span>
+                </div>
+                <div class="proof-item">
+                    <i class="fas fa-calendar-week"></i>
+                    <span><strong>Nova palestra</strong> toda semana</span>
+                </div>
+            </div>
+
+            <div class="hero-cta-section">
+                <a href="https://hotm.art/BF2025-T101A" class="cta-btn cta-primary pulse-animation">
+                    <i class="fas fa-rocket"></i> Garantir meu ano de acesso com desconto
+                </a>
+                <p class="hero-guarantee" style="margin-top: 30px;">
+                    ✅ Acesso imediato • ✅ Plano anual promocional • ✅ Menos de R$ 40/mês em até 12x
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="value-problem-combined fade-item">
+        <div class="main-content-grid">
+            <div class="value-grid-compact">
+                <div class="value-card fade-item">
+                    <div class="value-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Aprenda com profissionais experientes</h3>
+                    <p>Palestras ministradas por <strong>profissionais experientes</strong> no mercado, com vivência real e casos práticos.</p>
+                </div>
+
+                <div class="value-card fade-item">
+                    <div class="value-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>No seu ritmo</h3>
+                    <p><strong>Acesso 24/7</strong> a todo conteúdo. Assista quando e onde quiser, quantas vezes precisar.</p>
+                </div>
+
+                <div class="value-card fade-item">
+                    <div class="value-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Carreira em movimento</h3>
+                    <p>Conteúdo <strong>prático e aplicável</strong> para você se manter relevante e competitiva(o) em um mercado em constante mudança.</p>
+                </div>
+
+                <div class="value-card fade-item">
+                    <div class="value-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Certificados reconhecidos</h3>
+                    <p><strong>Certificados automáticos</strong> para comprovar sua educação continuada no mercado.</p>
+                </div>
+            </div>
+
+            <div class="problem-solution-grid">
+                <div class="challenge-solution-section">
+                    <h2 class="challenge-title">Você se identifica com alguns destes desafios?</h2>
+                    <div class="challenge-cards-grid">
+                        <div class="challenge-card fade-item">
+                            <div class="challenge-icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <h4>Dificuldade para se manter atualizade com a IA</h4>
+                            <p>Novas ferramentas, fluxos de trabalho com IA e exigências de clientes surgem o tempo todo, e é difícil acompanhar tudo sem ajuda.</p>
+                        </div>
+
+                        <div class="challenge-card fade-item">
+                            <div class="challenge-icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <h4>Falta de networking</h4>
+                            <p>Sensação de isolamento e pouca troca com outras pessoas que atuam em tradução e interpretação.</p>
+                        </div>
+
+                        <div class="challenge-card fade-item">
+                            <div class="challenge-icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <h4>Cursos caros e pouco práticos</h4>
+                            <p>Investimentos altos em formações que não conversam com a realidade do mercado nem com o dia a dia de quem traduz.</p>
+                        </div>
+
+                        <div class="challenge-card fade-item">
+                            <div class="challenge-icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <h4>Conteúdo desatualizado sobre tecnologia</h4>
+                            <p>Material genérico que não acompanha as demandas atuais, especialmente quando o assunto é IA aplicada à tradução e interpretação.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solution-section">
+                    <h2 class="solution-title">A Translators101 ajuda você a enfrentar tudo isso</h2>
+                    <div class="solution-cards-grid">
+                        <div class="solution-card fade-item">
+                            <div class="solution-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h4>Conteúdo sempre atualizado (incluindo IA)</h4>
+                            <p>Palestras semanais com tendências, tecnologias e demandas reais do mercado de tradução e interpretação, com e sem uso de IA.</p>
+                        </div>
+
+                        <div class="solution-card fade-item">
+                            <div class="solution-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h4>Comunidade ativa</h4>
+                            <p>Rede com mais de 1.500 pessoas conectadas para networking e troca de experiências.</p>
+                        </div>
+
+                        <div class="solution-card fade-item">
+                            <div class="solution-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h4>Educação continuada acessível</h4>
+                            <p>Acesso completo a centenas de palestras, ferramentas e materiais por um valor pensado para caber no orçamento de quem traduz.</p>
+                        </div>
+
+                        <div class="solution-card fade-item">
+                            <div class="solution-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h4>Especialização por área</h4>
+                            <p>Conteúdo específico e aprofundado para diferentes nichos de atuação: jurídico, jogos, audiovisual, saúde, literário e mais.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="expertise-areas fade-item">
+        <div class="glass-section">
+            <h2 class="section-title section-title-centered">Domine várias áreas da tradução e interpretação</h2>
+            <p class="section-subtitle">Conteúdo especializado para diferentes nichos do mercado</p>
+
+            <div class="expertise-grid">
+                <div class="expertise-card fade-item">
+                    <i class="fas fa-gamepad"></i>
+                    <h4>Tradução de jogos</h4>
+                    <p>Localização, adaptação cultural e técnicas específicas para games.</p>
+                </div>
+                <div class="expertise-card fade-item">
+                    <i class="fas fa-film"></i>
+                    <h4>Dublagem e legendagem</h4>
+                    <p>Técnicas profissionais para audiovisual e streaming.</p>
+                </div>
+                <div class="expertise-card fade-item">
+                    <i class="fas fa-microphone"></i>
+                    <h4>Interpretação</h4>
+                    <p>Simultânea, consecutiva e técnicas avançadas.</p>
+                </div>
+                <div class="expertise-card fade-item">
+                    <i class="fas fa-cogs"></i>
+                    <h4>Tradução técnica</h4>
+                    <p>Manuais, documentação e textos especializados.</p>
+                </div>
+                <div class="expertise-card fade-item">
+                    <i class="fas fa-heartbeat"></i>
+                    <h4>Área da saúde</h4>
+                    <p>Terminologia médica e farmacêutica.</p>
+                </div>
+                <div class="expertise-card fade-item">
+                    <i class="fas fa-book"></i>
+                    <h4>Tradução literária</h4>
+                    <p>Quadrinhos, romances e adaptação criativa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="upcoming-lectures fade-item">
+        <div class="glass-section">
+            <h2 class="section-title section-title-centered">Próximas palestras</h2>
+            <p class="section-subtitle">Fique por perto e acompanhe o que vem por aí na comunidade</p>
+
+            <?php if ($is_admin): ?>
+                <div class="admin-controls">
+                    <button class="btn-admin-add" onclick="openAddLectureModal()">
+                        <i class="fas fa-plus"></i> Adicionar nova palestra
+                    </button>
+                </div>
+            <?php endif; ?>
+
+            <div class="lectures-grid" id="lecturesContainer">
+                <?php
+                foreach ($upcomingLectures as $lecture):
+                    // Processar data e horário
+                    $announcementDate = $lecture['announcement_date'] ?? '';
+                    $lectureTime = $lecture['lecture_time'] ?? '19:00:00';
+                    $defaultDuration = 90;
+
+                    $dateTimeStart = new DateTime($announcementDate . ' ' . $lectureTime);
+                    $dateTimeEnd = clone $dateTimeStart;
+                    $dateTimeEnd->modify("+{$defaultDuration} minutes");
+
+                    $formattedDate = $dateTimeStart->format('d \d\e F, Y');
+                    $formattedTime = $dateTimeStart->format('H:i');
+                    $monthNames = [
+                        'January' => 'Janeiro', 'February' => 'Fevereiro', 'March' => 'Março',
+                        'April' => 'Abril', 'May' => 'Maio', 'June' => 'Junho',
+                        'July' => 'Julho', 'August' => 'Agosto', 'September' => 'Setembro',
+                        'October' => 'Outubro', 'November' => 'Novembro', 'December' => 'Dezembro'
+                    ];
+                    $formattedDate = str_replace(array_keys($monthNames), array_values($monthNames), $formattedDate);
+                ?>
+                <div class="lecture-card fade-item" id="lecture-<?php echo htmlspecialchars($lecture['id']); ?>">
+                    <?php if ($is_admin): ?>
+                        <button class="edit-lecture-btn" onclick="editLecture('<?php echo htmlspecialchars($lecture['id']); ?>')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="delete-lecture-btn"
+                                onclick="deleteAnnouncement('<?php echo htmlspecialchars($lecture['id']); ?>')">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    <?php endif; ?>
+
+                    <div class="lecture-image-container">
+                        <img src="<?php echo htmlspecialchars($lecture["image_path"] ?? "/images/palestra-placeholder.jpg"); ?>" alt="Palestra" class="lecture-image" width="300" height="200">
+                    </div>
+                    <div class="lecture-info">
+                        <div class="lecture-datetime">
+                            <div class="lecture-date"><?php echo htmlspecialchars($formattedDate); ?></div>
+                            <div class="lecture-time"><?php echo htmlspecialchars($formattedTime); ?>h</div>
+                        </div>
+                        <h4 class="lecture-title"><?php echo htmlspecialchars($lecture['title']); ?></h4>
+                        <div class="lecture-speaker">
+                            <i class="fas fa-user"></i>
+                            <span><?php echo htmlspecialchars($lecture['speaker']); ?></span>
+                        </div>
+                        <p class="lecture-summary">
+                            <?php echo htmlspecialchars($lecture['description']); ?>
+                        </p>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="expertise-cta">
+                <a href="#planos" class="cta-btn cta-secondary">
+                    <i class="fas fa-eye"></i> Ver detalhes do plano anual Black Friday
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-enhanced fade-item">
+        <div class="glass-section">
+            <h2 class="section-title section-title-centered">O que assinantes e palestrantes comentam sobre a Translators101</h2>
+            <p class="section-subtitle">(Depoimentos reais de pessoas que investem na própria formação de forma contínua)</p>
+
+            <div class="testimonials-grid-narrow">
+                <div class="testimonial-video fade-item">
+                    <div class="video-wrapper">
+                        <div class="youtube-player" data-id="7Rp3-rb4fcs"></div>
+                    </div>
+                </div>
+
+                <div class="testimonial-video fade-item">
+                    <div class="video-wrapper">
+                        <div class="youtube-player" data-id="dlf6fIX4nAc"></div>
+                    </div>
+                </div>
+
+                <div class="testimonial-video fade-item">
+                    <div class="video-wrapper">
+                        <div class="youtube-player" data-id="LuOWNKPEN3A"></div>
+                    </div>
+                </div>
+
+                <div class="testimonial-video fade-item">
+                    <div class="video-wrapper">
+                        <div class="youtube-player" data-id="IZAL_0j7ep8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-conversion fade-item" id="planos">
+        <div class="glass-section">
+            <div class="pricing-header">
+                <h2 class="section-title">Plano anual Black Friday Translators101</h2>
+                <p class="pricing-subtitle">
+                    Um ano inteiro de atualização em tradução e interpretação, com foco em educação continuada em um mercado impactado pela IA.
+                </p>
+
+                <div class="urgency-banner">
+                    <i class="fas fa-fire"></i>
+                    <span><strong>Oferta Black Friday:</strong> válida até 30/11, às 23h59</span>
+                </div>
+            </div>
+            <div class="pricing-grid-conversion">
+                <div class="price-card best-value fade-item">
+                    <div class="badge-container">
+                        <div class="badge best-value-badge">Black Friday • Melhor custo-benefício</div>
+                    </div>
+                    <h4>Anual – Black Friday</h4>
+                    <div class="price-section">
+                        <div class="old-price">De R$ 550,00 por</div>
+                        <div class="price">R$ 399,99</div>
+                        <div class="price-per-day">Menos de R$ 40,00 por mês em educação continuada</div>
+                        <div class="savings">Economize R$ 150,01 em relação ao valor regular</div>
+                    </div>
+                    <div class="price-benefits">
+                        <div class="benefit">✅ Acesso a mais de 400 palestras gravadas</div>
+                        <div class="benefit">✅ Nova palestra toda semana</div>
+                        <div class="benefit">✅ Certificados automáticos para cada palestra concluída</div>
+                        <div class="benefit">✅ Glossários especializados para download</div>
+                        <div class="benefit">✅ Ferramenta completa de controle de trabalhos, custos e ganhos (em português)</div>
+                        <div class="benefit">✅ Ferramenta para geração automática de orçamentos</div>
+                        <div class="benefit">✅ Backup de acesso pela Hotmart</div>
+                        <div class="benefit">✅ Descontos em cursos de entidades parceiras, incluindo graduação e pós-graduação<div>
+                    </div>
+                    <a href="https://hotm.art/BF2025-T101A" class="cta-btn cta-plan cta-best" target="_blank">
+                        <i class="fas fa-crown"></i> Garantir meu plano anual por R$ 399,99
+                    </a>
+                    <p class="plan-guarantee">
+                        Pagamento à vista ou em até 12x (com juros do cartão) • Acesso imediato após aprovação do pagamento
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>        
+    <section class="testimonials-enhanced fade-item">
+        </div>
+        <div class="bf-students-section">
+            <h3 class="section-title-centered">Na sua Black Friday, você também apoia estudantes da área</h3>
+            <p class="section-subtitle">
+                Ao garantir o plano anual nesta Black Friday, você ajuda na educação continuada de tradutores e intérpretes em formação.
+            </p>
+
+            <div class="bf-students-grid">
+                <div class="bf-student-card">
+                    <h4>Como funciona o benefício para estudantes</h4>
+                    <p>
+                        Para cada plano anual adquirido nesta Black Friday, a Translators101 oferece 
+                        <strong>2 meses de acesso gratuito para 2 estudantes</strong> de Letras, Tradução ou áreas relacionadas.
+                    </p>
+                    <p>
+                        Você pode indicar quem vai receber o acesso ou deixar que a seleção seja feita com base em indicações de docentes e instituições parceiras.
+                    </p>
+                </div>
+                <div class="bf-student-card">
+                    <h4>Você cuida da sua formação e fortalece a de quem está começando</h4>
+                    <ul>
+                        <li> Você garante 12 meses de educação continuada para você.</li>
+                        <li> 2 estudantes recebem 2 meses de acesso gratuito.</li>
+                        <li> Assim que os acessos forem ativados, informamos a você os nomes e o período de gratuidade que você ajudou a proporcionar.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="pricing-footer">
+            <div class="payment-options">
+                <h4>Formas de pagamento aceitas:</h4>
+                <div class="payment-icons">
+                    <span>💳 Cartão de crédito</span>
+                    <span>🏦 PIX</span>
+                    <span>📄 Boleto</span>
+                    <span>💸 PayPal</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="guarantee-enhanced fade-item">
+        <div class="glass-section">
+            <div class="guarantee-content">
+                <div class="guarantee-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Segurança para você investir na sua formação</h2>
+                <div class="guarantee-points expertise-grid">
+                    <div class="expertise-card fade-item">
+                        <i class="fas fa-calendar-times"></i>
+                        <h4>Cancele quando quiser</h4>
+                        <p>Sem multa ou burocracia. Basta alguns cliques.</p>
+                    </div>
+                    <div class="expertise-card fade-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Acesso total imediato</h4>
+                        <p>Use pelo computador, tablet ou celular, de onde estiver.</p>
+                    </div>
+                    <div class="expertise-card fade-item">
+                        <i class="fas fa-headset"></i>
+                        <h4>Suporte dedicado</h4>
+                        <p>Equipe preparada para ajudar com dúvidas sobre a plataforma.</p>
+                    </div>
+                    <div class="expertise-card fade-item">
+                        <i class="fas fa-university"></i>
+                        <h4>Tradição em bons serviços</h4>
+                        <p>Empresa com 8 anos de experiência em educação continuada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="creator-authority fade-item">
+        <div class="glass-section">
+            <h2 class="section-title section-title-centered">Criada por William Cassemiro</h2>
+            <p class="section-subtitle">Ex-presidente da ABRATES e referência nacional em tradução</p>
+
+            <div class="creator-info-enhanced-centered">
+                <div class="creator-image">
+                    <img src="/images/william.png" alt="William Cassemiro" loading="lazy" width="300" height="300">
+                </div>
+                <div class="creator-credentials expertise-grid">
+                    <div class="expertise-card fade-item credential-item">
+                        <i class="fas fa-university" style="color: #f39c12;"></i>
+                        <h4>Formação sólida</h4>
+                        <p>Bacharel em Letras pela USP.</p>
+                    </div>
+                    <div class="expertise-card fade-item credential-item">
+                        <i class="fas fa-medal" style="color: #f39c12;"></i>
+                        <h4>Experiência em liderança</h4>
+                        <p>Atuação na diretoria e na presidência da ABRATES (2014–2018).</p>
+                    </div>
+                    <div class="expertise-card fade-item credential-item">
+                        <i class="fas fa-globe" style="color: #f39c12;"></i>
+                        <h4>Reconhecimento em eventos</h4>
+                        <p>Palestrante em encontros de tradução no Brasil e no exterior.</p>
+                    </div>
+                    <div class="expertise-card fade-item credential-item">
+                        <i class="fas fa-chart-line" style="color: #f39c12;"></i>
+                        <h4>Carreira dedicada à área</h4>
+                        <p>Mais de 20 anos contribuindo para a formação de profissionais de tradução.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-conversion fade-item" id="faq">
+        <div class="glass-section">
+            <h2 class="section-title section-title-centered">Perguntas frequentes</h2>
+            <p class="section-subtitle">Entenda melhor como funciona a assinatura anual Black Friday</p>
+
+            <div class="faq-grid">
+                <div class="faq-column">
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>O acesso é realmente imediato?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Sim.</strong> Após a confirmação do pagamento, você recebe login e senha na hora. Em poucos minutos já pode começar a assistir às palestras.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>Posso cancelar antes de terminar o período?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Sim.</strong> Não há multa, carência ou burocracia. Você gerencia a assinatura pela plataforma de pagamento ou entrando em contato conosco.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>Vale a pena para quem já atua na área?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Sim.</strong> A curadoria é pensada para quem quer se manter atualizade, revisitar bases teóricas e acompanhar temas como IA, tecnologia e tendências em diferentes nichos.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>E para quem está migrando de área?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Funciona muito bem.</strong> Há palestras introdutórias e avançadas, além de conteúdos sobre mercado, formação de portfólio e cuidado com a qualidade do trabalho, o que ajuda bastante quem está começando.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>Os certificados são aceitos pelo mercado?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Sim.</strong> Você pode incluir os certificados no currículo e no LinkedIn para registrar sua educação continuada.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>A plataforma funciona bem no celular?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Sim.</strong> A plataforma é responsiva e funciona em dispositivos móveis, tablets e desktops.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-column">
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>Como funciona o benefício para estudantes nesta Black Friday?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>
+                                Para cada plano anual adquirido na campanha, 2 pessoas estudantes de Letras, Tradução ou áreas próximas recebem 2 meses de acesso gratuito. 
+                                Você pode indicar diretamente quem recebe ou deixar a seleção com a Translators101, a partir de indicações de docentes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>Como obter os certificados?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Os certificados são gerados automaticamente</strong> após assistir a uma palestra completa. Você baixa o arquivo em PDF direto na plataforma.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>Posso baixar os glossários?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Sim.</strong> Na seção de glossários você encontra materiais especializados para download, em formato PDF.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>Os pagamentos são seguros?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Sim.</strong> Os pagamentos são processados por plataformas consolidadas no mercado, com criptografia e boas práticas de segurança.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>Esqueci minha senha, como recuperar?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>É simples.</strong> Na página de login, clique em “Esqueci minha senha” e siga as instruções enviadas para o e-mail cadastrado.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            <h4>Como atualizar meus dados pessoais?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Basta acessar sua área de perfil.</strong> Lá você atualiza dados pessoais, altera senha e gerencia preferências.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta fade-item">
+        <div class="glass-section">
+            <h2 class="section-title section-title-centered">Black Friday é o momento ideal para cuidar da sua formação</h2>
+            <p class="final-message">
+                Enquanto o mercado muda com a IA e novas tecnologias, esta é a chance de garantir um ano de acesso a conteúdo atualizado e prático, com condições especiais.
+            </p>
+
+            <div class="urgency-stats">
+                <div class="stat-item">
+                    <div class="stat-number">+1.500</div>
+                    <div class="stat-label">Pessoas já fortaleceram a formação com a Translators101</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">+400</div>
+                    <div class="stat-label">Palestras esperando por você na videoteca</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">R$ 399,99</div>
+                    <div class="stat-label">Por 12 meses de acesso na Black Friday</div>
+                </div>
+            </div>
+
+            <div class="final-cta-action">
+                <a href="https://hotm.art/BF2025-T101A" class="cta-btn cta-final mega-btn" target="_blank">
+                    <i class="fas fa-rocket"></i> Garantir meu plano anual Black Friday
+                </a>
+                <p class="final-guarantee">
+                     Oferta válida até 30/11, às 23h59 • ️ Acesso imediato • Você também apoia estudantes da área
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <?php if (!$is_logged_in): ?>
+    <section class="glass-section fade-item login-highlight">
+        <div class="login-content">
+            <h2 class="section-title">Já é assinante?</h2>
+
+            <div class="login-actions">
+                <a href="/login.php" class="cta-btn login-btn">
+                    <i class="fa-solid fa-key"></i> Fazer login
+                </a>
+                <a href="/registro.php" class="cta-btn register-btn">
+                    <i class="fa-solid fa-user-plus"></i> Criar conta
+                </a>
+            </div>
+            <p class="free-account-info">
+                Com uma conta gratuita, você tem acesso aos glossários em PDF.
+            </p>
+        </div>
+    </section>
+    <?php endif; ?>
+</main>
+
+<!-- MODAL DE EDIÇÃO COM ESTILO APPLE VISION -->
+<div class="modal-overlay-vision" id="lectureModal" style="display: none;">
+    <div class="modal-vision">
+        <div class="modal-header-vision">
+            <div class="modal-title-container">
+                <div class="modal-icon">
+                    <i class="fas fa-calendar-plus"></i>
+                </div>
+                <h3 id="modalTitle" class="modal-title-vision">Editar Palestra</h3>
+            </div>
+            <button class="close-btn-vision" onclick="closeLectureModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="modal-body-vision">
+            <form class="form-vision" id="lectureForm" enctype="multipart/form-data">
+                <input type="hidden" id="lectureId" name="lectureId">
+
+                <!-- Upload de Imagem -->
+                <div class="form-group-vision">
+                    <label for="lectureImage" class="form-label-vision">
+                        <i class="fas fa-image"></i>
+                        Imagem da palestra
+                    </label>
+                    <div class="file-upload-vision">
+                        <input type="file" id="lectureImage" name="lectureImage" accept="image/*" class="file-input-vision">
+                        <div class="file-upload-placeholder">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Arraste uma imagem ou clique para selecionar</span>
+                            <small>Proporção recomendada: 16:9 (JPG, PNG, WEBP)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid de Informações Principais -->
+                <div class="form-grid-vision">
+                    <div class="form-group-vision">
+                        <label for="lectureSpeaker" class="form-label-vision">
+                            <i class="fas fa-user"></i>
+                            Palestrante
+                        </label>
+                        <input type="text" id="lectureSpeaker" name="lectureSpeaker" class="form-input-vision" required placeholder="Nome do palestrante">
+                    </div>
+
+                    <div class="form-group-vision">
+                        <label for="lectureTitle" class="form-label-vision">
+                            <i class="fas fa-heading"></i>
+                            Título da palestra
+                        </label>
+                        <input type="text" id="lectureTitle" name="lectureTitle" class="form-input-vision" required placeholder="Título da palestra">
+                    </div>
+                </div>
+
+                <!-- Grid de Data e Horário -->
+                <div class="form-grid-vision form-grid-datetime">
+                    <div class="form-group-vision">
+                        <label for="lectureDate" class="form-label-vision">
+                            <i class="fas fa-calendar-alt"></i>
+                            Data da palestra
+                        </label>
+                        <input type="date" id="lectureDate" name="lectureDate" class="form-input-vision" required>
+                    </div>
+
+                    <div class="form-group-vision">
+                        <label for="lectureTime" class="form-label-vision">
+                            <i class="fas fa-clock"></i>
+                            Horário
+                        </label>
+                        <input type="time" id="lectureTime" name="lectureTime" class="form-input-vision" value="19:00" required>
+                    </div>
+                </div>
+
+                <!-- Descrição -->
+                <div class="form-group-vision">
+                    <label for="lectureSummary" class="form-label-vision">
+                        <i class="fas fa-align-left"></i>
+                        Descrição da palestra
+                    </label>
+                    <textarea id="lectureSummary" name="lectureSummary" class="form-textarea-vision" rows="4" required placeholder="Descreva o conteúdo e objetivos da palestra..."></textarea>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="form-actions-vision">
+                    <button type="button" class="btn-vision btn-cancel-vision" onclick="closeLectureModal()">
+                        <i class="fas fa-times"></i>
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn-vision btn-save-vision">
+                        <i class="fas fa-save"></i>
+                        Salvar palestra
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php include __DIR__ . '/vision/includes/footer.php'; ?>
+
+<style>
+/* Enhanced Conversion-Focused Styles */
+:root {
+    --brand-purple: #8e44ad;
+    --brand-purple-dark: #5e3370;
+    --brand-purple-light: #a569bd;
+    --accent-gold: #f39c12;
+    --accent-green: #27ae60;
+    --accent-red: #e74c3c;
+    --text-primary: #ffff;
+    --text-secondary: #f0f0f0;
+    --text-muted: #d4d4d4;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    
+    /* Apple Vision Pro Cores */
+    --vision-glass: rgba(255, 255, 255, 0.08);
+    --vision-glass-border: rgba(255, 255, 255, 0.12);
+    --vision-blur: blur(40px);
+    --vision-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    --vision-shadow-light: 0 4px 20px rgba(142, 68, 173, 0.2);
+}
+
+/* Base CTA Button style */
+.cta-btn {
+    display: inline-flex;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 10px;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    background: var(--brand-purple);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(142, 68, 173, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+.cta-btn:hover {
+    background: var(--brand-purple-dark);
+}
+
+/* Badge Black Friday */
+.bf-badge {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(231, 76, 60, 0.12);
+    border: 1px solid rgba(231, 76, 60, 0.6);
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.bf-label {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-red);
+}
+
+.bf-deadline {
+    font-size: 2.95rem;
+    color: var(--text-secondary);
+}
+
+/* 1. Espaçamento melhorado após botão "Quero começar agora" */
+.hero-cta-section {
+    margin-top: 50px; 
+    margin-bottom: 80px; 
+}
+
+/* 2. Títulos centralizados */
+.section-title-centered {
+    text-align: center;
+}
+
+/* 3. Seção William Cassemiro centralizada com mais espaçamento */
+.creator-authority {
+    margin-top: 120px; 
+}
+
+.creator-info-enhanced-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+    margin: 50px 0;
+}
+
+.creator-info-enhanced-centered .creator-image {
+    margin-bottom: 20px;
+}
+
+.creator-info-enhanced-centered .creator-credentials {
+    display: grid;
+    gap: 25px;
+    max-width: 800px;
+}
+
+/* 4. Cards para desafios e soluções com estilo Apple Vision */
+.challenge-solution-section {
+    margin-bottom: 60px;
+}
+
+.challenge-title {
+    color: var(--accent-red);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.solution-title {
+    color: var(--accent-green);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.challenge-cards-grid,
+.solution-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 40px 0;
+}
+
+.challenge-card,
+.solution-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.challenge-card:hover,
+.solution-card:hover {
+    border-color: var(--brand-purple);
+    box-shadow: 0 20px 40px rgba(142, 68, 173, 0.3);
+}
+
+.challenge-icon,
+.solution-icon {
+    margin-bottom: 20px;
+}
+
+.challenge-icon i {
+    font-size: 2.5rem;
+    color: var(--accent-red);
+}
+
+.solution-icon i {
+    font-size: 2.5rem;
+    color: var(--accent-green);
+}
+
+.challenge-card h4,
+.solution-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.challenge-card p,
+.solution-card p {
+    line-height: 1.6;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* 5. Área de vídeos mais estreita */
+.testimonials-grid-narrow {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin: 50px auto;
+    max-width: 900px; 
+}
+
+/* 6. Nova seção de palestras com horário */
+.upcoming-lectures {
+    background: linear-gradient(135deg, rgba(142, 68, 173, 0.1), rgba(255, 255, 255, 0.05));
+    margin: 40px 0;
+}
+
+.admin-controls {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.btn-admin-add {
+    background: linear-gradient(135deg, var(--brand-purple), var(--brand-purple-dark));
+    color: var(--text-primary);
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.btn-admin-add:hover {
+    box-shadow: 0 10px 25px rgba(142, 68, 173, 0.5);
+}
+
+/* Grid das palestras (3 colunas) */
+.lectures-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 50px 0;
+}
+
+
+.edit-lecture-btn, .delete-lecture-btn {
+    position: absolute;
+    top: 15px;
+    
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-size: 1rem;
+    padding: 0;
+}
+
+.edit-lecture-btn {
+    background: rgba(142, 68, 173, 0.9);
+    right: 15px; 
+}
+
+.edit-lecture-btn:hover {
+    background: var(--brand-purple);
+}
+
+.delete-lecture-btn {
+    background: rgba(231, 76, 60, 0.9);
+    right: 65px;
+}
+
+.delete-lecture-btn:hover {
+    background: var(--accent-red);
+}
+
+.lecture-image-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.lecture-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lecture-info {
+    padding-top: 16px;
+}
+
+.lecture-datetime {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.lecture-date {
+    background: var(--brand-purple);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.lecture-time {
+    background: var(--accent-gold);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.lecture-title {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin: 8px 0 10px;
+    font-weight: 700;
+    line-height: 1.25rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(1.25rem * 3); 
+}
+
+.lecture-speaker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 1.15rem;    
+    color: var(--brand-purple-dark); 
+    margin-bottom: 10px;
+}
+
+.lecture-speaker i {
+    color: var(--accent-gold);
+}
+
+.lecture-summary {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(1.4rem * 5);
+    margin: 0;
+}
+
+.lecture-card {
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.lecture-card:hover {
+    border-color: var(--accent-green);
+    box-shadow: 0 20px 40px rgba(39, 174, 96, 0.3);
+}
+
+.schedule-actions-bottom {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cta-secondary {
+    background: linear-gradient(135deg, var(--accent-gold), #e67e22);
+    color: var(--text-primary);
+}
+
+/* MODAL APPLE VISION PRO */
+.modal-overlay-vision {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    animation: modalFadeIn 0.4s ease-out forwards;
+}
+
+@keyframes modalFadeIn {
+    to { opacity: 1; }
+}
+
+.modal-vision {
+    background: var(--vision-glass);
+    backdrop-filter: var(--vision-blur);
+    border: 1px solid var(--vision-glass-border);
+    border-radius: 24px;
+    box-shadow: var(--vision-shadow);
+    max-width: 680px;
+    width: 95%;
+    max-height: 85vh;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    animation: modalSlideIn 0.4s ease-out 0.1s forwards;
+}
+
+@keyframes modalSlideIn {
+    to {
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-header-vision {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--vision-glass-border);
+    background: linear-gradient(135deg, 
+        rgba(142, 68, 173, 0.1), 
+        rgba(255, 255, 255, 0.05)
+    );
+}
+
+.modal-title-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--brand-purple), var(--brand-purple-dark));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+    box-shadow: var(--vision-shadow-light);
+}
+
+.modal-title-vision {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.close-btn-vision {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.close-btn-vision:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--text-primary);
+    transform: scale(1.05);
+}
+
+.modal-body-vision {
+    padding: 28px;
+    overflow-y: auto;
+    max-height: calc(85vh - 100px);
+}
+
+.form-vision {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group-vision {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label-vision {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.form-label-vision i {
+    color: var(--accent-gold);
+    font-size: 0.9rem;
+}
+
+.form-input-vision,
+.form-textarea-vision {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.form-input-vision:focus,
+.form-textarea-vision:focus {
+    outline: none;
+    border-color: var(--brand-purple);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(142, 68, 173, 0.2);
+}
+
+.form-input-vision::placeholder,
+.form-textarea-vision::placeholder {
+    color: var(--text-muted);
+}
+
+.form-textarea-vision {
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.form-grid-vision {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-grid-datetime {
+    grid-template-columns: 1.2fr 0.8fr;
+}
+
+/* File Upload com estilo Apple Vision */
+.file-upload-vision {
+    position: relative;
+    overflow: hidden;
+}
+
+.file-input-vision {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+}
+
+.file-upload-placeholder {
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 32px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.file-upload-placeholder:hover {
+    border-color: var(--brand-purple);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.file-upload-placeholder i {
+    font-size: 2rem;
+    color: var(--accent-gold);
+    margin-bottom: 12px;
+    display: block;
+}
+
+.file-upload-placeholder span {
+    display: block;
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.file-upload-placeholder small {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Botões de Ação */
+.form-actions-vision {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--vision-glass-border);
+}
+
+.btn-vision {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(20px);
+    min-width: 140px;
+    justify-content: center;
+}
+
+.btn-cancel-vision {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-cancel-vision:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.btn-save-vision {
+    background: linear-gradient(135deg, var(--brand-purple), var(--brand-purple-dark));
+    color: white;
+    border: 1px solid var(--brand-purple);
+    box-shadow: var(--vision-shadow-light);
+}
+
+.btn-save-vision:hover {
+    background: linear-gradient(135deg, var(--brand-purple-dark), var(--brand-purple));
+    transform: translateY(-1px);
+    box-shadow: 0 6px 25px rgba(142, 68, 173, 0.4);
+}
+
+/* Enhanced Typography for Conversion */
+.hero-headline {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 1.2;
+    text-shadow: 0 4px 20px rgba(142, 68, 173, 0.6);
+}
+
+.hero-subheadline {
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+/* Hero Content Conversion */
+.hero-content-conversion {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.social-proof-hero {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 40px auto;
+    max-width: 900px;
+}
+
+.proof-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.proof-item i {
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+}
+
+.hero-guarantee {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+/* Pulse Animation for CTA */
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Combined Value Proposition and Problem/Solution Layout */
+.value-problem-combined {
+    margin: 40px 0;
+}
+
+.main-content-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Value Proposition Grid - Compact */
+.value-grid-compact {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 40px 0;
+}
+
+.value-card {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.value-card:hover {
+    border-color: var(--brand-purple);
+    box-shadow: 0 20px 40px rgba(142, 68, 173, 0.3);
+}
+
+.value-icon {
+    margin-bottom: 25px;
+}
+
+.value-icon i {
+    font-size: 3.5rem;
+    color: var(--accent-gold);
+}
+
+.value-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.value-card p {
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* Problem/Solution Section */
+.problem-solution-grid {
+    display: grid;
+    gap: 60px;
+    margin-top: 60px;
+}
+
+/* Expertise Grid */
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 50px 0;
+}
+
+.expertise-card {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.expertise-card:hover {
+    background: rgba(142, 68, 173, 0.15);
+    border-color: var(--brand-purple);
+}
+
+.expertise-card i {
+    font-size: 2.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 20px;
+}
+
+.expertise-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.expertise-cta {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Video wrapper */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+}
+
+.testimonial-video {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.testimonial-video:hover {
+    box-shadow: 0 15px 40px rgba(142, 68, 173, 0.3);
+}
+
+/* Pricing */
+.pricing-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.pricing-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.urgency-banner {
+    background: linear-gradient(135deg, var(--accent-red), #c0392b);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+    margin-top: 20px;
+}
+
+.pricing-grid-conversion {
+    display: grid;
+    grid-template-columns: minmax(280px, 420px);
+    justify-content: center;
+    gap: 30px;
+    margin: 50px 0;
+}
+
+.price-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 35px 25px;
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.price-card.best-value {
+    border-color: var(--accent-green);
+    background: rgba(39, 174, 96, 0.1);
+}
+
+.badge-container {
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.badge {
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.best-value-badge {
+    background: linear-gradient(135deg, var(--accent-green), #229954);
+    color: white;
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.5);
+}
+
+.price-card h4 {
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    margin: 20px 0;
+    font-weight: 600;
+}
+
+.price-section {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.old-price {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    margin-bottom: 8px;
+}
+
+.price {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin: 10px 0 15px;
+    text-shadow: 0 2px 10px rgba(243, 156, 18, 0.5);
+}
+
+.price-per-day {
+    font-size: 1.1rem;
+    color: var(--accent-green);
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.savings {
+    background: var(--accent-green);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.price-benefits {
+    margin: 25px 0;
+    text-align: left;
+}
+
+.benefit {
+    padding: 8px 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.cta-plan {
+    width: 100%;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.cta-best {
+    background: linear-gradient(135deg, var(--accent-green), #229954);
+}
+
+.plan-guarantee {
+    font-size: 0.9rem;
+    color: var(--accent-green);
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+/* Benefício Estudantes */
+.bf-students-section {
+    max-width: 1000px;
+    margin: 40px auto 0;
+}
+
+.bf-students-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.bf-student-card {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 20px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.bf-student-card h4 {
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.bf-student-card p,
+.bf-student-card li {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.bf-student-card ul {
+    padding-left: 18px;
+}
+
+/* Payment Options */
+.payment-options {
+    text-align: center;
+    margin-top: 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+.payment-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.payment-icons span {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+/* Guarantee */
+.guarantee-enhanced {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(142, 68, 173, 0.1));
+}
+
+.guarantee-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.guarantee-icon i {
+    font-size: 5rem;
+    color: var(--accent-green);
+    margin-bottom: 30px;
+}
+
+/* Creator Authority */
+.creator-credentials {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; 
+}
+
+.credential-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid var(--brand-purple); 
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.credential-item:hover {
+    border-color: var(--accent-gold); 
+    box-shadow: 0 10px 30px rgba(142, 68, 173, 0.4); 
+}
+.credential-item i {
+    font-size: 2rem;
+    color: var(--accent-gold);
+    margin-top: 5px;
+}
+
+.credential-item h4 {
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.creator-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50% !important;
+    overflow: hidden;
+    border: 5px solid var(--brand-purple);
+    box-shadow: 0 0 20px rgba(142, 68, 173, .5);
+    margin-bottom: 20px;
+}
+
+.creator-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50% !important;
+    border: 4px solid var(--accent-gold);
+    box-shadow: 0 20px 50px rgba(243, 156, 18, 0.4);
+    object-fit: cover !important;
+    object-position: center top !important;
+}
+
+/* Final CTA */
+.final-cta {
+    background: linear-gradient(135deg, rgba(142, 68, 173, 0.2), rgba(243, 156, 18, 0.1));
+}
+
+.final-message {
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.urgency-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 40px 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stat-item {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.stat-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--accent-gold);
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.final-cta-action {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.mega-btn {
+    font-size: 1.4rem;
+    padding: 25px 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--brand-purple), var(--accent-gold));
+    animation: pulse 3s infinite;
+}
+
+.final-guarantee {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+/* Enhanced CTA Buttons */
+.cta-primary {
+    background: linear-gradient(135deg, var(--brand-purple), var(--brand-purple-dark));
+    font-size: 1.3rem;
+    padding: 20px 40px;
+}
+
+.cta-final {
+    background: linear-gradient(135deg, var(--brand-purple), var(--accent-gold));
+}
+
+.cta-btn:hover {
+    box-shadow: 0 12px 35px rgba(142, 68, 173, 0.8);
+}
+
+/* FAQ */
+.faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.faq-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq-conversion .faq-item {
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.faq-conversion .faq-item:hover {
+    background: rgba(142, 68, 173, 0.15);
+    border-color: var(--brand-purple);
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.faq-question h4 {
+    color: var(--text-primary);
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.faq-icon {
+    color: var(--accent-gold);
+    transition: transform 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 300px;
+}
+
+.faq-answer p {
+    padding: 0 30px 30px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* Login Section */
+.login-highlight {
+    background: linear-gradient(135deg, rgba(142, 68, 173, 0.15), rgba(255, 255, 255, 0.05));
+    border: 2px solid rgba(142, 68, 173, 0.3);
+}
+
+.login-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.login-btn {
+    background: linear-gradient(135deg, var(--brand-purple), var(--brand-purple-dark));
+    font-size: 1.2rem;
+    padding: 18px 36px;
+    font-weight: 600;
+}
+
+.register-btn {
+    background: linear-gradient(135deg, var(--accent-green), #229954);
+    font-size: 1.2rem;
+    padding: 18px 36px;
+    font-weight: 600;
+}
+
+.main-logo {
+    max-width: 280px;
+    height: auto;
+    filter: drop-shadow(0 8px 25px rgba(142, 68, 173, 0.6));
+    animation: pulse 3s infinite;
+}
+
+/* Correções layout */
+.main-content {
+    margin-left: 0; 
+    transition: margin-left 0.4s ease;
+}
+body.sidebar-open .main-content {
+    margin-left: 280px; 
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-headline {
+        font-size: 2.6rem;
+    }
+    
+    .social-proof-hero {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .value-grid-compact {
+        grid-template-columns: 1fr;
+    }
+    
+    .challenge-cards-grid,
+    .solution-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .creator-info-enhanced-centered {
+        text-align: center;
+        gap: 40px;
+    }
+    
+    .testimonials-grid-narrow {
+        grid-template-columns: 1fr;
+    }
+    
+    .expertise-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .lectures-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .faq-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .form-grid-vision {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-vision {
+        width: 98%;
+        margin: 10px;
+    }
+
+    .form-actions-vision {
+        flex-direction: column;
+    }
+
+    .btn-vision {
+        width: 100%;
+    }
+
+    .bf-students-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-grid-conversion {
+        grid-template-columns: minmax(280px, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-headline {
+        font-size: 2.1rem;
+    }
+    
+    .expertise-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .lectures-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .urgency-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .payment-icons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .glass-section {
+        padding: 40px 20px;
+        border-radius: 16px;
+    }
+
+    .modal-body-vision {
+        padding: 20px;
+    }
+
+    .form-actions-vision {
+        margin-top: 24px;
+        padding-top: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-headline {
+        font-size: 1.8rem;
+    }
+    
+    .mega-btn {
+        font-size: 1.1rem;
+        padding: 18px 30px;
+    }
+    
+    .glass-section {
+        padding: 30px 16px;
+        margin: 20px 0;
+    }
+    
+    .login-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login-actions .cta-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .modal-vision {
+        max-height: 95vh;
+    }
+
+    .modal-body-vision {
+        padding: 16px;
+    }
+
+    .modal-header-vision {
+        padding: 16px 20px;
+    }
+
+    .file-upload-placeholder {
+        padding: 20px 16px;
+    }
+
+    .form-input-vision,
+    .form-textarea-vision {
+        padding: 12px 14px;
+    }
+
+    .bf-badge {
+        flex-direction: column;
+    }
+}
+
+/* YouTube Custom */
+.youtube-player {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background-color: #000;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.youtube-player .youtube-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: filter 0.2s ease-in-out;
+}
+
+.youtube-player:hover .youtube-thumbnail {
+    filter: brightness(75%);
+}
+
+.youtube-player .youtube-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 48px;
+    background-color: #ff0000;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.youtube-player .youtube-play-button::before {
+    content: '';
+    border-style: solid;
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent #fff;
+    margin-left: 5px;
+}
+
+.youtube-player:hover .youtube-play-button {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.youtube-player .youtube-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+</style>
+
+<script>
+function toggleFaq(element) {
+    const isActive = element.classList.contains('active');
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    if (!isActive) {
+        element.classList.add('active');
+    }
+}
+
+// Fade in animation on scroll
+function handleScrollAnimation() {
+    const elements = document.querySelectorAll('.fade-item');
+
+    elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+
+        if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add('visible');
+        }
+    });
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Modal functions
+function openAddLectureModal() {
+    document.getElementById('modalTitle').textContent = 'Adicionar nova palestra';
+    document.getElementById('lectureForm').reset();
+    document.getElementById('lectureId').value = '';
+    document.getElementById('lectureTime').value = '19:00';
+    document.getElementById('lectureModal').style.display = 'flex';
+}
+
+function editLecture(lectureId) {
+    document.getElementById('modalTitle').textContent = 'Editar palestra';
+    document.getElementById('lectureId').value = lectureId;
+
+    if (lectureId.startsWith('default-')) {
+        const lectureData = getDefaultLectureData(lectureId);
+        populateLectureForm(lectureData);
+        document.getElementById('lectureModal').style.display = 'flex';
+        return;
+    }
+
+    fetch(`manage_announcements.php?id=${lectureId}`)
+    .then(response => {
+        if (!response.ok) throw new Error('Falha ao carregar dados da palestra.');
+        return response.json();
+    })
+    .then(data => {
+        populateLectureForm(data);
+        document.getElementById('lectureModal').style.display = 'flex';
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro ao carregar dados da palestra. Verifique o console.');
+    });
+}
+
+function deleteAnnouncement(announcementId) {
+    if (!confirm('Tem certeza de que deseja deletar esta palestra futura? Esta ação é irreversível.')) {
+        return;
+    }
+
+    if (announcementId.startsWith('default-')) {
+        alert('Não é possível deletar palestras de exemplo.');
+        return;
+    }
+
+    const endpoint = 'manage_announcements.php?id=' + announcementId;
+
+    fetch(endpoint, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Falha ao deletar anúncio.');
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            alert(data.message || 'Palestra deletada com sucesso!');
+            const card = document.getElementById('lecture-' + announcementId);
+            if (card) {
+                card.classList.add('fade-out');
+                setTimeout(() => card.remove(), 500);
+            }
+            location.reload();
+        } else {
+            alert('Erro ao deletar: ' + (data.error || 'Erro desconhecido.'));
+            console.error('Detalhes do erro:', data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Erro de conexão:', error);
+        alert('Erro de conexão com o servidor. Tente novamente.');
+    });
+}
+
+function populateLectureForm(lectureData) {
+    document.getElementById('lectureSpeaker').value = lectureData.speaker || '';
+    document.getElementById('lectureTitle').value = lectureData.title || '';
+    document.getElementById('lectureDate').value = lectureData.announcement_date || lectureData.lecture_date || '';
+    let lectureTime = lectureData.lecture_time || '19:00';
+    if (lectureTime.includes(':')) {
+        lectureTime = lectureTime.substring(0, 5);
+    }
+    document.getElementById('lectureTime').value = lectureTime;
+    document.getElementById('lectureSummary').value = lectureData.description || '';
+}
+
+function getDefaultLectureData(lectureId) {
+    const exampleData = {
+        'default-1': {
+            speaker: 'Dra. Maria Silva',
+            title: 'Técnicas Avançadas de Interpretação Simultânea',
+            lecture_date: new Date(Date.now() + (15 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+            lecture_time: '19:00',
+            description: 'Aprenda as técnicas mais modernas de interpretação simultânea utilizadas em eventos internacionais e conferências de alto nível.'
+        },
+        'default-2': {
+            speaker: 'Dr. Carlos Santos',
+            title: 'Tradução Jurídica: Contratos Internacionais',
+            lecture_date: new Date(Date.now() + (22 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+            lecture_time: '19:00',
+            description: 'Domine a terminologia e as nuances da tradução de contratos e documentos jurídicos para o mercado internacional.'
+        },
+        'default-3': {
+            speaker: 'Prof. Ana Costa',
+            title: 'IA na Tradução: Como Usar sem Perder Qualidade',
+            lecture_date: new Date(Date.now() + (29 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+            lecture_time: '19:00',
+            description: 'Descubra como integrar ferramentas de IA no seu workflow mantendo a qualidade e o toque humano em suas traduções.'
+        }
+    };
+
+    return exampleData[lectureId] || {};
+}
+
+document.getElementById('lectureForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch('manage_announcements.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            closeLectureModal();
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+        } else {
+            alert('Erro: ' + (data.error || 'Erro desconhecido'));
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro de conexão. Verifique se o arquivo manage_announcements.php está acessível.');
+    });
+});
+
+function closeLectureModal() {
+    document.getElementById('lectureModal').style.display = 'none';
+}
+
+document.getElementById('lectureModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeLectureModal();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    handleScrollAnimation();
+    window.addEventListener('scroll', handleScrollAnimation);
+    
+    const fileInput = document.getElementById('lectureImage');
+    const placeholder = document.querySelector('.file-upload-placeholder');
+    
+    if (fileInput && placeholder) {
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const fileName = e.target.files[0].name;
+                placeholder.querySelector('span').textContent = `Arquivo selecionado: ${fileName}`;
+                placeholder.style.borderColor = 'var(--accent-green)';
+                placeholder.style.background = 'rgba(39, 174, 96, 0.1)';
+            }
+        });
+        
+        placeholder.addEventListener('click', function() {
+            fileInput.click();
+        });
+    }
+
+    var youtubePlayers = document.querySelectorAll('.youtube-player');
+
+    youtubePlayers.forEach(function(player) {
+        var videoId = player.dataset.id;
+        var img = new Image();
+        img.src = 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg';
+        img.alt = 'YouTube Video Thumbnail';
+        img.classList.add('youtube-thumbnail');
+
+        var playButton = document.createElement('div');
+        playButton.classList.add('youtube-play-button');
+
+        player.appendChild(img);
+        player.appendChild(playButton);
+
+        player.addEventListener('click', function() {
+            var iframe = document.createElement('iframe');
+            iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId + '?autoplay=1');
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allowfullscreen', '1');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.classList.add('youtube-iframe');
+
+            player.innerHTML = '';
+            player.appendChild(iframe);
+        });
+    });
+});
+</script>
+
+<!-- Fix para botões de editar palestras - Translators101 -->
+<script src="js/fix-botoes-editar.js"></script>

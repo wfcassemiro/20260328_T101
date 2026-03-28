@@ -1,0 +1,70 @@
+{
+  "events": [
+    {
+      "id": "evt-abrates-2026",
+      "title": {
+        "pt-BR": "Congresso ABRATES 2026",
+        "en": "ABRATES Congress 2026"
+      },
+      "description": {
+        "pt-BR": "O maior evento de tradução e interpretação do Brasil",
+        "en": "The largest translation and interpretation event in Brazil"
+      },
+      "date": "2026-03-15",
+      "time": "09:00",
+      "location": {
+        "pt-BR": "São Paulo, Brasil",
+        "en": "São Paulo, Brazil"
+      },
+      "type": "inPerson",
+      "price": "paid",
+      "priceValue": "R$ 350",
+      "url": "https://abrates.com.br",
+      "image": ""
+    },
+    {
+      "id": "evt-ata-2026",
+      "title": {
+        "pt-BR": "ATA Conference 2026",
+        "en": "ATA Conference 2026"
+      },
+      "description": {
+        "pt-BR": "Conferência anual da American Translators Association",
+        "en": "Annual conference of the American Translators Association"
+      },
+      "date": "2026-10-20",
+      "time": "08:00",
+      "location": {
+        "pt-BR": "Orlando, EUA",
+        "en": "Orlando, USA"
+      },
+      "type": "hybrid",
+      "price": "paid",
+      "priceValue": "$695",
+      "url": "https://atanet.org"
+    },
+    {
+      "id": "evt-locworld-2026",
+      "title": {
+        "pt-BR": "LocWorld Europe 2026",
+        "en": "LocWorld Europe 2026"
+      },
+      "description": {
+        "pt-BR": "Conferência internacional de localização",
+        "en": "International localization conference"
+      },
+      "date": "2026-06-10",
+      "time": "09:00",
+      "location": {
+        "pt-BR": "Dublin, Irlanda",
+        "en": "Dublin, Ireland"
+      },
+      "type": "inPerson",
+      "price": "paid",
+      "priceValue": "€599",
+      "url": "https://locworld.com"
+    }
+  ],
+  "lastUpdated": "2026-02-06T21:00:00Z",
+  "source": "Translators101 Admin"
+}

@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Translators 101 Dashboard",
+  "short_name": "Translators101",
+  "version": "1.0.0",
+  "description": "Seu dashboard com atualizações sobre tradução e interpretação. Eventos, notícias, ferramentas e palestras da comunidade Translators101.",
+  "default_locale": "pt_BR",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "permissions": [],
+  "host_permissions": [
+    "https://v.translators101.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

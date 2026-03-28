@@ -1,0 +1,37 @@
+# ARQUIVOS MODIFICADOS NESTA SESSÃO - APPLE VISION UI
+
+## ESTRUTURA VISION UI (CRIADA/ATUALIZADA)
+public_html/vision/includes/head.php
+public_html/vision/includes/header.php
+public_html/vision/includes/sidebar.php
+public_html/vision/includes/footer.php
+public_html/vision/assets/css/style.css
+public_html/vision/assets/js/main.js
+public_html/vision/assets/img/pedra-roseta-bg.png
+
+## PÁGINAS PRINCIPAIS TRANSFORMADAS
+public_html/index.php
+public_html/videoteca.php
+public_html/glossarios.php
+public_html/planos.php
+public_html/projects.php
+public_html/palestra.php
+public_html/contato.php
+public_html/login.php
+public_html/registro.php
+public_html/sobre.php
+public_html/faq.php
+public_html/clients.php
+
+## DASHBOARD TRANSFORMADO
+public_html/dash-t101/index.php
+public_html/dash-t101/clients.php
+public_html/dash-t101/view_invoice.php
+public_html/dash-t101/invoices.php
+public_html/dash-t101/projects.php
+public_html/dash-t101/demo.php
+public_html/dash-t101/test_css.php
+
+## DOCUMENTAÇÃO
+COMMIT_READY_FILES.md
+MODIFIED_FILES_LIST.txt

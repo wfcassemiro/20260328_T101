@@ -1,0 +1,121 @@
+[2025-10-24 17:50:17] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 17:50:17] URL: https://zoom.us/oauth/token
+[2025-10-24 17:50:17] Grant Type: account_credentials
+[2025-10-24 17:50:17] Account ID: KiJeWwARQbGPJ1uhAWf-dw
+[2025-10-24 17:50:17] HTTP Code: 200
+[2025-10-24 17:50:17] Resposta: {"access_token":"eyJzdiI6IjAwMDAwMiIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6ImNiZmU1NTNlLWQwOGYtNDZmZi05ZDE2LTFjZDc0YmMzMDFjMSJ9.eyJhdWQiOiJodHRwczovL29hdXRoLnpvb20udXMiLCJ1aWQiOiI0R2gtYl9CYlQ1S2EtbGV0a3FvZlF3IiwidmVyIjoxMCwiYXVpZCI6IjcyYzg5M2Q1ZTA2MzQ3MTZiODUyNzBiZmE0YWZmMDMyYTU4YWExNGZmMmM1OGU0MTc2ODk0YWRmMzg0OTQ1MTUiLCJuYmYiOjE3NjEzMzkwMTcsImNvZGUiOiIxMGlCa1Mxa1RWVzhSNlZVMjhKWHVBNlZ2dHJ2QVdGZ24iLCJpc3MiOiJ6bTpjaWQ6RjBTVGVWbjZSQ3FuaDkwdHdwZVdRUSIsImdubyI6MCwiZXhwIjoxNzYxMzQyNjE3LCJ0eXBlIjozLC
+[2025-10-24 17:50:17] ✓ Token obtido com sucesso!
+[2025-10-24 17:50:17] Escopos: user:write:user:admin user:read:user:admin user:delete:user:admin meeting:read:list_meetings:admin meeting:write:meeting:admin meeting:read:meeting:admin meeting:update:meeting:admin meeting:delete:meeting:admin
+[2025-10-24 17:50:17] Expira em: 2025-10-24 18:50:16
+[2025-10-24 17:50:17] ====
+[2025-10-24 17:50:17] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 17:50:17] Token válido em cache. Expira em: 2025-10-24 18:50:16
+[2025-10-24 17:50:17] API Request: GET /users/me
+[2025-10-24 17:50:17] API Response HTTP: 200
+[2025-10-24 17:50:17] ✓ Requisição bem-sucedida
+[2025-10-24 17:53:52] 
+=== DELETAR REUNIÃO ===
+[2025-10-24 17:53:52] Meeting ID: 85296918339
+[2025-10-24 17:53:52] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 17:53:52] Token válido em cache. Expira em: 2025-10-24 18:50:16
+[2025-10-24 17:53:52] API Request: DELETE /meetings/85296918339
+[2025-10-24 17:53:53] API Response HTTP: 204
+[2025-10-24 17:53:53] ✓ Requisição bem-sucedida
+[2025-10-24 17:53:53] ✓ Reunião deletada com sucesso
+[2025-10-24 17:54:05] 
+=== DELETAR REUNIÃO ===
+[2025-10-24 17:54:05] Meeting ID: 85037536158
+[2025-10-24 17:54:05] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 17:54:05] Token válido em cache. Expira em: 2025-10-24 18:50:16
+[2025-10-24 17:54:05] API Request: DELETE /meetings/85037536158
+[2025-10-24 17:54:06] API Response HTTP: 204
+[2025-10-24 17:54:06] ✓ Requisição bem-sucedida
+[2025-10-24 17:54:06] ✓ Reunião deletada com sucesso
+[2025-10-24 17:54:52] 
+=== CRIAR REUNIÃO ===
+[2025-10-24 17:54:52] Tópico: Teste de embed 2
+[2025-10-24 17:54:52] Início: 2025-10-24T18:00
+[2025-10-24 17:54:52] Duração: 15 minutos
+[2025-10-24 17:54:52] Obtendo informações do usuário Zoom...
+[2025-10-24 17:54:52] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 17:54:52] Token válido em cache. Expira em: 2025-10-24 18:50:16
+[2025-10-24 17:54:52] API Request: GET /users/me
+[2025-10-24 17:54:52] API Response HTTP: 200
+[2025-10-24 17:54:52] ✓ Requisição bem-sucedida
+[2025-10-24 17:54:52] ✓ Usuário obtido: contato@translators101.com.br
+[2025-10-24 17:54:52] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 17:54:52] Token válido em cache. Expira em: 2025-10-24 18:50:16
+[2025-10-24 17:54:52] API Request: POST /users/4Gh-b_BbT5Ka-letkqofQw/meetings
+[2025-10-24 17:54:52] POST Data: {"topic":"Teste de embed 2","type":2,"start_time":"2025-10-24T18:00:00","duration":15,"timezone":"America\/Sao_Paulo","agenda":"Teste de agendamento pelo site.","settings":{"host_video":true,"participant_video":true,"join_before_host":false,"mute_upon_entry":true,"watermark":false,"use_pmi":false,"approval_type":0,"audio":"both","auto_recording":"none","waiting_room":false,"allow_multiple_devices":true}}
+[2025-10-24 17:54:53] API Response HTTP: 201
+[2025-10-24 17:54:53] ✓ Requisição bem-sucedida
+[2025-10-24 17:54:53] ✓ Reunião criada com sucesso! ID: 84861012908
+[2025-10-24 17:54:53] ✓ Reunião salva no banco de dados
+[2025-10-24 18:00:32] 
+=== CRIAR REUNIÃO ===
+[2025-10-24 18:00:32] Tópico: Teste de embed 2
+[2025-10-24 18:00:32] Início: 2025-10-24T18:00
+[2025-10-24 18:00:32] Duração: 15 minutos
+[2025-10-24 18:00:32] Obtendo informações do usuário Zoom...
+[2025-10-24 18:00:32] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 18:00:32] Token válido em cache. Expira em: 2025-10-24 18:50:16
+[2025-10-24 18:00:32] API Request: GET /users/me
+[2025-10-24 18:00:32] API Response HTTP: 200
+[2025-10-24 18:00:32] ✓ Requisição bem-sucedida
+[2025-10-24 18:00:32] ✓ Usuário obtido: contato@translators101.com.br
+[2025-10-24 18:00:32] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 18:00:32] Token válido em cache. Expira em: 2025-10-24 18:50:16
+[2025-10-24 18:00:32] API Request: POST /users/4Gh-b_BbT5Ka-letkqofQw/meetings
+[2025-10-24 18:00:32] POST Data: {"topic":"Teste de embed 2","type":2,"start_time":"2025-10-24T18:00:00","duration":15,"timezone":"America\/Sao_Paulo","agenda":"Teste de agendamento pelo site.","settings":{"host_video":true,"participant_video":true,"join_before_host":false,"mute_upon_entry":true,"watermark":false,"use_pmi":false,"approval_type":0,"audio":"both","auto_recording":"none","waiting_room":false,"allow_multiple_devices":true}}
+[2025-10-24 18:00:34] API Response HTTP: 201
+[2025-10-24 18:00:34] ✓ Requisição bem-sucedida
+[2025-10-24 18:00:34] ✓ Reunião criada com sucesso! ID: 86295033083
+[2025-10-24 18:00:34] ✓ Reunião salva no banco de dados
+[2025-10-24 18:00:58] 
+=== DELETAR REUNIÃO ===
+[2025-10-24 18:00:58] Meeting ID: 84861012908
+[2025-10-24 18:00:58] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 18:00:58] Token válido em cache. Expira em: 2025-10-24 18:50:16
+[2025-10-24 18:00:58] API Request: DELETE /meetings/84861012908
+[2025-10-24 18:00:59] API Response HTTP: 204
+[2025-10-24 18:00:59] ✓ Requisição bem-sucedida
+[2025-10-24 18:00:59] ✓ Reunião deletada com sucesso
+[2025-10-24 18:13:51] 
+=== CRIAR REUNIÃO ===
+[2025-10-24 18:13:51] Tópico: Teste de embed 2
+[2025-10-24 18:13:51] Início: 2025-10-24T18:00
+[2025-10-24 18:13:51] Duração: 15 minutos
+[2025-10-24 18:13:51] Obtendo informações do usuário Zoom...
+[2025-10-24 18:13:51] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 18:13:51] Token válido em cache. Expira em: 2025-10-24 18:50:16
+[2025-10-24 18:13:51] API Request: GET /users/me
+[2025-10-24 18:13:51] API Response HTTP: 200
+[2025-10-24 18:13:51] ✓ Requisição bem-sucedida
+[2025-10-24 18:13:51] ✓ Usuário obtido: contato@translators101.com.br
+[2025-10-24 18:13:51] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 18:13:51] Token válido em cache. Expira em: 2025-10-24 18:50:16
+[2025-10-24 18:13:51] API Request: POST /users/4Gh-b_BbT5Ka-letkqofQw/meetings
+[2025-10-24 18:13:51] POST Data: {"topic":"Teste de embed 2","type":2,"start_time":"2025-10-24T18:00:00","duration":15,"timezone":"America\/Sao_Paulo","agenda":"Teste de agendamento pelo site.","settings":{"host_video":true,"participant_video":true,"join_before_host":false,"mute_upon_entry":true,"watermark":false,"use_pmi":false,"approval_type":0,"audio":"both","auto_recording":"none","waiting_room":false,"allow_multiple_devices":true}}
+[2025-10-24 18:13:52] API Response HTTP: 201
+[2025-10-24 18:13:52] ✓ Requisição bem-sucedida
+[2025-10-24 18:13:52] ✓ Reunião criada com sucesso! ID: 81611799962
+[2025-10-24 18:13:52] ✓ Reunião salva no banco de dados
+[2025-10-24 18:23:06] ==== NOVA REQUISIÇÃO DE TOKEN ====
+[2025-10-24 18:23:06] URL: https://zoom.us/oauth/token
+[2025-10-24 18:23:06] Grant Type: account_credentials
+[2025-10-24 18:23:06] Account ID: KiJeWwARQbGPJ1uhAWf-dw
+[2025-10-24 18:23:06] HTTP Code: 200
+[2025-10-24 18:23:06] Resposta: {"access_token":"eyJzdiI6IjAwMDAwMiIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6IjRiNjU2MGFkLWU3YWMtNDhlYi1iZjlhLWY5M2Y0YWE5ZDUwZSJ9.eyJhdWQiOiJodHRwczovL29hdXRoLnpvb20udXMiLCJ1aWQiOiI0R2gtYl9CYlQ1S2EtbGV0a3FvZlF3IiwidmVyIjoxMCwiYXVpZCI6IjcyYzg5M2Q1ZTA2MzQ3MTZiODUyNzBiZmE0YWZmMDMyYTU4YWExNGZmMmM1OGU0MTc2ODk0YWRmMzg0OTQ1MTUiLCJuYmYiOjE3NjEzNDA5ODYsImNvZGUiOiJhZUtVOVZsQ1JhbXFWZzRiRVAtMEtnejRxUkdrZEJmRXMiLCJpc3MiOiJ6bTpjaWQ6RjBTVGVWbjZSQ3FuaDkwdHdwZVdRUSIsImdubyI6MCwiZXhwIjoxNzYxMzQ0NTg2LCJ0eXBlIjozLCJpYXQiOjE3NjEzNDA5ODYsImFpZCI6IktpSmVXd0FSUWJHUEoxdWhBV2YtZHcifQ.XmOQN3piSgeZ2kRkEKgVpaG1UaRPiEeJA_ZDax1HivprErh_FAeTTcDPflsZm01HiC_MCvUR8f84K9ctz3FzFw","token_type":"bearer","expires_in":3599,"scope":"user:write:user:admin user:read:user:admin user:delete:user:admin meeting:read:list_meetings:admin meeting:write:meeting:admin meeting:read:meeting:admin meeting:update:meeting:admin meeting:delete:meeting:admin","api_url":"https://api-us.zoom.us"}
+[2025-10-24 18:23:06] ✓ Token obtido com sucesso!
+[2025-10-24 18:23:06] Escopos: user:write:user:admin user:read:user:admin user:delete:user:admin meeting:read:list_meetings:admin meeting:write:meeting:admin meeting:read:meeting:admin meeting:update:meeting:admin meeting:delete:meeting:admin
+[2025-10-24 18:23:06] Expira em: 2025-10-24 19:22:35
+[2025-10-24 18:23:06] ====
+[2025-10-24 18:23:06] API Request: GET /meetings/86295033083
+[2025-10-24 18:23:07] API Response HTTP: 200
+[2025-10-24 18:23:07] ✓ Requisição bem-sucedida
+[2025-10-24 18:28:42] Token válido em cache. Expira em: 2025-10-24 19:22:35
+[2025-10-24 18:28:42] API Request: POST /users/me/meetings
+[2025-10-24 18:28:43] API Response HTTP: 201
+[2025-10-24 18:28:43] ✓ Requisição bem-sucedida
+[2025-10-24 18:29:25] ERRO no toggleMeetingLiveDisplay: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'show_live' in 'SET'
+[2025-10-24 18:29:49] ERRO no toggleMeetingLiveDisplay: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'show_live' in 'SET'

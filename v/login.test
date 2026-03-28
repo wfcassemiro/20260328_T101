@@ -1,0 +1,97 @@
+<?php
+session_start();
+require_once __DIR__ . '/config/database.php';
+
+$page_title = 'Login - Translators101';
+$page_description = 'Faça login na sua conta Translators101';
+
+$error_message = '';
+
+// Se já está logado, redireciona
+if (isset($_SESSION['user_id'])) {
+    $redirect = $_GET['redirect'] ?? '/videoteca.php';
+    header('Location: ' . $redirect);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+    
+    if (empty($email) || empty($password)) {
+        $error_message = 'Por favor, preencha todos os campos.';
+    } else {
+        // Sistema de login mock - aceita qualquer email/senha para demonstração
+        if ($email && $password) {
+            $_SESSION['user_id'] = 'demo-user-123';
+            $_SESSION['user_name'] = 'Usuário Demo';
+            $_SESSION['user_email'] = $email;
+            $_SESSION['role'] = 'subscriber'; // ou 'admin' para acesso administrativo
+            $_SESSION['subscription_active'] = true;
+            $_SESSION['subscription_expires'] = date('Y-m-d H:i:s', strtotime('+1 year'));
+            
+            // Redirecionar para página solicitada ou videoteca
+            $redirect = $_GET['redirect'] ?? '/videoteca.php';
+            header('Location: ' . $redirect);
+            exit;
+        } else {
+            $error_message = 'Email ou senha inválidos.';
+        }
+    }
+}
+
+include __DIR__ . '/vision/includes/head.php';
+include __DIR__ . '/vision/includes/header.php';
+?>
+
+<div class="main-content">
+    <div class="glass-hero">
+        <div class="hero-content">
+            <h1><i class="fas fa-sign-in-alt"></i> Acesse sua conta</h1>
+            <p>Entre na plataforma educacional Translators101</p>
+        </div>
+    </div>
+
+    <div class="video-card" style="max-width: 500px; margin: 0 auto;">
+        <h2><i class="fas fa-user"></i> Login</h2>
+        
+        <?php if ($error_message): ?>
+            <div class="alert-error">
+                <i class="fas fa-exclamation-triangle"></i>
+                <?php echo htmlspecialchars($error_message); ?>
+            </div>
+        <?php endif; ?>
+
+        <form method="POST" class="vision-form">
+            <div class="form-group">
+                <label for="email">
+                    <i class="fas fa-envelope"></i> Email
+                </label>
+                <input type="email" id="email" name="email" required 
+                       value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="password">
+                    <i class="fas fa-lock"></i> Senha
+                </label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="cta-btn">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+            </div>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
+            <p style="color: #ccc; margin-bottom: 15px;">Não tem uma conta?</p>
+            <a href="registro.php" class="page-btn">
+                <i class="fas fa-user-plus"></i> Criar conta
+            </a>
+        </div>
+    </div>
+</div>
+
+<?php include __DIR__ . '/vision/includes/footer.php'; ?>

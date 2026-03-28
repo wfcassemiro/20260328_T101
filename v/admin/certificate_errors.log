@@ -1,0 +1,54 @@
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Iniciando geração de PNG para ID: a4d2cc0d-48dc-4301-9aa8-ab7ebd1d81a2
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Conversão UTF-8 aplicada para geração.
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Dimensões do template: Largura=3509, Altura=2481
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Procurando fontes TTF para geração...
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Fonte TTF Bold encontrada em: /home/u335416710/domains/translators101.com/public_html/v/includes/../fonts/DejaVuSans-Bold.ttf
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Fonte TTF padrão encontrada em: /home/u335416710/domains/translators101.com/public_html/v/includes/../fonts/DejaVuSans-Bold.ttf
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Usando imagettftext para geração.
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Nome do usuário adicionado (X: 1203, Y: 1100).
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Título limpo de 'S08E45 — Tributação 2026: decisões inteligentes em um sistema em transformação' para 'Tributação 2026: decisões inteligentes em um sistema em transformação'
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Palestrante 'Luidg Quitete' adicionado abaixo do título.
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Duração da palestra adicionada (X: 2000, Y: 1570).
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] Data de emissão adicionada (X: 850, Y: 2330).
+[2025-12-20 10:05:00] [ADMIN] DEBUG: [ADMIN] ID do certificado adicionado (X: 280, Y: 2430).
+[2025-12-20 10:05:00] [ADMIN] DEBUG: URL de verificação gerada: https://v.translators101.com/verificar_certificado.php?id=a4d2cc0d-48dc-4301-9aa8-ab7ebd1d81a2
+[2025-12-20 10:05:01] [ADMIN] DEBUG: QR Code colado na imagem base.
+[2025-12-20 10:05:01] [ADMIN] DEBUG: [ADMIN] QR Code adicionado à imagem durante a geração (X: 2989, Y: 2131, Tamanho: 300).
+[2025-12-20 10:05:05] [ADMIN] DEBUG: [ADMIN] imagepng() retornou SUCESSO. Verificando se o arquivo gerado é um PNG válido.
+[2025-12-20 10:05:05] [ADMIN] INFO: [ADMIN] Certificado PNG gerado e salvo com sucesso em: /home/u335416710/domains/translators101.com/public_html/v/includes/../certificates/certificate_a4d2cc0d-48dc-4301-9aa8-ab7ebd1d81a2.png. É um PNG válido.
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Iniciando geração de PNG para ID: 90de6373-a729-463b-ab34-3e419e7d882c
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Conversão UTF-8 aplicada para geração.
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Dimensões do template: Largura=3509, Altura=2481
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Procurando fontes TTF para geração...
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Fonte TTF Bold encontrada em: /home/u335416710/domains/translators101.com/public_html/v/includes/../fonts/DejaVuSans-Bold.ttf
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Fonte TTF padrão encontrada em: /home/u335416710/domains/translators101.com/public_html/v/includes/../fonts/DejaVuSans-Bold.ttf
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Usando imagettftext para geração.
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Nome do usuário adicionado (X: 1203, Y: 1100).
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Processando título: 'Como cobrar uma tradução '
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Palestrante 'William Cassemiro' adicionado abaixo do título.
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Duração da palestra adicionada (X: 2000, Y: 1570).
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] Data de emissão adicionada (X: 850, Y: 2330).
+[2025-12-20 10:07:20] [ADMIN] DEBUG: [ADMIN] ID do certificado adicionado (X: 280, Y: 2430).
+[2025-12-20 10:07:20] [ADMIN] DEBUG: URL de verificação gerada: https://v.translators101.com/verificar_certificado.php?id=90de6373-a729-463b-ab34-3e419e7d882c
+[2025-12-20 10:07:21] [ADMIN] DEBUG: QR Code colado na imagem base.
+[2025-12-20 10:07:21] [ADMIN] DEBUG: [ADMIN] QR Code adicionado à imagem durante a geração (X: 2989, Y: 2131, Tamanho: 300).
+[2025-12-20 10:07:25] [ADMIN] DEBUG: [ADMIN] imagepng() retornou SUCESSO. Verificando se o arquivo gerado é um PNG válido.
+[2025-12-20 10:07:25] [ADMIN] INFO: [ADMIN] Certificado PNG gerado e salvo com sucesso em: /home/u335416710/domains/translators101.com/public_html/v/includes/../certificates/certificate_90de6373-a729-463b-ab34-3e419e7d882c.png. É um PNG válido.
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Iniciando geração de PNG para ID: 0ee968f0-0aa3-47d3-9271-4891a2dfda88
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Conversão UTF-8 aplicada para geração.
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Dimensões do template: Largura=3509, Altura=2481
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Procurando fontes TTF para geração...
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Fonte TTF Bold encontrada em: /home/u335416710/domains/translators101.com/public_html/v/includes/../fonts/DejaVuSans-Bold.ttf
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Fonte TTF padrão encontrada em: /home/u335416710/domains/translators101.com/public_html/v/includes/../fonts/DejaVuSans-Bold.ttf
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Usando imagettftext para geração.
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Nome do usuário adicionado (X: 1203, Y: 1100).
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Processando título: 'Como cobrar uma tradução '
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Palestrante 'William Cassemiro' adicionado abaixo do título.
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Duração da palestra adicionada (X: 2000, Y: 1570).
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] Data de emissão adicionada (X: 850, Y: 2330).
+[2025-12-20 10:10:52] [ADMIN] DEBUG: [ADMIN] ID do certificado adicionado (X: 280, Y: 2430).
+[2025-12-20 10:10:52] [ADMIN] DEBUG: URL de verificação gerada: https://v.translators101.com/verificar_certificado.php?id=0ee968f0-0aa3-47d3-9271-4891a2dfda88
+[2025-12-20 10:10:54] [ADMIN] DEBUG: QR Code colado na imagem base.
+[2025-12-20 10:10:54] [ADMIN] DEBUG: [ADMIN] QR Code adicionado à imagem durante a geração (X: 2989, Y: 2131, Tamanho: 300).
+[2025-12-20 10:10:57] [ADMIN] DEBUG: [ADMIN] imagepng() retornou SUCESSO. Verificando se o arquivo gerado é um PNG válido.
+[2025-12-20 10:10:57] [ADMIN] INFO: [ADMIN] Certificado PNG gerado e salvo com sucesso em: /home/u335416710/domains/translators101.com/public_html/v/includes/../certificates/certificate_0ee968f0-0aa3-47d3-9271-4891a2dfda88.png. É um PNG válido.

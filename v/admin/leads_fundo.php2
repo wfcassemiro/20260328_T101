@@ -1,0 +1,1275 @@
+<?php
+session_start();
+date_default_timezone_set('America/Sao_Paulo');
+require_once __DIR__ . '/../config/database.php';
+
+// Verificar se é admin
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+    header('Location: /login.php');
+    exit;
+}
+
+$page_title = 'Leads trial - Admin';
+$message = '';
+$error = '';
+
+// Função para calcular status do trial
+function calcularStatusTrial($user) {
+    // Se não foi aprovado ainda
+    if (empty($user['trial_approved'])) {
+        return [
+            'status' => 'pending',
+            'label' => 'Aguardando aprovação',
+            'class' => 'status-warning',
+            'icon' => 'fa-clock'
+        ];
+    }
+    
+    // Se não iniciou o trial ainda
+    if (empty($user['trial_started_at'])) {
+        return [
+            'status' => 'approved',
+            'label' => 'Aprovado (não iniciado)',
+            'class' => 'status-info',
+            'icon' => 'fa-check-circle'
+        ];
+    }
+    
+    $now = new DateTime();
+    $trialStarted = new DateTime($user['trial_started_at']);
+    
+    if ($user['role'] === 'trial_7d') {
+        $expirationDate = clone $trialStarted;
+        $expirationDate->modify('+7 days');
+        
+        if ($now > $expirationDate) {
+            return [
+                'status' => 'expired',
+                'label' => 'Expirado',
+                'class' => 'status-error',
+                'icon' => 'fa-times-circle',
+                'expired_at' => $expirationDate->format('Y-m-d H:i:s')
+            ];
+        } else {
+            $interval = $now->diff($expirationDate);
+            return [
+                'status' => 'active',
+                'label' => "Ativo ({$interval->days}d {$interval->h}h)",
+                'class' => 'status-completed',
+                'icon' => 'fa-play-circle',
+                'expires_at' => $expirationDate->format('d/m/Y H:i')
+            ];
+        }
+    } else { // trial_24h
+        $expirationDate = clone $trialStarted;
+        $expirationDate->modify('+24 hours');
+        
+        $lecturesWatched = json_decode($user['trial_lectures_watched'] ?? '[]', true);
+        $lecturesCount = is_array($lecturesWatched) ? count($lecturesWatched) : 0;
+        
+        if ($now > $expirationDate) {
+            return [
+                'status' => 'expired',
+                'label' => 'Expirado (24h)',
+                'class' => 'status-error',
+                'icon' => 'fa-times-circle',
+                'expired_at' => $expirationDate->format('Y-m-d H:i:s'),
+                'lectures' => $lecturesCount
+            ];
+        } else {
+            $interval = $now->diff($expirationDate);
+            return [
+                'status' => 'active',
+                'label' => "Ativo ({$interval->h}h {$interval->i}min)",
+                'class' => 'status-completed',
+                'icon' => 'fa-play-circle',
+                'expires_at' => $expirationDate->format('d/m/Y H:i'),
+                'lectures' => $lecturesCount
+            ];
+        }
+    }
+}
+
+// Processar exportação CSV
+if (isset($_GET['export']) && $_GET['export'] === 'csv') {
+    try {
+        $filter = $_GET['filter'] ?? 'all';
+        $status_filter = $_GET['status'] ?? 'all';
+        
+        // Buscar usuários trial da tabela users
+        $where_conditions = ["role IN ('trial_7d', 'trial_24h')"];
+        
+        if ($filter === 'trial_7d') {
+            $where_conditions[] = "role = 'trial_7d'";
+        } elseif ($filter === 'trial_24h') {
+            $where_conditions[] = "role = 'trial_24h'";
+        }
+        
+        $where_clause = 'WHERE ' . implode(' AND ', $where_conditions);
+        
+        $stmt = $pdo->query("
+            SELECT id, name, email, role, whatsapp, trial_approved, trial_started_at, 
+                   trial_lectures_watched, created_at
+            FROM users
+            {$where_clause}
+            ORDER BY created_at DESC
+        ");
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Também buscar da tabela leads_fundo (expirados que já foram movidos)
+        $leads_fundo = [];
+        try {
+            $stmt2 = $pdo->query("SELECT * FROM leads_fundo ORDER BY expired_at DESC");
+            $leads_fundo = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            // Tabela pode não existir ainda
+        }
+        
+        // Gerar CSV
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="leads_trial_' . date('Y-m-d_H-i-s') . '.csv"');
+        
+        $output = fopen('php://output', 'w');
+        fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+        
+        fputcsv($output, ['Nome', 'Email', 'WhatsApp', 'Tipo trial', 'Status', 'Criado em', 'Palestras'], ';');
+        
+        foreach ($users as $user) {
+            $statusInfo = calcularStatusTrial($user);
+            $lectures = json_decode($user['trial_lectures_watched'] ?? '[]', true);
+            
+            fputcsv($output, [
+                $user['name'],
+                $user['email'],
+                $user['whatsapp'] ?? '',
+                $user['role'] === 'trial_7d' ? '7 dias' : '24h (3 palestras)',
+                $statusInfo['label'],
+                date('d/m/Y H:i', strtotime($user['created_at'])),
+                is_array($lectures) ? count($lectures) : 0
+            ], ';');
+        }
+        
+        // Adicionar leads_fundo ao export
+        foreach ($leads_fundo as $lead) {
+            // Verificar se já não está nos users
+            $exists = false;
+            foreach ($users as $u) {
+                if ($u['email'] === $lead['email']) {
+                    $exists = true;
+                    break;
+                }
+            }
+            if (!$exists) {
+                fputcsv($output, [
+                    $lead['nome'],
+                    $lead['email'],
+                    '', // whatsapp não existe em leads_fundo
+                    $lead['trial_type'] === 'trial_7d' ? '7 dias' : '24h (3 palestras)',
+                    'Expirado (convertido)',
+                    date('d/m/Y H:i', strtotime($lead['expired_at'])),
+                    $lead['lectures_watched'] ?? 0
+                ], ';');
+            }
+        }
+        
+        fclose($output);
+        exit;
+        
+    } catch (Exception $e) {
+        $error = 'Erro ao exportar: ' . $e->getMessage();
+    }
+}
+
+// Processar ações
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
+    
+    try {
+        if ($action === 'approve_trial') {
+            $user_id = $_POST['user_id'] ?? '';
+            $stmt = $pdo->prepare("
+                UPDATE users 
+                SET trial_approved = 1, 
+                    trial_approved_at = NOW(),
+                    trial_started_at = NOW()
+                WHERE id = ?
+            ");
+            $stmt->execute([$user_id]);
+            $message = 'Trial aprovado e iniciado com sucesso!';
+        }
+        
+        if ($action === 'toggle_email') {
+            $lead_id = $_POST['lead_id'] ?? '';
+            $stmt = $pdo->prepare("UPDATE leads_fundo SET pode_receber_email = NOT pode_receber_email WHERE id = ?");
+            $stmt->execute([$lead_id]);
+            $message = 'Status de email atualizado!';
+        }
+        
+        if ($action === 'delete_user') {
+            $user_id = $_POST['user_id'] ?? '';
+            $stmt = $pdo->prepare("DELETE FROM users WHERE id = ? AND role IN ('trial_7d', 'trial_24h')");
+            $stmt->execute([$user_id]);
+            $message = 'Usuário trial removido!';
+        }
+        
+        if ($action === 'delete_lead') {
+            $lead_id = $_POST['lead_id'] ?? '';
+            $stmt = $pdo->prepare("DELETE FROM leads_fundo WHERE id = ?");
+            $stmt->execute([$lead_id]);
+            $message = 'Lead removido com sucesso!';
+        }
+    } catch (PDOException $e) {
+        $error = 'Erro: ' . $e->getMessage();
+    }
+}
+
+// Buscar dados com filtros
+$filter = $_GET['filter'] ?? 'all';
+$status_filter = $_GET['status'] ?? 'all';
+$search = $_GET['search'] ?? '';
+$page = max(1, (int)($_GET['page'] ?? 1));
+$per_page = 50;
+$offset = ($page - 1) * $per_page;
+
+try {
+    // Buscar usuários trial da tabela users
+    $where_conditions = ["role IN ('trial_7d', 'trial_24h')"];
+    $params = [];
+    
+    if ($filter === 'trial_7d') {
+        $where_conditions[] = "role = 'trial_7d'";
+    } elseif ($filter === 'trial_24h') {
+        $where_conditions[] = "role = 'trial_24h'";
+    }
+    
+    if ($search) {
+        $where_conditions[] = "(name LIKE ? OR email LIKE ?)";
+        $params[] = "%{$search}%";
+        $params[] = "%{$search}%";
+    }
+    
+    $where_clause = 'WHERE ' . implode(' AND ', $where_conditions);
+    
+    // Buscar todos os usuários trial
+    $stmt = $pdo->prepare("
+        SELECT id, name, email, role, whatsapp, trial_approved, trial_started_at, 
+               trial_lectures_watched, created_at
+        FROM users
+        {$where_clause}
+        ORDER BY created_at DESC
+    ");
+    $stmt->execute($params);
+    $all_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Calcular status de cada usuário
+    $users_with_status = [];
+    foreach ($all_users as $user) {
+        $user['status_info'] = calcularStatusTrial($user);
+        $users_with_status[] = $user;
+    }
+    
+    // Filtrar por status se necessário
+    if ($status_filter !== 'all') {
+        $users_with_status = array_filter($users_with_status, function($u) use ($status_filter) {
+            return $u['status_info']['status'] === $status_filter;
+        });
+        $users_with_status = array_values($users_with_status);
+    }
+    
+    // Paginação
+    $total_filtered = count($users_with_status);
+    $total_pages = ceil($total_filtered / $per_page);
+    $users = array_slice($users_with_status, $offset, $per_page);
+    
+    // Estatísticas
+    $stats = [
+        'total' => count($all_users),
+        'pending' => 0,
+        'active' => 0,
+        'expired' => 0,
+        'approved' => 0,
+        'trial_7d' => 0,
+        'trial_24h' => 0
+    ];
+    
+    foreach ($all_users as $u) {
+        $s = calcularStatusTrial($u);
+        $stats[$s['status']]++;
+        if ($u['role'] === 'trial_7d') $stats['trial_7d']++;
+        if ($u['role'] === 'trial_24h') $stats['trial_24h']++;
+    }
+    
+    // Buscar também da tabela leads_fundo para estatísticas
+    $leads_fundo_count = 0;
+    try {
+        $stmt = $pdo->query("SELECT COUNT(*) FROM leads_fundo");
+        $leads_fundo_count = $stmt->fetchColumn();
+    } catch (Exception $e) {
+        // Tabela pode não existir
+    }
+    
+} catch (PDOException $e) {
+    $users = [];
+    $total_filtered = 0;
+    $total_pages = 0;
+    $stats = [
+        'total' => 0,
+        'pending' => 0,
+        'active' => 0,
+        'expired' => 0,
+        'approved' => 0,
+        'trial_7d' => 0,
+        'trial_24h' => 0
+    ];
+    $leads_fundo_count = 0;
+    $error = 'Erro ao carregar dados: ' . $e->getMessage();
+}
+
+include __DIR__ . '/../vision/includes/head.php';
+include __DIR__ . '/../vision/includes/header.php';
+include __DIR__ . '/../vision/includes/sidebar.php';
+?>
+
+<div class="main-content">
+    <div class="glass-hero">
+        <div class="hero-content">
+            <h1><i class="fas fa-funnel-dollar"></i> Leads trial - Funil completo</h1>
+            <p>Todos os usuários trial: pendentes, ativos e expirados</p>
+        </div>
+    </div>
+
+    <!-- BARRA DE AÇÕES SUPERIOR -->
+    <div class="action-buttons-row">
+        <a href="?export=csv&amp;filter=<?php echo htmlspecialchars($filter); ?>&amp;status=<?php echo htmlspecialchars($status_filter); ?>" class="top-btn primary">
+            <i class="fas fa-download"></i> Exportar CSV
+        </a>
+        <a href="emails.php" class="top-btn secondary">
+            <i class="fas fa-envelope"></i> Enviar emails
+        </a>
+        <a href="index.php" class="top-btn ghost">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+    </div>
+
+    <?php if ($message): ?>
+        <div class="alert-success">
+            <i class="fas fa-check-circle"></i>
+            <?php echo htmlspecialchars($message); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($error): ?>
+        <div class="alert-error">
+            <i class="fas fa-exclamation-triangle"></i>
+            <?php echo htmlspecialchars($error); ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="video-card stats-card">
+        <h3><i class="fas fa-chart-bar"></i> Estatísticas</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <div>
+                    <div class="stat-number"><?php echo number_format($stats['total']); ?></div>
+                    <div class="stat-label">Total de trials</div>
+                </div>
+            </div>
+            
+            <div class="stat-item stat-pending">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <div class="stat-number"><?php echo number_format($stats['pending']); ?></div>
+                    <div class="stat-label">Aguardando aprovação</div>
+                </div>
+            </div>
+            
+            <div class="stat-item stat-active">
+                <i class="fas fa-play-circle"></i>
+                <div>
+                    <div class="stat-number">
+                        <?php echo number_format($stats['active'] + $stats['approved']); ?>
+                    </div>
+                    <div class="stat-label">Trials ativos</div>
+                </div>
+            </div>
+            
+            <div class="stat-item stat-expired">
+                <i class="fas fa-times-circle"></i>
+                <div>
+                    <div class="stat-number"><?php echo number_format($stats['expired']); ?></div>
+                    <div class="stat-label">Expirados</div>
+                </div>
+            </div>
+            
+            <div class="stat-item stat-7d">
+                <i class="fas fa-calendar-week"></i>
+                <div>
+                    <div class="stat-number"><?php echo number_format($stats['trial_7d']); ?></div>
+                    <div class="stat-label">Trial 7 dias</div>
+                </div>
+            </div>
+            
+            <div class="stat-item stat-24h">
+                <i class="fas fa-hourglass-half"></i>
+                <div>
+                    <div class="stat-number"><?php echo number_format($stats['trial_24h']); ?></div>
+                    <div class="stat-label">Trial 24h</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card filters-card">
+        <div class="card-header">
+            <h2><i class="fas fa-filter"></i> Filtros</h2>
+        </div>
+        
+        <div class="filter-section">
+            <div class="filter-group">
+                <label>Por tipo:</label>
+                <div class="filter-buttons">
+                    <a href="?filter=all&amp;status=<?php echo $status_filter; ?>" 
+                       class="filter-btn <?php echo $filter === 'all' ? 'active' : ''; ?>">
+                        Todos
+                    </a>
+                    <a href="?filter=trial_7d&amp;status=<?php echo $status_filter; ?>" 
+                       class="filter-btn <?php echo $filter === 'trial_7d' ? 'active' : ''; ?>">
+                        <i class="fas fa-calendar-week"></i> 7 dias
+                    </a>
+                    <a href="?filter=trial_24h&amp;status=<?php echo $status_filter; ?>" 
+                       class="filter-btn <?php echo $filter === 'trial_24h' ? 'active' : ''; ?>">
+                        <i class="fas fa-hourglass-half"></i> 24h
+                    </a>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <label>Por status:</label>
+                <div class="filter-buttons">
+                    <a href="?filter=<?php echo $filter; ?>&amp;status=all" 
+                       class="filter-btn <?php echo $status_filter === 'all' ? 'active' : ''; ?>">
+                        Todos (<?php echo $stats['total']; ?>)
+                    </a>
+                    <a href="?filter=<?php echo $filter; ?>&amp;status=pending" 
+                       class="filter-btn filter-pending <?php echo $status_filter === 'pending' ? 'active' : ''; ?>">
+                        <i class="fas fa-clock"></i> Pendentes (<?php echo $stats['pending']; ?>)
+                    </a>
+                    <a href="?filter=<?php echo $filter; ?>&amp;status=active" 
+                       class="filter-btn filter-active <?php echo $status_filter === 'active' ? 'active' : ''; ?>">
+                        <i class="fas fa-play-circle"></i> Ativos (<?php echo $stats['active'] + $stats['approved']; ?>)
+                    </a>
+                    <a href="?filter=<?php echo $filter; ?>&amp;status=expired" 
+                       class="filter-btn filter-expired <?php echo $status_filter === 'expired' ? 'active' : ''; ?>">
+                        <i class="fas fa-times-circle"></i> Expirados (<?php echo $stats['expired']; ?>)
+                    </a>
+                </div>
+            </div>
+            
+            <form method="GET" class="search-form">
+                <input type="hidden" name="filter" value="<?php echo htmlspecialchars($filter); ?>">
+                <input type="hidden" name="status" value="<?php echo htmlspecialchars($status_filter); ?>">
+                <div class="search-group">
+                    <div class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <input type="text" name="search" placeholder="Buscar por nome ou email..."
+                           value="<?php echo htmlspecialchars($search); ?>">
+                    <?php if ($search): ?>
+                        <a href="?filter=<?php echo htmlspecialchars($filter); ?>&amp;status=<?php echo htmlspecialchars($status_filter); ?>" class="clear-search-btn" title="Limpar busca">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- BOTÃO DE ENVIAR EMAIL PARA SELECIONADOS (AGORA ACIMA DO CARD DE USUÁRIOS) -->
+    <div class="video-card users-toolbar-card">
+        <div class="users-toolbar">
+            <button id="sendEmailSelectedBtn" class="cta-btn send-selected-btn" onclick="sendSelectedToEmails()" style="display: none;">
+                <i class="fas fa-paper-plane"></i>
+                <span>Enviar Email para Selecionados</span>
+                <span class="badge-count">( <span id="selectedCount">0</span> )</span>
+            </button>
+            <div class="selection-controls">
+                <button type="button" class="btn-select-all" onclick="selectAllExpired()">
+                    <i class="fas fa-check-square"></i> Selecionar todos expirados
+                </button>
+                <button type="button" class="btn-deselect-all" onclick="deselectAll()">
+                    <i class="fas fa-square"></i> Desmarcar todos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card users-card">
+        <div class="card-header">
+            <h2><i class="fas fa-list"></i> Usuários trial (<?php echo number_format($total_filtered); ?>)</h2>
+        </div>
+
+        <?php if (empty($users)): ?>
+            <div class="alert-warning">
+                <i class="fas fa-info-circle"></i>
+                <?php echo $search ? 'Nenhum usuário encontrado com os critérios de busca.' : 'Nenhum usuário trial cadastrado ainda.'; ?>
+            </div>
+        <?php else: ?>
+            <div class="table-responsive">
+                <table class="data-table leads-table">
+                    <thead>
+                        <tr>
+                            <th class="col-checkbox">
+                                <input type="checkbox" id="checkboxAll" onchange="toggleAllCheckboxes(this)">
+                            </th>
+                            <th class="col-name">Nome</th>
+                            <th class="col-email">Email</th>
+                            <th class="col-whatsapp">WhatsApp</th>
+                            <th class="col-type">Tipo</th>
+                            <th class="col-status">Status</th>
+                            <th class="col-lectures">Palestras</th>
+                            <th class="col-date">Cadastro</th>
+                            <th class="col-actions">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($users as $user): ?>
+                            <?php 
+                            $statusInfo   = $user['status_info'];
+                            $lectures     = json_decode($user['trial_lectures_watched'] ?? '[]', true);
+                            $lecturesCount = is_array($lectures) ? count($lectures) : 0;
+                            $isExpired    = $statusInfo['status'] === 'expired';
+                            ?>
+                            <tr>
+                                <td class="col-checkbox">
+                                    <?php if ($isExpired): ?>
+                                        <input 
+                                            type="checkbox" 
+                                            class="lead-checkbox" 
+                                            data-id="<?php echo $user['id']; ?>"
+                                            data-name="<?php echo htmlspecialchars($user['name']); ?>"
+                                            data-email="<?php echo htmlspecialchars($user['email']); ?>"
+                                            onchange="updateSelectedCount()">
+                                    <?php endif; ?>
+                                </td>
+                                <td class="col-name">
+                                    <span class="user-name"><?php echo htmlspecialchars($user['name']); ?></span>
+                                </td>
+                                <td class="col-email">
+                                    <span class="user-email"><?php echo htmlspecialchars($user['email']); ?></span>
+                                </td>
+                                <td class="col-whatsapp">
+                                    <?php if (!empty($user['whatsapp'])): ?>
+                                        <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $user['whatsapp']); ?>" 
+                                           target="_blank" class="whatsapp-link">
+                                            <i class="fab fa-whatsapp"></i> <?php echo htmlspecialchars($user['whatsapp']); ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <span class="text-muted">-</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="col-type">
+                                    <?php if ($user['role'] === 'trial_7d'): ?>
+                                        <span class="type-badge type-7d">7 dias</span>
+                                    <?php else: ?>
+                                        <span class="type-badge type-24h">24h</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="col-status">
+                                    <span class="status-badge <?php echo $statusInfo['class']; ?>">
+                                        <i class="fas <?php echo $statusInfo['icon']; ?>"></i>
+                                        <?php echo $statusInfo['label']; ?>
+                                    </span>
+                                </td>
+                                <td class="col-lectures">
+                                    <?php if ($user['role'] === 'trial_24h'): ?>
+                                        <span class="lectures-count"><?php echo $lecturesCount; ?>/3</span>
+                                    <?php else: ?>
+                                        <span class="text-muted">-</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="col-date">
+                                    <?php echo date('d/m/Y H:i', strtotime($user['created_at'])); ?>
+                                </td>
+                                <td class="col-actions">
+                                    <div class="actions-wrapper">
+                                        <?php if ($statusInfo['status'] === 'pending'): ?>
+                                            <form method="POST" style="display:inline;">
+                                                <input type="hidden" name="action" value="approve_trial">
+                                                <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                                <button type="submit" class="action-btn approve-btn" title="Aprovar trial">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </form>
+                                        <?php endif; ?>
+                                        
+                                        <?php if (!empty($user['whatsapp'])): ?>
+                                            <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $user['whatsapp']); ?>?text=<?php echo urlencode('Olá! Seu acesso trial na Translators101 foi liberado. Acesse: https://v.translators101.com/login.php'); ?>" 
+                                               target="_blank" class="action-btn whatsapp-btn" title="Enviar WhatsApp">
+                                                <i class="fab fa-whatsapp"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                        
+                                        <a href="editar_usuario.php?id=<?php echo $user['id']; ?>" 
+                                           class="action-btn edit-btn" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        
+                                        <form method="POST" style="display:inline;" 
+                                              onsubmit="return confirm('Tem certeza que deseja remover este usuário?');">
+                                            <input type="hidden" name="action" value="delete_user">
+                                            <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                            <button type="submit" class="action-btn delete-btn" title="Remover">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <?php if ($total_pages > 1): ?>
+                <div class="pagination">
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                        <?php 
+                        $url_params = http_build_query(array_filter([
+                            'page'   => $i,
+                            'filter' => $filter,
+                            'status' => $status_filter,
+                            'search' => $search
+                        ]));
+                        ?>
+                        <?php if ($i == $page): ?>
+                            <span class="cta-btn current-page"><?php echo $i; ?></span>
+                        <?php else: ?>
+                            <a href="?<?php echo $url_params; ?>" class="page-btn"><?php echo $i; ?></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script>
+function updateSelectedCount() {
+    const checked = document.querySelectorAll('.lead-checkbox:checked');
+    const count   = checked.length;
+    document.getElementById('selectedCount').textContent = count;
+    const btn = document.getElementById('sendEmailSelectedBtn');
+    btn.style.display = count > 0 ? 'inline-flex' : 'none';
+}
+
+function toggleAllCheckboxes(source) {
+    const checkboxes = document.querySelectorAll('.lead-checkbox');
+    checkboxes.forEach(cb => cb.checked = source.checked);
+    updateSelectedCount();
+}
+
+function selectAllExpired() {
+    const checkboxes = document.querySelectorAll('.lead-checkbox');
+    checkboxes.forEach(cb => cb.checked = true);
+    const master = document.getElementById('checkboxAll');
+    if (master) master.checked = true;
+    updateSelectedCount();
+}
+
+function deselectAll() {
+    const checkboxes = document.querySelectorAll('.lead-checkbox');
+    checkboxes.forEach(cb => cb.checked = false);
+    const master = document.getElementById('checkboxAll');
+    if (master) master.checked = false;
+    updateSelectedCount();
+}
+
+function sendSelectedToEmails() {
+    const checked = document.querySelectorAll('.lead-checkbox:checked');
+    if (checked.length === 0) {
+        alert('Selecione pelo menos um lead para enviar email.');
+        return;
+    }
+    
+    const selectedLeads = [];
+    checked.forEach(cb => {
+        selectedLeads.push({
+            id:    cb.dataset.id,
+            name:  cb.dataset.name,
+            email: cb.dataset.email
+        });
+    });
+    
+    // Salva para o emails.php
+    localStorage.setItem('t101_leads_fundo_selected', JSON.stringify(selectedLeads));
+    localStorage.setItem('t101_source', 'leads_fundo');
+    
+    window.location.href = 'emails.php';
+}
+</script>
+
+<style>
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* BOTÕES SUPERIORES */
+.action-buttons-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+    margin-top: 0.75rem;
+}
+
+.top-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.top-btn i {
+    font-size: 0.9rem;
+}
+
+.top-btn.primary {
+    background: linear-gradient(135deg, #a855f7, #6366f1);
+    color: #fff;
+    border-color: rgba(255,255,255,0.15);
+}
+
+.top-btn.primary:hover {
+    filter: brightness(1.1);
+}
+
+.top-btn.secondary {
+    background: rgba(255,255,255,0.12);
+    color: #e5e7eb;
+    border-color: rgba(255,255,255,0.18);
+}
+
+.top-btn.secondary:hover {
+    background: rgba(255,255,255,0.22);
+}
+
+.top-btn.ghost {
+    background: transparent;
+    color: #e5e7eb;
+    border-color: rgba(255,255,255,0.18);
+}
+
+.top-btn.ghost:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* CARDS */
+.stats-card,
+.filters-card,
+.users-card,
+.users-toolbar-card {
+    padding: 1.5rem !important;
+}
+
+/* TOOLBAR DOS USUÁRIOS + BOTÃO ENVIAR */
+.users-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.send-selected-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(34,197,94,0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.send-selected-btn i {
+    font-size: 0.95rem;
+}
+
+.send-selected-btn .badge-count {
+    background: rgba(0,0,0,0.25);
+    padding: 0.1rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+}
+
+.send-selected-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 32px rgba(34,197,94,0.45);
+}
+
+/* SELECTION CONTROLS */
+.selection-controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-select-all, .btn-deselect-all {
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.06);
+    color: #e5e7eb;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s;
+}
+
+.btn-select-all:hover, .btn-deselect-all:hover {
+    background: rgba(255,255,255,0.16);
+}
+
+/* CARD HEADER */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--glass-border);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card-header h2 {
+    margin: 0;
+}
+
+/* STATS GRID */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.25rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+}
+
+.stat-item i {
+    font-size: 1.75rem;
+    min-width: 35px;
+    text-align: center;
+    color: var(--brand-purple);
+}
+
+.stat-pending { border-left: 3px solid #f59e0b; }
+.stat-pending i { color: #f59e0b; }
+
+.stat-active { border-left: 3px solid #10b981; }
+.stat-active i { color: #10b981; }
+
+.stat-expired { border-left: 3px solid #ef4444; }
+.stat-expired i { color: #ef4444; }
+
+.stat-7d { border-left: 3px solid #8b5cf6; }
+.stat-7d i { color: #8b5cf6; }
+
+.stat-24h { border-left: 3px solid #ec4899; }
+.stat-24h i { color: #ec4899; }
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.stat-label {
+    color: var(--text-light);
+    font-size: 0.85rem;
+}
+
+/* FILTROS */
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-top: 1rem;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: var(--text-light);
+    min-width: 80px;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.filter-btn {
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    color: #e5e7eb;
+    text-decoration: none;
+    font-size: 0.84rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background: rgba(255,255,255,0.18);
+}
+
+.filter-btn.active {
+    background: var(--brand-purple);
+}
+
+.filter-pending.active { background: #f59e0b; }
+.filter-active.active { background: #10b981; }
+.filter-expired.active { background: #ef4444; }
+
+/* BUSCA */
+.search-form {
+    width: 100%;
+    max-width: 420px;
+}
+
+.search-group {
+    display: flex;
+    align-items: stretch;
+    gap: 0.4rem;
+}
+
+.search-icon {
+    background: rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 0 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e5e7eb;
+}
+
+.search-icon i {
+    font-size: 1rem;
+}
+
+.search-group input {
+    flex: 1;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    background: rgba(15,23,42,0.8);
+    color: #e5e7eb;
+    font-size: 0.9rem;
+}
+
+.search-group input::placeholder {
+    color: #9ca3af;
+}
+
+.clear-search-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    border-radius: 8px;
+    background: rgba(239,68,68,0.15);
+    color: #fecaca;
+    text-decoration: none;
+}
+
+.clear-search-btn i {
+    font-size: 0.9rem;
+}
+
+/* TABELA */
+.leads-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.leads-table th,
+.leads-table td {
+    padding: 0.75rem 0.6rem;
+    vertical-align: middle;
+}
+
+/* LARGURAS */
+.col-checkbox { width: 46px; text-align: center; }
+.col-name { width: 16%; }
+.col-email { width: 20%; }
+.col-whatsapp { width: 14%; }
+.col-type { width: 8%; }
+.col-status { width: 16%; }
+.col-lectures { width: 7%; text-align: center; }
+.col-date { width: 10%; }
+.col-actions { width: 9%; }
+
+.user-name {
+    color: #fff;
+    font-weight: 500;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-email {
+    color: var(--text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* CHECKBOXES */
+.lead-checkbox, #checkboxAll {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* BADGES */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.status-warning {
+    background: rgba(245,158,11,0.2);
+    color: #fbbf24;
+}
+
+.status-info {
+    background: rgba(59,130,246,0.2);
+    color: #60a5fa;
+}
+
+.status-completed {
+    background: rgba(16,185,129,0.2);
+    color: #34d399;
+}
+
+.status-error {
+    background: rgba(239,68,68,0.2);
+    color: #f87171;
+}
+
+.type-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.type-7d {
+    background: rgba(139,92,246,0.2);
+    color: #a78bfa;
+}
+
+.type-24h {
+    background: rgba(236,72,153,0.2);
+    color: #f472b6;
+}
+
+.lectures-count {
+    font-weight: 600;
+    color: #60a5fa;
+}
+
+.text-muted {
+    color: #6b7280;
+}
+
+/* WHATSAPP LINK */
+.whatsapp-link {
+    color: #25d366;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+}
+
+.whatsapp-link:hover {
+    text-decoration: underline;
+}
+
+/* ACTION BUTTONS */
+.actions-wrapper {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.action-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.18s;
+}
+
+.approve-btn {
+    background: #10b981;
+    color: #fff;
+}
+.approve-btn:hover { background: #059669; }
+
+.whatsapp-btn {
+    background: #25d366;
+    color: #fff;
+}
+.whatsapp-btn:hover { background: #1da851; }
+
+.edit-btn {
+    background: #3b82f6;
+    color: #fff;
+}
+.edit-btn:hover { background: #2563eb; }
+
+.delete-btn {
+    background: #ef4444;
+    color: #fff;
+}
+.delete-btn:hover { background: #dc2626; }
+
+/* PAGINAÇÃO */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 1.4rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.current-page {
+    background: var(--brand-purple);
+}
+
+/* ALERTAS */
+.alert-warning, .alert-success, .alert-error {
+    padding: 0.9rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.alert-warning {
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.3);
+    color: #fbbf24;
+}
+
+.alert-success {
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.3);
+    color: #10b981;
+}
+
+.alert-error {
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: #ef4444;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1024px) {
+    .leads-table {
+        table-layout: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .action-buttons-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .search-form {
+        max-width: none;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .data-table {
+        font-size: 0.8rem;
+    }
+    
+    .actions-wrapper {
+        flex-direction: column;
+    }
+    
+    .users-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .selection-controls {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+</style>
+
+<?php include __DIR__ . '/../vision/includes/footer.php'; ?>

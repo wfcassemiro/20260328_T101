@@ -1,0 +1,942 @@
+[2025-09-05 13:05:25] ID: 335f0038-8aae-423b-9203-6f378c7a3df7 | IP: 2804:7f0:9b80:f02:6d56:320:bdbe:7de1 | Status: SUCCESS | User-Agent: WhatsApp/2.23.20.0\
+[2025-09-05 13:05:30] ID: 335f0038-8aae-423b-9203-6f378c7a3df7 | IP: 2804:7f0:9b80:f02:6d56:320:bdbe:7de1 | Status: SUCCESS | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_0_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr\
+[2025-09-05 14:37:46] ID: 630972fb-237d-4f34-a8f7-85ff10c3e542 | IP: 2804:7f0:9b80:f02:6d56:320:bdbe:7de1 | Status: SUCCESS | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_0_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr\
+[2025-09-05 14:40:25] ID: 17282d5c-1b43-40cf-b2dc-1eb5e4852e6f | IP: 2804:7f0:9b80:f02:6d56:320:bdbe:7de1 | Status: SUCCESS | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_0_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr\
+[2025-09-05 21:02:33] ID: eb7319fc-190d-4d8a-971d-b4167f9bb472 | IP: 2804:7f0:9b80:f02:a18d:ada7:917b:b6f4 | Status: SUCCESS | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_0_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr\
+[2025-09-06 00:24:27] ID: eb7319fc-190d-4d8a-971d-b4167f9bb472 | IP: 2804:7f0:9b80:f02:6a:511c:95ea:7082 | Status: SUCCESS | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_0_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr\
+[2025-09-09 21:10:43] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:10:43] [SAVE_PROGRESS] Dados recebidos - Lecture: 0ece69f5-8288-40fa-bd1e-890b770fc66a, User: debug-user, Seconds: 10
+[2025-09-09 21:10:43] [SAVE_PROGRESS] Palestra encontrada: Dicas: Pausa 
+[2025-09-09 21:10:43] [SAVE_PROGRESS] ATUALIZADO: Progresso de 0s para 10s
+[2025-09-09 21:10:43] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 10s
+[2025-09-09 21:10:53] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:10:53] [SAVE_PROGRESS] Dados recebidos - Lecture: 0ece69f5-8288-40fa-bd1e-890b770fc66a, User: debug-user, Seconds: 20
+[2025-09-09 21:10:53] [SAVE_PROGRESS] Palestra encontrada: Dicas: Pausa 
+[2025-09-09 21:10:53] [SAVE_PROGRESS] ATUALIZADO: Progresso de 10s para 20s
+[2025-09-09 21:10:53] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 20s
+[2025-09-09 21:11:04] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:11:04] [SAVE_PROGRESS] Dados recebidos - Lecture: 0ece69f5-8288-40fa-bd1e-890b770fc66a, User: debug-user, Seconds: 30
+[2025-09-09 21:11:04] [SAVE_PROGRESS] Palestra encontrada: Dicas: Pausa 
+[2025-09-09 21:11:04] [SAVE_PROGRESS] ATUALIZADO: Progresso de 20s para 30s
+[2025-09-09 21:11:04] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 30s
+[2025-09-09 21:11:14] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:11:14] [SAVE_PROGRESS] Dados recebidos - Lecture: 0ece69f5-8288-40fa-bd1e-890b770fc66a, User: debug-user, Seconds: 40
+[2025-09-09 21:11:14] [SAVE_PROGRESS] Palestra encontrada: Dicas: Pausa 
+[2025-09-09 21:11:14] [SAVE_PROGRESS] ATUALIZADO: Progresso de 30s para 40s
+[2025-09-09 21:11:14] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 40s
+[2025-09-09 21:11:23] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:11:23] [SAVE_PROGRESS] Dados recebidos - Lecture: 0ece69f5-8288-40fa-bd1e-890b770fc66a, User: debug-user, Seconds: 49
+[2025-09-09 21:11:23] [SAVE_PROGRESS] Palestra encontrada: Dicas: Pausa 
+[2025-09-09 21:11:23] [SAVE_PROGRESS] ATUALIZADO: Progresso de 40s para 49s
+[2025-09-09 21:11:23] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 49s
+[2025-09-09 21:11:53] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:11:53] [SAVE_PROGRESS] Dados recebidos - Lecture: 0ece69f5-8288-40fa-bd1e-890b770fc66a, User: debug-user, Seconds: 59
+[2025-09-09 21:11:53] [SAVE_PROGRESS] Palestra encontrada: Dicas: Pausa 
+[2025-09-09 21:11:53] [SAVE_PROGRESS] ATUALIZADO: Progresso de 49s para 59s
+[2025-09-09 21:11:53] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 59s
+[2025-09-09 21:12:03] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:12:03] [SAVE_PROGRESS] Dados recebidos - Lecture: 0ece69f5-8288-40fa-bd1e-890b770fc66a, User: debug-user, Seconds: 69
+[2025-09-09 21:12:03] [SAVE_PROGRESS] Palestra encontrada: Dicas: Pausa 
+[2025-09-09 21:12:03] [SAVE_PROGRESS] ATUALIZADO: Progresso de 59s para 69s
+[2025-09-09 21:12:03] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 69s
+[2025-09-09 21:12:12] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:12:12] [SAVE_PROGRESS] Dados recebidos - Lecture: 0ece69f5-8288-40fa-bd1e-890b770fc66a, User: debug-user, Seconds: 77
+[2025-09-09 21:12:12] [SAVE_PROGRESS] Palestra encontrada: Dicas: Pausa 
+[2025-09-09 21:12:12] [SAVE_PROGRESS] ATUALIZADO: Progresso de 69s para 77s
+[2025-09-09 21:12:12] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 77s
+[2025-09-09 21:16:06] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:16:06] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 10
+[2025-09-09 21:16:06] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:16:06] [SAVE_PROGRESS] ATUALIZADO: Progresso de 0s para 10s
+[2025-09-09 21:16:06] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 10s
+[2025-09-09 21:16:16] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:16:16] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 20
+[2025-09-09 21:16:16] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:16:16] [SAVE_PROGRESS] ATUALIZADO: Progresso de 10s para 20s
+[2025-09-09 21:16:16] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 20s
+[2025-09-09 21:16:26] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:16:26] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 30
+[2025-09-09 21:16:26] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:16:26] [SAVE_PROGRESS] ATUALIZADO: Progresso de 20s para 30s
+[2025-09-09 21:16:26] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 30s
+[2025-09-09 21:16:36] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:16:36] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 40
+[2025-09-09 21:16:36] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:16:36] [SAVE_PROGRESS] ATUALIZADO: Progresso de 30s para 40s
+[2025-09-09 21:16:36] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 40s
+[2025-09-09 21:16:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:16:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 50
+[2025-09-09 21:16:46] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:16:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 40s para 50s
+[2025-09-09 21:16:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 50s
+[2025-09-09 21:16:53] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:16:53] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 57
+[2025-09-09 21:16:53] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:16:53] [SAVE_PROGRESS] ATUALIZADO: Progresso de 50s para 57s
+[2025-09-09 21:16:53] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 57s
+[2025-09-09 21:17:38] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:17:38] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 77
+[2025-09-09 21:17:38] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:17:38] [SAVE_PROGRESS] ATUALIZADO: Progresso de 57s para 77s
+[2025-09-09 21:17:38] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 77s
+[2025-09-09 21:17:48] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:17:48] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 87
+[2025-09-09 21:17:48] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:17:48] [SAVE_PROGRESS] ATUALIZADO: Progresso de 77s para 87s
+[2025-09-09 21:17:48] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 87s
+[2025-09-09 21:17:58] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:17:58] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 97
+[2025-09-09 21:17:58] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:17:58] [SAVE_PROGRESS] ATUALIZADO: Progresso de 87s para 97s
+[2025-09-09 21:17:58] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 97s
+[2025-09-09 21:18:08] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:18:08] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 107
+[2025-09-09 21:18:08] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:18:08] [SAVE_PROGRESS] ATUALIZADO: Progresso de 97s para 107s
+[2025-09-09 21:18:08] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 107s
+[2025-09-09 21:18:15] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-09 21:18:15] [SAVE_PROGRESS] Dados recebidos - Lecture: 3b8a4d18-3fb4-4ba5-ad1f-28f17403ccec, User: debug-user, Seconds: 114
+[2025-09-09 21:18:15] [SAVE_PROGRESS] Palestra encontrada: Dicas: Celular 
+[2025-09-09 21:18:15] [SAVE_PROGRESS] ATUALIZADO: Progresso de 107s para 114s
+[2025-09-09 21:18:15] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 114s
+[2025-09-10 12:42:21] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:42:21] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 0
+[2025-09-10 12:42:21] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:42:21] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 0s
+[2025-09-10 12:42:21] [SAVE_PROGRESS] ATUALIZADO: Progresso de 0s para 0s (limitado a 1800s)
+[2025-09-10 12:42:21] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 0s
+[2025-09-10 12:42:32] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:42:32] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 11
+[2025-09-10 12:42:32] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:42:32] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 11s
+[2025-09-10 12:42:32] [SAVE_PROGRESS] ATUALIZADO: Progresso de 0s para 11s (limitado a 1800s)
+[2025-09-10 12:42:32] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 11s
+[2025-09-10 12:42:42] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:42:42] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 21
+[2025-09-10 12:42:42] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:42:42] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 21s
+[2025-09-10 12:42:42] [SAVE_PROGRESS] ATUALIZADO: Progresso de 11s para 21s (limitado a 1800s)
+[2025-09-10 12:42:42] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 21s
+[2025-09-10 12:42:53] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:42:53] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 32
+[2025-09-10 12:42:53] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:42:53] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 32s
+[2025-09-10 12:42:53] [SAVE_PROGRESS] ATUALIZADO: Progresso de 21s para 32s (limitado a 1800s)
+[2025-09-10 12:42:53] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 32s
+[2025-09-10 12:43:04] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:43:04] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 43
+[2025-09-10 12:43:04] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:43:04] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 43s
+[2025-09-10 12:43:04] [SAVE_PROGRESS] ATUALIZADO: Progresso de 32s para 43s (limitado a 1800s)
+[2025-09-10 12:43:04] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 43s
+[2025-09-10 12:43:15] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:43:15] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 54
+[2025-09-10 12:43:15] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:43:15] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 54s
+[2025-09-10 12:43:15] [SAVE_PROGRESS] ATUALIZADO: Progresso de 43s para 54s (limitado a 1800s)
+[2025-09-10 12:43:15] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 54s
+[2025-09-10 12:43:26] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:43:26] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 65
+[2025-09-10 12:43:26] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:43:26] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 65s
+[2025-09-10 12:43:26] [SAVE_PROGRESS] ATUALIZADO: Progresso de 54s para 65s (limitado a 1800s)
+[2025-09-10 12:43:26] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 65s
+[2025-09-10 12:43:37] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:43:37] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 76
+[2025-09-10 12:43:37] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:43:37] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 76s
+[2025-09-10 12:43:37] [SAVE_PROGRESS] ATUALIZADO: Progresso de 65s para 76s (limitado a 1800s)
+[2025-09-10 12:43:37] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 76s
+[2025-09-10 12:43:48] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:43:48] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 87
+[2025-09-10 12:43:48] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:43:48] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 87s
+[2025-09-10 12:43:48] [SAVE_PROGRESS] ATUALIZADO: Progresso de 76s para 87s (limitado a 1800s)
+[2025-09-10 12:43:48] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 87s
+[2025-09-10 12:43:59] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:43:59] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 98
+[2025-09-10 12:43:59] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:43:59] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 98s
+[2025-09-10 12:43:59] [SAVE_PROGRESS] ATUALIZADO: Progresso de 87s para 98s (limitado a 1800s)
+[2025-09-10 12:43:59] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 98s
+[2025-09-10 12:44:10] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:44:10] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 109
+[2025-09-10 12:44:10] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:44:10] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 109s
+[2025-09-10 12:44:10] [SAVE_PROGRESS] ATUALIZADO: Progresso de 98s para 109s (limitado a 1800s)
+[2025-09-10 12:44:10] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 109s
+[2025-09-10 12:44:20] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:44:20] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 119
+[2025-09-10 12:44:20] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:44:20] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 119s
+[2025-09-10 12:44:20] [SAVE_PROGRESS] ATUALIZADO: Progresso de 109s para 119s (limitado a 1800s)
+[2025-09-10 12:44:20] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 119s
+[2025-09-10 12:44:31] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:44:31] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 130
+[2025-09-10 12:44:31] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:44:31] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 130s
+[2025-09-10 12:44:31] [SAVE_PROGRESS] ATUALIZADO: Progresso de 119s para 130s (limitado a 1800s)
+[2025-09-10 12:44:31] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 130s
+[2025-09-10 12:44:42] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:44:42] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 141
+[2025-09-10 12:44:42] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:44:42] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 141s
+[2025-09-10 12:44:42] [SAVE_PROGRESS] ATUALIZADO: Progresso de 130s para 141s (limitado a 1800s)
+[2025-09-10 12:44:42] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 141s
+[2025-09-10 12:44:52] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:44:52] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 151
+[2025-09-10 12:44:52] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:44:52] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 151s
+[2025-09-10 12:44:52] [SAVE_PROGRESS] ATUALIZADO: Progresso de 141s para 151s (limitado a 1800s)
+[2025-09-10 12:44:52] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 151s
+[2025-09-10 12:45:03] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:45:03] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 162
+[2025-09-10 12:45:03] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:45:03] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 162s
+[2025-09-10 12:45:03] [SAVE_PROGRESS] ATUALIZADO: Progresso de 151s para 162s (limitado a 1800s)
+[2025-09-10 12:45:03] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 162s
+[2025-09-10 12:45:14] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:45:14] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 173
+[2025-09-10 12:45:14] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:45:14] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 173s
+[2025-09-10 12:45:14] [SAVE_PROGRESS] ATUALIZADO: Progresso de 162s para 173s (limitado a 1800s)
+[2025-09-10 12:45:14] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 173s
+[2025-09-10 12:45:24] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:45:24] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 183
+[2025-09-10 12:45:24] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:45:24] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 183s
+[2025-09-10 12:45:24] [SAVE_PROGRESS] ATUALIZADO: Progresso de 173s para 183s (limitado a 1800s)
+[2025-09-10 12:45:24] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 183s
+[2025-09-10 12:45:34] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:45:34] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 193
+[2025-09-10 12:45:34] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:45:34] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 193s
+[2025-09-10 12:45:34] [SAVE_PROGRESS] ATUALIZADO: Progresso de 183s para 193s (limitado a 1800s)
+[2025-09-10 12:45:34] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 193s
+[2025-09-10 12:45:45] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:45:45] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 204
+[2025-09-10 12:45:45] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:45:45] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 204s
+[2025-09-10 12:45:45] [SAVE_PROGRESS] ATUALIZADO: Progresso de 193s para 204s (limitado a 1800s)
+[2025-09-10 12:45:45] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 204s
+[2025-09-10 12:45:56] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:45:56] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 215
+[2025-09-10 12:45:56] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:45:56] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 215s
+[2025-09-10 12:45:56] [SAVE_PROGRESS] ATUALIZADO: Progresso de 204s para 215s (limitado a 1800s)
+[2025-09-10 12:45:56] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 215s
+[2025-09-10 12:46:07] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:46:07] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 226
+[2025-09-10 12:46:07] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:46:07] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 226s
+[2025-09-10 12:46:07] [SAVE_PROGRESS] ATUALIZADO: Progresso de 215s para 226s (limitado a 1800s)
+[2025-09-10 12:46:07] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 226s
+[2025-09-10 12:46:17] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:46:17] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 236
+[2025-09-10 12:46:17] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:46:17] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 236s
+[2025-09-10 12:46:17] [SAVE_PROGRESS] ATUALIZADO: Progresso de 226s para 236s (limitado a 1800s)
+[2025-09-10 12:46:17] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 236s
+[2025-09-10 12:46:28] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:46:28] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 247
+[2025-09-10 12:46:28] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:46:28] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 247s
+[2025-09-10 12:46:28] [SAVE_PROGRESS] ATUALIZADO: Progresso de 236s para 247s (limitado a 1800s)
+[2025-09-10 12:46:28] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 247s
+[2025-09-10 12:46:40] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:46:40] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 259
+[2025-09-10 12:46:40] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:46:40] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 259s
+[2025-09-10 12:46:40] [SAVE_PROGRESS] ATUALIZADO: Progresso de 247s para 259s (limitado a 1800s)
+[2025-09-10 12:46:40] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 259s
+[2025-09-10 12:46:50] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:46:50] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 269
+[2025-09-10 12:46:50] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:46:50] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 269s
+[2025-09-10 12:46:50] [SAVE_PROGRESS] ATUALIZADO: Progresso de 259s para 269s (limitado a 1800s)
+[2025-09-10 12:46:50] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 269s
+[2025-09-10 12:47:02] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:47:02] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 281
+[2025-09-10 12:47:02] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:47:02] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 281s
+[2025-09-10 12:47:02] [SAVE_PROGRESS] ATUALIZADO: Progresso de 269s para 281s (limitado a 1800s)
+[2025-09-10 12:47:02] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 281s
+[2025-09-10 12:47:14] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:47:14] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 293
+[2025-09-10 12:47:14] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:47:14] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 293s
+[2025-09-10 12:47:14] [SAVE_PROGRESS] ATUALIZADO: Progresso de 281s para 293s (limitado a 1800s)
+[2025-09-10 12:47:14] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 293s
+[2025-09-10 12:47:26] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:47:26] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 305
+[2025-09-10 12:47:26] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:47:26] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 305s
+[2025-09-10 12:47:26] [SAVE_PROGRESS] ATUALIZADO: Progresso de 293s para 305s (limitado a 1800s)
+[2025-09-10 12:47:26] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 305s
+[2025-09-10 12:47:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:47:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 325
+[2025-09-10 12:47:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:47:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 325s
+[2025-09-10 12:47:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 305s para 325s (limitado a 1800s)
+[2025-09-10 12:47:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 325s
+[2025-09-10 12:48:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:48:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 385
+[2025-09-10 12:48:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:48:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 385s
+[2025-09-10 12:48:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 325s para 385s (limitado a 1800s)
+[2025-09-10 12:48:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 385s
+[2025-09-10 12:49:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:49:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 445
+[2025-09-10 12:49:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:49:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 445s
+[2025-09-10 12:49:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 385s para 445s (limitado a 1800s)
+[2025-09-10 12:49:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 445s
+[2025-09-10 12:50:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:50:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 505
+[2025-09-10 12:50:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:50:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 505s
+[2025-09-10 12:50:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 445s para 505s (limitado a 1800s)
+[2025-09-10 12:50:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 505s
+[2025-09-10 12:51:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:51:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 565
+[2025-09-10 12:51:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:51:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 565s
+[2025-09-10 12:51:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 505s para 565s (limitado a 1800s)
+[2025-09-10 12:51:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 565s
+[2025-09-10 12:52:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:52:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 625
+[2025-09-10 12:52:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:52:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 625s
+[2025-09-10 12:52:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 565s para 625s (limitado a 1800s)
+[2025-09-10 12:52:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 625s
+[2025-09-10 12:53:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:53:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 685
+[2025-09-10 12:53:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:53:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 685s
+[2025-09-10 12:53:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 625s para 685s (limitado a 1800s)
+[2025-09-10 12:53:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 685s
+[2025-09-10 12:53:56] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:53:56] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 695
+[2025-09-10 12:53:56] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:53:56] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 695s
+[2025-09-10 12:53:56] [SAVE_PROGRESS] ATUALIZADO: Progresso de 685s para 695s (limitado a 1800s)
+[2025-09-10 12:53:56] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 695s
+[2025-09-10 12:54:07] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:54:07] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 706
+[2025-09-10 12:54:07] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:54:07] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 706s
+[2025-09-10 12:54:07] [SAVE_PROGRESS] ATUALIZADO: Progresso de 695s para 706s (limitado a 1800s)
+[2025-09-10 12:54:07] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 706s
+[2025-09-10 12:54:18] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:54:18] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 717
+[2025-09-10 12:54:18] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:54:18] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 717s
+[2025-09-10 12:54:18] [SAVE_PROGRESS] ATUALIZADO: Progresso de 706s para 717s (limitado a 1800s)
+[2025-09-10 12:54:18] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 717s
+[2025-09-10 12:54:29] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:54:29] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 728
+[2025-09-10 12:54:29] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:54:29] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 728s
+[2025-09-10 12:54:29] [SAVE_PROGRESS] ATUALIZADO: Progresso de 717s para 728s (limitado a 1800s)
+[2025-09-10 12:54:29] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 728s
+[2025-09-10 12:54:40] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:54:40] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 739
+[2025-09-10 12:54:40] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:54:40] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 739s
+[2025-09-10 12:54:40] [SAVE_PROGRESS] ATUALIZADO: Progresso de 728s para 739s (limitado a 1800s)
+[2025-09-10 12:54:40] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 739s
+[2025-09-10 12:54:51] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:54:51] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 750
+[2025-09-10 12:54:51] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:54:51] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 750s
+[2025-09-10 12:54:51] [SAVE_PROGRESS] ATUALIZADO: Progresso de 739s para 750s (limitado a 1800s)
+[2025-09-10 12:54:51] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 750s
+[2025-09-10 12:55:01] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:55:01] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 760
+[2025-09-10 12:55:01] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:55:01] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 760s
+[2025-09-10 12:55:01] [SAVE_PROGRESS] ATUALIZADO: Progresso de 750s para 760s (limitado a 1800s)
+[2025-09-10 12:55:01] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 760s
+[2025-09-10 12:55:12] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:55:12] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 771
+[2025-09-10 12:55:12] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:55:12] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 771s
+[2025-09-10 12:55:12] [SAVE_PROGRESS] ATUALIZADO: Progresso de 760s para 771s (limitado a 1800s)
+[2025-09-10 12:55:12] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 771s
+[2025-09-10 12:55:24] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:55:24] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 783
+[2025-09-10 12:55:24] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:55:24] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 783s
+[2025-09-10 12:55:24] [SAVE_PROGRESS] ATUALIZADO: Progresso de 771s para 783s (limitado a 1800s)
+[2025-09-10 12:55:24] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 783s
+[2025-09-10 12:55:36] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:55:36] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 795
+[2025-09-10 12:55:36] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:55:36] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 795s
+[2025-09-10 12:55:36] [SAVE_PROGRESS] ATUALIZADO: Progresso de 783s para 795s (limitado a 1800s)
+[2025-09-10 12:55:36] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 795s
+[2025-09-10 12:55:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:55:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 805
+[2025-09-10 12:55:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:55:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 805s
+[2025-09-10 12:55:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 795s para 805s (limitado a 1800s)
+[2025-09-10 12:55:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 805s
+[2025-09-10 12:55:56] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:55:56] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 815
+[2025-09-10 12:55:56] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:55:56] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 815s
+[2025-09-10 12:55:56] [SAVE_PROGRESS] ATUALIZADO: Progresso de 805s para 815s (limitado a 1800s)
+[2025-09-10 12:55:56] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 815s
+[2025-09-10 12:56:07] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:56:07] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 826
+[2025-09-10 12:56:07] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:56:07] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 826s
+[2025-09-10 12:56:07] [SAVE_PROGRESS] ATUALIZADO: Progresso de 815s para 826s (limitado a 1800s)
+[2025-09-10 12:56:07] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 826s
+[2025-09-10 12:56:18] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:56:18] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 837
+[2025-09-10 12:56:18] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:56:18] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 837s
+[2025-09-10 12:56:18] [SAVE_PROGRESS] ATUALIZADO: Progresso de 826s para 837s (limitado a 1800s)
+[2025-09-10 12:56:18] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 837s
+[2025-09-10 12:56:29] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:56:29] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 848
+[2025-09-10 12:56:29] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:56:29] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 848s
+[2025-09-10 12:56:29] [SAVE_PROGRESS] ATUALIZADO: Progresso de 837s para 848s (limitado a 1800s)
+[2025-09-10 12:56:29] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 848s
+[2025-09-10 12:56:39] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:56:39] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 858
+[2025-09-10 12:56:39] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:56:39] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 858s
+[2025-09-10 12:56:39] [SAVE_PROGRESS] ATUALIZADO: Progresso de 848s para 858s (limitado a 1800s)
+[2025-09-10 12:56:39] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 858s
+[2025-09-10 12:56:50] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:56:50] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 869
+[2025-09-10 12:56:50] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:56:50] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 869s
+[2025-09-10 12:56:50] [SAVE_PROGRESS] ATUALIZADO: Progresso de 858s para 869s (limitado a 1800s)
+[2025-09-10 12:56:50] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 869s
+[2025-09-10 12:57:00] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:57:00] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 879
+[2025-09-10 12:57:00] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:57:00] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 879s
+[2025-09-10 12:57:00] [SAVE_PROGRESS] ATUALIZADO: Progresso de 869s para 879s (limitado a 1800s)
+[2025-09-10 12:57:00] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 879s
+[2025-09-10 12:57:11] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:57:11] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 890
+[2025-09-10 12:57:11] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:57:11] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 890s
+[2025-09-10 12:57:11] [SAVE_PROGRESS] ATUALIZADO: Progresso de 879s para 890s (limitado a 1800s)
+[2025-09-10 12:57:11] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 890s
+[2025-09-10 12:57:22] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:57:22] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 901
+[2025-09-10 12:57:22] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:57:22] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 901s
+[2025-09-10 12:57:22] [SAVE_PROGRESS] ATUALIZADO: Progresso de 890s para 901s (limitado a 1800s)
+[2025-09-10 12:57:22] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 901s
+[2025-09-10 12:57:33] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:57:33] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 912
+[2025-09-10 12:57:33] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:57:33] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 912s
+[2025-09-10 12:57:33] [SAVE_PROGRESS] ATUALIZADO: Progresso de 901s para 912s (limitado a 1800s)
+[2025-09-10 12:57:33] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 912s
+[2025-09-10 12:57:45] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:57:45] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 924
+[2025-09-10 12:57:45] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:57:45] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 924s
+[2025-09-10 12:57:45] [SAVE_PROGRESS] ATUALIZADO: Progresso de 912s para 924s (limitado a 1800s)
+[2025-09-10 12:57:45] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 924s
+[2025-09-10 12:57:55] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:57:55] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 934
+[2025-09-10 12:57:55] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:57:55] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 934s
+[2025-09-10 12:57:55] [SAVE_PROGRESS] ATUALIZADO: Progresso de 924s para 934s (limitado a 1800s)
+[2025-09-10 12:57:55] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 934s
+[2025-09-10 12:58:06] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:58:06] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 945
+[2025-09-10 12:58:06] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:58:06] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 945s
+[2025-09-10 12:58:06] [SAVE_PROGRESS] ATUALIZADO: Progresso de 934s para 945s (limitado a 1800s)
+[2025-09-10 12:58:06] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 945s
+[2025-09-10 12:58:17] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:58:17] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 956
+[2025-09-10 12:58:17] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:58:17] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 956s
+[2025-09-10 12:58:17] [SAVE_PROGRESS] ATUALIZADO: Progresso de 945s para 956s (limitado a 1800s)
+[2025-09-10 12:58:17] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 956s
+[2025-09-10 12:58:28] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:58:28] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 967
+[2025-09-10 12:58:28] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:58:28] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 967s
+[2025-09-10 12:58:28] [SAVE_PROGRESS] ATUALIZADO: Progresso de 956s para 967s (limitado a 1800s)
+[2025-09-10 12:58:28] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 967s
+[2025-09-10 12:58:39] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:58:39] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 978
+[2025-09-10 12:58:39] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:58:39] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 978s
+[2025-09-10 12:58:39] [SAVE_PROGRESS] ATUALIZADO: Progresso de 967s para 978s (limitado a 1800s)
+[2025-09-10 12:58:39] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 978s
+[2025-09-10 12:58:50] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:58:50] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 989
+[2025-09-10 12:58:50] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:58:50] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 989s
+[2025-09-10 12:58:50] [SAVE_PROGRESS] ATUALIZADO: Progresso de 978s para 989s (limitado a 1800s)
+[2025-09-10 12:58:50] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 989s
+[2025-09-10 12:59:00] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:59:00] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 999
+[2025-09-10 12:59:00] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:59:00] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 999s
+[2025-09-10 12:59:00] [SAVE_PROGRESS] ATUALIZADO: Progresso de 989s para 999s (limitado a 1800s)
+[2025-09-10 12:59:00] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 999s
+[2025-09-10 12:59:11] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:59:11] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1010
+[2025-09-10 12:59:11] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:59:11] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1010s
+[2025-09-10 12:59:11] [SAVE_PROGRESS] ATUALIZADO: Progresso de 999s para 1010s (limitado a 1800s)
+[2025-09-10 12:59:11] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1010s
+[2025-09-10 12:59:22] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:59:22] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1021
+[2025-09-10 12:59:22] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:59:22] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1021s
+[2025-09-10 12:59:22] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1010s para 1021s (limitado a 1800s)
+[2025-09-10 12:59:22] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1021s
+[2025-09-10 12:59:33] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:59:33] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1032
+[2025-09-10 12:59:33] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:59:33] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1032s
+[2025-09-10 12:59:33] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1021s para 1032s (limitado a 1800s)
+[2025-09-10 12:59:33] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1032s
+[2025-09-10 12:59:43] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:59:43] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1042
+[2025-09-10 12:59:43] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:59:43] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1042s
+[2025-09-10 12:59:43] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1032s para 1042s (limitado a 1800s)
+[2025-09-10 12:59:43] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1042s
+[2025-09-10 12:59:54] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 12:59:54] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1053
+[2025-09-10 12:59:54] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 12:59:54] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1053s
+[2025-09-10 12:59:54] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1042s para 1053s (limitado a 1800s)
+[2025-09-10 12:59:54] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1053s
+[2025-09-10 13:00:05] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:00:05] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1064
+[2025-09-10 13:00:05] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:00:05] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1064s
+[2025-09-10 13:00:05] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1053s para 1064s (limitado a 1800s)
+[2025-09-10 13:00:05] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1064s
+[2025-09-10 13:00:16] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:00:16] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1075
+[2025-09-10 13:00:16] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:00:16] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1075s
+[2025-09-10 13:00:16] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1064s para 1075s (limitado a 1800s)
+[2025-09-10 13:00:16] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1075s
+[2025-09-10 13:00:27] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:00:27] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1086
+[2025-09-10 13:00:27] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:00:27] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1086s
+[2025-09-10 13:00:27] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1075s para 1086s (limitado a 1800s)
+[2025-09-10 13:00:27] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1086s
+[2025-09-10 13:00:39] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:00:39] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1098
+[2025-09-10 13:00:39] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:00:39] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1098s
+[2025-09-10 13:00:39] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1086s para 1098s (limitado a 1800s)
+[2025-09-10 13:00:39] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1098s
+[2025-09-10 13:00:51] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:00:51] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1110
+[2025-09-10 13:00:51] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:00:51] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1110s
+[2025-09-10 13:00:51] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1098s para 1110s (limitado a 1800s)
+[2025-09-10 13:00:51] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1110s
+[2025-09-10 13:01:03] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:01:03] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1122
+[2025-09-10 13:01:03] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:01:03] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1122s
+[2025-09-10 13:01:03] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1110s para 1122s (limitado a 1800s)
+[2025-09-10 13:01:03] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1122s
+[2025-09-10 13:01:15] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:01:15] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1134
+[2025-09-10 13:01:15] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:01:15] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1134s
+[2025-09-10 13:01:15] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1122s para 1134s (limitado a 1800s)
+[2025-09-10 13:01:15] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1134s
+[2025-09-10 13:01:25] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:01:25] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1144
+[2025-09-10 13:01:25] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:01:25] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1144s
+[2025-09-10 13:01:25] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1134s para 1144s (limitado a 1800s)
+[2025-09-10 13:01:25] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1144s
+[2025-09-10 13:01:35] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:01:35] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1154
+[2025-09-10 13:01:35] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:01:35] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1154s
+[2025-09-10 13:01:35] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1144s para 1154s (limitado a 1800s)
+[2025-09-10 13:01:35] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1154s
+[2025-09-10 13:01:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:01:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1165
+[2025-09-10 13:01:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:01:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1165s
+[2025-09-10 13:01:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1154s para 1165s (limitado a 1800s)
+[2025-09-10 13:01:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1165s
+[2025-09-10 13:01:57] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:01:57] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1176
+[2025-09-10 13:01:57] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:01:57] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1176s
+[2025-09-10 13:01:57] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1165s para 1176s (limitado a 1800s)
+[2025-09-10 13:01:57] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1176s
+[2025-09-10 13:02:07] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:02:07] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1186
+[2025-09-10 13:02:07] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:02:07] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1186s
+[2025-09-10 13:02:07] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1176s para 1186s (limitado a 1800s)
+[2025-09-10 13:02:07] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1186s
+[2025-09-10 13:02:19] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:02:19] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1198
+[2025-09-10 13:02:19] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:02:19] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1198s
+[2025-09-10 13:02:19] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1186s para 1198s (limitado a 1800s)
+[2025-09-10 13:02:19] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1198s
+[2025-09-10 13:02:29] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:02:29] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1208
+[2025-09-10 13:02:29] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:02:29] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1208s
+[2025-09-10 13:02:29] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1198s para 1208s (limitado a 1800s)
+[2025-09-10 13:02:29] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1208s
+[2025-09-10 13:02:40] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:02:40] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1219
+[2025-09-10 13:02:40] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:02:40] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1219s
+[2025-09-10 13:02:40] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1208s para 1219s (limitado a 1800s)
+[2025-09-10 13:02:40] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1219s
+[2025-09-10 13:02:51] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:02:51] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1230
+[2025-09-10 13:02:51] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:02:51] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1230s
+[2025-09-10 13:02:51] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1219s para 1230s (limitado a 1800s)
+[2025-09-10 13:02:51] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1230s
+[2025-09-10 13:03:03] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:03:03] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1242
+[2025-09-10 13:03:03] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:03:03] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1242s
+[2025-09-10 13:03:03] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1230s para 1242s (limitado a 1800s)
+[2025-09-10 13:03:03] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1242s
+[2025-09-10 13:03:15] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:03:15] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1254
+[2025-09-10 13:03:15] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:03:15] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1254s
+[2025-09-10 13:03:15] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1242s para 1254s (limitado a 1800s)
+[2025-09-10 13:03:15] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1254s
+[2025-09-10 13:03:27] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:03:27] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1266
+[2025-09-10 13:03:27] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:03:27] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1266s
+[2025-09-10 13:03:27] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1254s para 1266s (limitado a 1800s)
+[2025-09-10 13:03:27] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1266s
+[2025-09-10 13:03:39] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:03:39] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1278
+[2025-09-10 13:03:39] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:03:39] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1278s
+[2025-09-10 13:03:39] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1266s para 1278s (limitado a 1800s)
+[2025-09-10 13:03:39] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1278s
+[2025-09-10 13:03:51] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:03:51] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1290
+[2025-09-10 13:03:51] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:03:51] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1290s
+[2025-09-10 13:03:51] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1278s para 1290s (limitado a 1800s)
+[2025-09-10 13:03:51] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1290s
+[2025-09-10 13:04:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:04:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1345
+[2025-09-10 13:04:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:04:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1345s
+[2025-09-10 13:04:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1290s para 1345s (limitado a 1800s)
+[2025-09-10 13:04:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1345s
+[2025-09-10 13:04:56] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:04:56] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1355
+[2025-09-10 13:04:56] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:04:56] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1355s
+[2025-09-10 13:04:56] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1345s para 1355s (limitado a 1800s)
+[2025-09-10 13:04:56] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1355s
+[2025-09-10 13:05:07] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:05:07] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1366
+[2025-09-10 13:05:07] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:05:07] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1366s
+[2025-09-10 13:05:07] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1355s para 1366s (limitado a 1800s)
+[2025-09-10 13:05:07] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1366s
+[2025-09-10 13:05:18] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:05:18] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1377
+[2025-09-10 13:05:18] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:05:18] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1377s
+[2025-09-10 13:05:18] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1366s para 1377s (limitado a 1800s)
+[2025-09-10 13:05:18] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1377s
+[2025-09-10 13:05:29] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:05:29] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1388
+[2025-09-10 13:05:29] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:05:29] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1388s
+[2025-09-10 13:05:29] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1377s para 1388s (limitado a 1800s)
+[2025-09-10 13:05:29] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1388s
+[2025-09-10 13:05:39] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:05:39] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1398
+[2025-09-10 13:05:39] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:05:39] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1398s
+[2025-09-10 13:05:39] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1388s para 1398s (limitado a 1800s)
+[2025-09-10 13:05:39] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1398s
+[2025-09-10 13:05:50] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:05:50] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1409
+[2025-09-10 13:05:50] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:05:50] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1409s
+[2025-09-10 13:05:50] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1398s para 1409s (limitado a 1800s)
+[2025-09-10 13:05:50] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1409s
+[2025-09-10 13:06:02] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:06:02] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1421
+[2025-09-10 13:06:02] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:06:02] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1421s
+[2025-09-10 13:06:02] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1409s para 1421s (limitado a 1800s)
+[2025-09-10 13:06:02] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1421s
+[2025-09-10 13:06:14] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:06:14] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1433
+[2025-09-10 13:06:14] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:06:14] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1433s
+[2025-09-10 13:06:14] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1421s para 1433s (limitado a 1800s)
+[2025-09-10 13:06:14] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1433s
+[2025-09-10 13:06:26] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:06:26] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1445
+[2025-09-10 13:06:26] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:06:26] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1445s
+[2025-09-10 13:06:26] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1433s para 1445s (limitado a 1800s)
+[2025-09-10 13:06:26] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1445s
+[2025-09-10 13:06:38] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:06:38] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1457
+[2025-09-10 13:06:38] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:06:38] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1457s
+[2025-09-10 13:06:38] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1445s para 1457s (limitado a 1800s)
+[2025-09-10 13:06:38] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1457s
+[2025-09-10 13:06:48] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:06:48] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1467
+[2025-09-10 13:06:48] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:06:48] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1467s
+[2025-09-10 13:06:48] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1457s para 1467s (limitado a 1800s)
+[2025-09-10 13:06:48] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1467s
+[2025-09-10 13:06:58] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:06:58] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1477
+[2025-09-10 13:06:58] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:06:58] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1477s
+[2025-09-10 13:06:58] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1467s para 1477s (limitado a 1800s)
+[2025-09-10 13:06:58] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1477s
+[2025-09-10 13:07:09] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:07:09] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1488
+[2025-09-10 13:07:09] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:07:09] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1488s
+[2025-09-10 13:07:09] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1477s para 1488s (limitado a 1800s)
+[2025-09-10 13:07:09] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1488s
+[2025-09-10 13:07:19] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:07:19] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1498
+[2025-09-10 13:07:19] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:07:19] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1498s
+[2025-09-10 13:07:19] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1488s para 1498s (limitado a 1800s)
+[2025-09-10 13:07:19] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1498s
+[2025-09-10 13:07:30] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:07:30] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1509
+[2025-09-10 13:07:30] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:07:30] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1509s
+[2025-09-10 13:07:30] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1498s para 1509s (limitado a 1800s)
+[2025-09-10 13:07:30] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1509s
+[2025-09-10 13:07:41] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:07:41] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1520
+[2025-09-10 13:07:41] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:07:41] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1520s
+[2025-09-10 13:07:41] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1509s para 1520s (limitado a 1800s)
+[2025-09-10 13:07:41] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1520s
+[2025-09-10 13:07:52] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:07:52] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1531
+[2025-09-10 13:07:52] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:07:52] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1531s
+[2025-09-10 13:07:52] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1520s para 1531s (limitado a 1800s)
+[2025-09-10 13:07:52] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1531s
+[2025-09-10 13:08:05] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:08:05] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1542
+[2025-09-10 13:08:05] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:08:05] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1542s
+[2025-09-10 13:08:05] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1531s para 1542s (limitado a 1800s)
+[2025-09-10 13:08:05] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1542s
+[2025-09-10 13:08:13] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:08:13] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1552
+[2025-09-10 13:08:13] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:08:13] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1552s
+[2025-09-10 13:08:13] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1542s para 1552s (limitado a 1800s)
+[2025-09-10 13:08:13] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1552s
+[2025-09-10 13:08:24] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:08:24] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1563
+[2025-09-10 13:08:24] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:08:24] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1563s
+[2025-09-10 13:08:24] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1552s para 1563s (limitado a 1800s)
+[2025-09-10 13:08:24] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1563s
+[2025-09-10 13:08:35] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:08:35] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1574
+[2025-09-10 13:08:35] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:08:35] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1574s
+[2025-09-10 13:08:35] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1563s para 1574s (limitado a 1800s)
+[2025-09-10 13:08:35] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1574s
+[2025-09-10 13:08:46] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:08:46] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1585
+[2025-09-10 13:08:46] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:08:46] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1585s
+[2025-09-10 13:08:46] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1574s para 1585s (limitado a 1800s)
+[2025-09-10 13:08:46] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1585s
+[2025-09-10 13:08:57] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:08:57] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1596
+[2025-09-10 13:08:57] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:08:57] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1596s
+[2025-09-10 13:08:57] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1585s para 1596s (limitado a 1800s)
+[2025-09-10 13:08:57] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1596s
+[2025-09-10 13:09:08] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:09:08] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1607
+[2025-09-10 13:09:08] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:09:08] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1607s
+[2025-09-10 13:09:08] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1596s para 1607s (limitado a 1800s)
+[2025-09-10 13:09:08] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1607s
+[2025-09-10 13:09:19] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 13:09:19] [SAVE_PROGRESS] Dados recebidos - Lecture: 664f764d-209c-4079-8ed2-d48a0475b5e9, User: debug-user, Seconds: 1618
+[2025-09-10 13:09:19] [SAVE_PROGRESS] Palestra encontrada: Meditação  (duração: 1800s)
+[2025-09-10 13:09:19] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 1618s
+[2025-09-10 13:09:19] [SAVE_PROGRESS] ATUALIZADO: Progresso de 1607s para 1618s (limitado a 1800s)
+[2025-09-10 13:09:19] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 1618s
+[2025-09-10 13:11:16] ID: 433e36b3-2aa3-44b4-9a6a-458404fb415d | IP: 2804:7f0:9b80:309a:7973:a53d:e306:1c2c | Status: SUCCESS | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_0_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr\
+[2025-09-10 14:15:51] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 14:15:51] [SAVE_PROGRESS] Dados recebidos - Lecture: 0ece69f5-8288-40fa-bd1e-890b770fc66a, User: debug-user, Seconds: 83
+[2025-09-10 14:15:51] [SAVE_PROGRESS] Palestra encontrada: Dicas: Pausa  (duração: 60s)
+[2025-09-10 14:15:51] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 60s
+[2025-09-10 14:15:51] [SAVE_PROGRESS] ATUALIZADO: Progresso de 77s para 60s (limitado a 60s)
+[2025-09-10 14:15:51] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 60s
+[2025-09-10 14:16:01] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 14:16:01] [SAVE_PROGRESS] Dados recebidos - Lecture: 0ece69f5-8288-40fa-bd1e-890b770fc66a, User: debug-user, Seconds: 94
+[2025-09-10 14:16:01] [SAVE_PROGRESS] Palestra encontrada: Dicas: Pausa  (duração: 60s)
+[2025-09-10 14:16:01] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 60s
+[2025-09-10 14:16:01] [SAVE_PROGRESS] ATUALIZADO: Progresso de 60s para 60s (limitado a 60s)
+[2025-09-10 14:16:01] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 60s
+[2025-09-10 14:18:33] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 14:18:33] [SAVE_PROGRESS] Dados recebidos - Lecture: 8d712fa2-ec7c-444f-bc53-17d012c7b132, User: debug-user, Seconds: 6
+[2025-09-10 14:18:33] [SAVE_PROGRESS] Palestra encontrada: Dicas: Alongamento  (duração: 60s)
+[2025-09-10 14:18:33] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 6s
+[2025-09-10 14:18:33] [SAVE_PROGRESS] ATUALIZADO: Progresso de 0s para 6s (limitado a 60s)
+[2025-09-10 14:18:33] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 6s
+[2025-09-10 14:18:44] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 14:18:44] [SAVE_PROGRESS] Dados recebidos - Lecture: 8d712fa2-ec7c-444f-bc53-17d012c7b132, User: debug-user, Seconds: 18
+[2025-09-10 14:18:44] [SAVE_PROGRESS] Palestra encontrada: Dicas: Alongamento  (duração: 60s)
+[2025-09-10 14:18:44] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 18s
+[2025-09-10 14:18:44] [SAVE_PROGRESS] ATUALIZADO: Progresso de 6s para 18s (limitado a 60s)
+[2025-09-10 14:18:44] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 18s
+[2025-09-10 14:18:55] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 14:18:55] [SAVE_PROGRESS] Dados recebidos - Lecture: 8d712fa2-ec7c-444f-bc53-17d012c7b132, User: debug-user, Seconds: 29
+[2025-09-10 14:18:55] [SAVE_PROGRESS] Palestra encontrada: Dicas: Alongamento  (duração: 60s)
+[2025-09-10 14:18:55] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 29s
+[2025-09-10 14:18:55] [SAVE_PROGRESS] ATUALIZADO: Progresso de 18s para 29s (limitado a 60s)
+[2025-09-10 14:18:55] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 29s
+[2025-09-10 14:19:06] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 14:19:06] [SAVE_PROGRESS] Dados recebidos - Lecture: 8d712fa2-ec7c-444f-bc53-17d012c7b132, User: debug-user, Seconds: 40
+[2025-09-10 14:19:06] [SAVE_PROGRESS] Palestra encontrada: Dicas: Alongamento  (duração: 60s)
+[2025-09-10 14:19:06] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 40s
+[2025-09-10 14:19:06] [SAVE_PROGRESS] ATUALIZADO: Progresso de 29s para 40s (limitado a 60s)
+[2025-09-10 14:19:06] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 40s
+[2025-09-10 14:19:17] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 14:19:17] [SAVE_PROGRESS] Dados recebidos - Lecture: 8d712fa2-ec7c-444f-bc53-17d012c7b132, User: debug-user, Seconds: 51
+[2025-09-10 14:19:17] [SAVE_PROGRESS] Palestra encontrada: Dicas: Alongamento  (duração: 60s)
+[2025-09-10 14:19:17] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 51s
+[2025-09-10 14:19:17] [SAVE_PROGRESS] ATUALIZADO: Progresso de 40s para 51s (limitado a 60s)
+[2025-09-10 14:19:17] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 51s
+[2025-09-10 14:19:32] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 14:19:32] [SAVE_PROGRESS] Dados recebidos - Lecture: 8d712fa2-ec7c-444f-bc53-17d012c7b132, User: debug-user, Seconds: 61
+[2025-09-10 14:19:32] [SAVE_PROGRESS] Palestra encontrada: Dicas: Alongamento  (duração: 60s)
+[2025-09-10 14:19:32] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 60s
+[2025-09-10 14:19:32] [SAVE_PROGRESS] ATUALIZADO: Progresso de 51s para 60s (limitado a 60s)
+[2025-09-10 14:19:32] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 60s
+[2025-09-10 14:19:39] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 14:19:39] [SAVE_PROGRESS] Dados recebidos - Lecture: 8d712fa2-ec7c-444f-bc53-17d012c7b132, User: debug-user, Seconds: 72
+[2025-09-10 14:19:39] [SAVE_PROGRESS] Palestra encontrada: Dicas: Alongamento  (duração: 60s)
+[2025-09-10 14:19:39] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 60s
+[2025-09-10 14:19:39] [SAVE_PROGRESS] ATUALIZADO: Progresso de 60s para 60s (limitado a 60s)
+[2025-09-10 14:19:39] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 60s
+[2025-09-10 14:19:57] ID: 14783f84-3814-4396-b89b-94c2497af1bb | IP: 2804:7f0:9b80:309a:3039:23af:1797:9faf | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.\
+[2025-09-10 14:24:01] [SAVE_PROGRESS] API de salvamento de progresso iniciada
+[2025-09-10 14:24:01] [SAVE_PROGRESS] Dados recebidos - Lecture: 4e3c5e84-d713-47a5-93f2-8e4a233ebf45, User: debug-user, Seconds: 6
+[2025-09-10 14:24:01] [SAVE_PROGRESS] Palestra encontrada: Mesa-redonda ITD 2023 — Tradução Literária (duração: 7620s)
+[2025-09-10 14:24:01] [SAVE_PROGRESS] Tempo limitado à duração do vídeo: 6s
+[2025-09-10 14:24:01] [SAVE_PROGRESS] ATUALIZADO: Progresso de 0s para 6s (limitado a 7620s)
+[2025-09-10 14:24:01] [SAVE_PROGRESS] SUCESSO: Progresso salvo - 6s
+[2025-09-11 17:09:00] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:09:00] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:10:10] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:10:10] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:11:07] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:11:07] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:12:54] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:12:54] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:14:13] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:14:13] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:14:39] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:14:39] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:18:01] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:18:01] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:18:03] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:18:03] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:18:18] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:18:18] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:19:07] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:19:07] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:20:31] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:20:31] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:30:18] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 17:30:18] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 18:10:29] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 18:10:29] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 18:11:58] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 18:11:58] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:6dab:9c61:8c85:68e3 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-11 22:23:55] ID: eb7319fc-190d-4d8a-971d-b4167f9bb472 | IP: 2804:7f0:9b80:309a:4ddc:216f:78d7:65b2 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_0_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr
+[2025-09-11 22:23:55] ID: eb7319fc-190d-4d8a-971d-b4167f9bb472 | IP: 2804:7f0:9b80:309a:4ddc:216f:78d7:65b2 | Status: ERROR_NOT_FOUND | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_0_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr
+[2025-09-12 13:35:59] ID: 49178dc3-7653-4829-a516-c575c5130408 | IP: 2804:7f0:9b80:309a:4421:f91a:150c:4119 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-12 13:35:59] ID: 49178dc3-7653-4829-a516-c575c5130408 | IP: 2804:7f0:9b80:309a:4421:f91a:150c:4119 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.
+[2025-09-15 20:24:22] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:9847:46e3:fd83:5fba | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.
+[2025-09-15 20:24:22] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:309a:9847:46e3:fd83:5fba | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.
+[2025-09-17 23:36:34] ID: d9fc3184-8c94-4c04-8775-0f35883526c3 | IP: 170.254.114.68 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Sa
+[2025-09-17 23:36:34] ID: d9fc3184-8c94-4c04-8775-0f35883526c3 | IP: 170.254.114.68 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Sa
+[2025-09-20 21:13:45] ID: 49178dc3-7653-4829-a516-c575c5130408 | IP: 2804:7f0:9b80:2cca:49b0:270a:975:28b8 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.
+[2025-09-20 21:13:45] ID: 49178dc3-7653-4829-a516-c575c5130408 | IP: 2804:7f0:9b80:2cca:49b0:270a:975:28b8 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.
+[2025-09-30 17:07:23] ID: 30ba0694-2a51-4e1b-aa52-420663fd0fd5 | IP: 181.189.96.83 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Sa
+[2025-09-30 17:07:23] ID: 30ba0694-2a51-4e1b-aa52-420663fd0fd5 | IP: 181.189.96.83 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Sa
+[2025-10-17 02:01:03] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:1401:d5fd:7d4b:55c0:e45a | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-10-17 02:01:03] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:1401:d5fd:7d4b:55c0:e45a | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-10-21 23:36:59] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:1401:712e:d80f:d6df:8a4 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-10-21 23:36:59] ID: 0bee714c-73c9-4652-8f71-848da012f221 | IP: 2804:7f0:9b80:1401:712e:d80f:d6df:8a4 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-10-30 17:38:18] ID: EMPTY | IP: 186.235.31.196 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Sa
+[2025-10-30 17:38:18] ID: EMPTY | IP: 186.235.31.196 | Status: ERROR_NO_ID | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Sa
+[2025-11-01 20:55:52] ID: 9803fe10-6465-410b-a207-33641131a8af | IP: 2a01:111:f400:7eb2::100 | Status: ACCESS_ATTEMPT | User-Agent: unknown
+[2025-11-01 20:55:52] ID: 9803fe10-6465-410b-a207-33641131a8af | IP: 2a01:111:f400:7eb2::100 | Status: SUCCESS | User-Agent: unknown
+[2025-11-03 20:00:56] ID: cert_09626d4601c8bdb9 | IP: 2804:7f0:9b80:c7a:b110:1c75:99a7:e846 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-11-03 20:00:56] ID: cert_09626d4601c8bdb9 | IP: 2804:7f0:9b80:c7a:b110:1c75:99a7:e846 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-11-03 17:04:33] ID: cert_09626d4601c8bdb9 | IP: 2804:7f0:9b80:c7a:b110:1c75:99a7:e846 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-11-03 17:04:33] ID: cert_09626d4601c8bdb9 | IP: 2804:7f0:9b80:c7a:b110:1c75:99a7:e846 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-11-03 19:19:28] ID: cert_09213edf4d138a2e | IP: 189.62.44.154 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Sa
+[2025-11-03 19:19:28] ID: cert_09213edf4d138a2e | IP: 189.62.44.154 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Sa
+[2025-11-03 20:33:46] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 179.98.61.152 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-11-03 20:33:46] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 179.98.61.152 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-11-04 10:24:16] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:c7a:a0be:9bb5:c2a6:c59d | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-11-04 10:24:16] ID: 7da3b5af-add7-4fb4-9a46-2d26658c2a4f | IP: 2804:7f0:9b80:c7a:a0be:9bb5:c2a6:c59d | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.
+[2025-12-02 11:46:31] ID: 6aefb649-6294-4459-90f1-0fc8960077c1 | IP: 2804:7f0:9b80:1664:5dc1:6cef:7204:b0e4 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr
+[2025-12-02 11:46:31] ID: 6aefb649-6294-4459-90f1-0fc8960077c1 | IP: 2804:7f0:9b80:1664:5dc1:6cef:7204:b0e4 | Status: SUCCESS | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr
+[2025-12-02 11:47:07] ID: 6aefb649-6294-4459-90f1-0fc8960077c1 | IP: 2804:7f0:9b80:1664:5dc1:6cef:7204:b0e4 | Status: ACCESS_ATTEMPT | User-Agent: WhatsApp/2.23.20.0
+[2025-12-02 11:47:07] ID: 6aefb649-6294-4459-90f1-0fc8960077c1 | IP: 2804:7f0:9b80:1664:5dc1:6cef:7204:b0e4 | Status: SUCCESS | User-Agent: WhatsApp/2.23.20.0
+[2025-12-05 00:35:07] ID: 8c56520a-49b3-4024-8368-36e921ac5ce4 | IP: 2804:14d:5c5c:5a22:a9ea:32ce:ddd0:eaad | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Sa
+[2025-12-05 00:35:07] ID: 8c56520a-49b3-4024-8368-36e921ac5ce4 | IP: 2804:14d:5c5c:5a22:a9ea:32ce:ddd0:eaad | Status: SUCCESS | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Sa
+[2025-12-20 13:01:52] ID: 9e65d853-77f2-4460-9d08-0250e135ff2d | IP: 2804:7f0:9b80:3081:a860:253c:73e8:ea7d | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.
+[2025-12-20 13:01:52] ID: 9e65d853-77f2-4460-9d08-0250e135ff2d | IP: 2804:7f0:9b80:3081:a860:253c:73e8:ea7d | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.
+[2026-02-16 15:44:25] ID: 99171d70-cfe6-436e-977e-1ec8bb09df63 | IP: 170.247.44.228 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Sa
+[2026-02-16 15:44:25] ID: 99171d70-cfe6-436e-977e-1ec8bb09df63 | IP: 170.247.44.228 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Sa
+[2026-03-20 11:30:00] ID: c5846225-1b42-433b-9b61-ac6ef2e684f8 | IP: 38.165.235.29 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.
+[2026-03-20 11:30:00] ID: c5846225-1b42-433b-9b61-ac6ef2e684f8 | IP: 38.165.235.29 | Status: ERROR_NOT_FOUND | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.
+[2026-03-20 11:34:18] ID: 280a7b72-c9cf-4d41-a232-1d765e9891c4 | IP: 38.165.235.29 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.
+[2026-03-20 11:34:18] ID: 280a7b72-c9cf-4d41-a232-1d765e9891c4 | IP: 38.165.235.29 | Status: ERROR_NOT_FOUND | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.
+[2026-03-20 12:01:15] ID: 642067ca-baac-4095-87ba-dbec43f81083 | IP: 2804:7f0:9b80:1374:b082:c785:fd96:b3ea | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_4_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr
+[2026-03-20 12:01:15] ID: 642067ca-baac-4095-87ba-dbec43f81083 | IP: 2804:7f0:9b80:1374:b082:c785:fd96:b3ea | Status: SUCCESS | User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 26_4_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr
+[2026-03-20 12:03:00] ID: 642067ca-baac-4095-87ba-dbec43f81083 | IP: 38.165.235.29 | Status: ACCESS_ATTEMPT | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.
+[2026-03-20 12:03:00] ID: 642067ca-baac-4095-87ba-dbec43f81083 | IP: 38.165.235.29 | Status: SUCCESS | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.
+[2026-03-20 12:15:47] ID: 642067ca-baac-4095-87ba-dbec43f81083 | IP: 38.165.235.29 | Status: SUCCESS

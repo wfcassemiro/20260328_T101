@@ -1,0 +1,36 @@
+# Permitir acesso a PDFs e PNGs no diretório certificates
+<Files "*.pdf">
+    Order allow,deny
+    Allow from all
+</Files>
+
+<Files "*.png">
+    Order allow,deny
+    Allow from all
+</Files>
+
+# Definir tipos MIME para PDFs e PNGs
+<IfModule mod_mime.c>
+    AddType application/pdf .pdf
+    AddType image/png .png
+</IfModule>
+
+# Headers para downloads
+<IfModule mod_headers.c>
+    # Para downloads via download_certificate.php
+    <FilesMatch "\.(pdf)$">
+        Header set Content-Disposition "attachment"
+    </FilesMatch>
+    <FilesMatch "\.(png)$">
+        Header set Content-Disposition "attachment"
+    </FilesMatch>
+</IfModule>
+
+# Permitir acesso direto aos arquivos
+Options +FollowSymLinks
+RewriteEngine Off
+
+# log PHP errors to a file
+php_flag log_errors on
+php_value error_reporting 32767
+php_value error_log "error_log.txt"

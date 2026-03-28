@@ -1,0 +1,162 @@
+<aside class="glass-sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <ul>
+    <?php
+      $role = $_SESSION['user_role'] ?? null;
+      $current_page = basename($_SERVER['PHP_SELF'], '.php');
+      $current_uri = $_SERVER['REQUEST_URI'];
+
+      function isActive($page, $current_page, $current_uri = '') {
+          if ($page === $current_page) return 'active';
+          if ($page === 'home' && ($current_page === 'index' || $current_uri === '/')) return 'active';
+          if ($page === 'admin' && strpos($current_uri, '/admin/') !== false) return 'active';
+          if ($page === 'dash' && strpos($current_uri, '/dash-t101/') !== false) return 'active';
+          if ($page === 'live' && strpos($current_uri, '/live-stream/') !== false) return 'active';
+          return '';
+      }
+    ?>
+
+    <?php if (!function_exists('isLoggedIn') || !isLoggedIn()): ?>
+      <li><a href="/" class="<?php echo isActive('home', $current_page, $current_uri); ?>">
+          <i class="fa-solid fa-house"></i><span>Início</span>
+      </a></li>
+      <li><a href="/#:~:text=de%20R%24%202%2C00-,por,-dia!" class="<?php echo isActive('planos', $current_page); ?>">
+          <i class="fa-solid fa-briefcase"></i><span>Planos</span>
+      </a></li>
+      <li><a href="/faq.php" class="<?php echo isActive('faq', $current_page); ?>">
+          <i class="fa-solid fa-circle-question"></i><span>FAQ</span>
+      </a></li>
+      <li><a href="/glossarios.php" class="<?php echo isActive('glossarios', $current_page); ?>">
+          <i class="fa-solid fa-book"></i><span>Glossários</span>
+      </a></li>
+      <li><a href="/login.php" class="<?php echo isActive('login', $current_page); ?>">
+          <i class="fa-solid fa-key"></i><span>Login</span>
+      </a></li>
+      <li><a href="/agenda.php#:~:text=N%C3%A3o%20se%20preocupe-,%3A,-s%C3%B3%20usaremos%20para" class="<?php echo isActive('registro', $current_page); ?>">
+          <i class="fa-solid fa-pen-to-square"></i><span>Cadastro</span>
+      </a></li>
+
+    <?php elseif ($role === 'free'): ?>
+      <li><a href="/" class="<?php echo isActive('home', $current_page, $current_uri); ?>">
+          <i class="fa-solid fa-house"></i><span>Início</span>
+      </a></li>
+      <li><a href="/#:~:text=de%20R%24%202%2C00-,por,-dia!" class="<?php echo isActive('planos', $current_page); ?>">
+          <i class="fa-solid fa-briefcase"></i><span>Planos</span>
+      </a></li>
+      <li><a href="/faq.php" class="<?php echo isActive('faq', $current_page); ?>">
+          <i class="fa-solid fa-circle-question"></i><span>FAQ</span>
+      </a></li>
+      <li><a href="/glossarios.php" class="<?php echo isActive('glossarios', $current_page); ?>">
+          <i class="fa-solid fa-book"></i><span>Glossários</span>
+      </a></li>
+
+    <?php elseif ($role === 'subscriber'): ?>
+      <li><a href="/videoteca.php" class="<?php echo isActive('videoteca', $current_page); ?>">
+          <i class="fa-solid fa-film"></i><span>Videoteca</span>
+      </a></li>
+      <li><a href="/dash-t101/" class="<?php echo isActive('dash', $current_page, $current_uri); ?>">
+          <i class="fa-solid fa-gauge"></i><span>Dash-T101</span>
+      </a></li>
+      <li><a href="/glossarios.php" class="<?php echo isActive('glossarios', $current_page); ?>">
+          <i class="fa-solid fa-book"></i><span>Glossários</span>
+      </a></li>
+      <li><a href="/live-stream/index.php" class="<?php echo isActive('live', $current_page, $current_uri); ?>">
+          <i class="fa-solid fa-broadcast-tower"></i><span>Ao Vivo</span>
+      </a></li>
+
+    <?php elseif ($role === 'admin'): ?>
+      <li><a href="/videoteca.php" class="<?php echo isActive('videoteca', $current_page); ?>">
+          <i class="fa-solid fa-film"></i><span>Videoteca</span>
+      </a></li>
+      <li><a href="/dash-t101/" class="<?php echo isActive('dash', $current_page, $current_uri); ?>">
+          <i class="fa-solid fa-gauge"></i><span>Dash-T101</span>
+      </a></li>
+      <li><a href="/glossarios.php" class="<?php echo isActive('glossarios', $current_page); ?>">
+          <i class="fa-solid fa-book"></i><span>Glossários</span>
+      </a></li>
+      <li><a href="/live-stream/index.php" class="<?php echo isActive('live', $current_page, $current_uri); ?>">
+          <i class="fa-solid fa-broadcast-tower"></i><span>Ao Vivo</span>
+      </a></li>
+      <li><a href="/admin/" class="<?php echo isActive('admin', $current_page, $current_uri); ?>">
+          <i class="fa-solid fa-crown"></i><span>Administração</span>
+      </a></li>
+    <?php endif; ?>
+    </ul>
+  </nav>
+</aside>
+
+<style>
+/* Reset básico para o link do sidebar */
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: inherit;
+    /* Reserva espaço da borda para evitar deslocamento */
+    border-left: 4px solid transparent; 
+    /* Transição suave usando Bézier */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform, background, border-left-color;
+    position: relative;
+    overflow: hidden; /* Garante que nada vaze */
+}
+
+/* Ícones */
+.sidebar-nav a i {
+    width: 24px; /* Largura fixa para o ícone */
+    text-align: center;
+    flex-shrink: 0; /* Impede que o ícone seja esmagado */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Títulos do Menu - A MÁGICA ESTÁ AQUI */
+.sidebar-nav a span {
+    white-space: nowrap; /* CRÍTICO: Impede que o texto quebre linha */
+    overflow: hidden;    /* Esconde o texto se não houver espaço */
+    text-overflow: ellipsis; /* Adiciona ... se o texto for cortado */
+    transition: color 0.3s ease;
+    letter-spacing: 0.3px;
+}
+
+/* Estado Hover (Passar o mouse) - Não ativo */
+.sidebar-nav a:not(.active):hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(5px);
+    color: #fff;
+}
+
+.sidebar-nav a:not(.active):hover i {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* Estado Ativo */
+.sidebar-nav a.active {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.01) 100%) !important;
+    border-left-color: var(--accent-gold) !important;
+    color: var(--accent-gold) !important;
+    font-weight: normal; /* Mantém peso normal para não mudar largura */
+    text-shadow: 0 0 1px rgba(255, 215, 0, 0.5);
+    transform: translateX(5px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+}
+
+.sidebar-nav a.active i {
+    color: var(--accent-gold) !important;
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.6) !important;
+    animation: pulseIcon 2s infinite ease-in-out;
+}
+
+.sidebar-nav a.active span {
+    color: var(--accent-gold) !important;
+}
+
+/* Animação sutil no ícone ativo */
+@keyframes pulseIcon {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+</style>

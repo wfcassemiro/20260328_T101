@@ -1,0 +1,554 @@
+[2025-10-28 22:11:59] [INFO] ========================================
+[2025-10-28 22:11:59] [INFO] Iniciando sincronização baseada em usuários locais
+[2025-10-28 22:11:59] [INFO] Buscando todas as assinaturas da Hotmart para mapear IDs...
+[2025-10-28 22:11:59] [INFO]   → Chamando getClubUsers(t101)...
+[2025-10-28 22:12:00] [INFO]   ← Resposta da API Club Users:
+[2025-10-28 22:12:00] [INFO]     - Success: true
+[2025-10-28 22:12:00] [INFO]     - Usuários encontrados no Club: 0
+[2025-10-28 22:12:00] [INFO]   → Club Users vazio, tentando Subscriptions...
+[2025-10-28 22:12:01] [INFO]   ← Resposta da API Subscriptions:
+[2025-10-28 22:12:01] [INFO]     - Success: true
+[2025-10-28 22:12:01] [INFO]     - Assinaturas encontradas: 41
+[2025-10-28 22:12:01] [INFO]     - Exemplo (primeira): {"subscriber_code":"YA01VEIH","subscription_id":39095993,"status":"ACTIVE","accession_date":1759144577000,"request_date":1759144573000,"trial":false,"plan":{"name":"Anual - Full 12x","id":1159619,"recurrency_period":360},"product":{"name":"Assinatura Premium Plus Translators101","id":4304019,"ucode":"29138ca1-3f2b-4502-b8e7-06cf058ecad7"},"price":{"currency_code":"BRL","value":330},"subscriber":{"name":"Suellen Sato","ucode":"f20287fc-cf71-4fbd-afbf-9d076b41e403","email":"suki.satou@gmail.com"},
+[2025-10-28 22:12:01] [INFO]     + Mapeado: suki.satou@gmail.com → f20287fc-cf71-4fbd-afbf-9d076b41e403
+[2025-10-28 22:12:01] [INFO]     + Mapeado: sja.paula@hotmail.com → 2daaaa97-189c-4133-af4e-761cb71072ea
+[2025-10-28 22:12:01] [INFO]     + Mapeado: wesleypatryck@gmail.com → 7b0417cc-1ef2-4111-8c6f-6163b58eff23
+[2025-10-28 22:12:01] [INFO]     + Mapeado: anaviegas.tradutora@gmail.com → 0f2e8da7-e405-476e-bbe3-db1f91d6597a
+[2025-10-28 22:12:01] [INFO]     + Mapeado: ana.furlanetto@terra.com.br → ad95c052-666d-46ad-bd15-19652c1f94cf
+[2025-10-28 22:12:01] [INFO]     + Mapeado: fs.glaucia@gmail.com → db90bc25-61e0-4ab4-8272-e3d18c220cf2
+[2025-10-28 22:12:01] [INFO]     + Mapeado: maria@transluc.id → 39a40fb5-4ec6-4a51-b574-ce9f14e60b23
+[2025-10-28 22:12:01] [INFO]     + Mapeado: lilian.akemi@gmail.com → bacdb710-5da6-4748-8fc1-0c9853402f88
+[2025-10-28 22:12:01] [INFO]     + Mapeado: mmartinsgarrido98@gmail.com → 192eb2ca-684c-47fb-904d-9da624323b5e
+[2025-10-28 22:12:01] [INFO]     + Mapeado: runasouza@gmail.com → ffc38ac7-569c-47f0-9399-77ab40dcbbd1
+[2025-10-28 22:12:01] [INFO]     + Mapeado: gabrielagcontato@gmail.com → 93a5e12d-fa22-4640-9a31-1751b0bb8806
+[2025-10-28 22:12:01] [INFO]     + Mapeado: hfsantos@uol.com.br → e41bf628-097e-11e4-be45-22000b409f8a
+[2025-10-28 22:12:01] [INFO]     + Mapeado: yumiwil@yahoo.com.br → 02be8f23-9fd4-4f4f-86b8-b39a2c9b7700
+[2025-10-28 22:12:01] [INFO]     + Mapeado: dorafrias.rocha@gmail.com → 675f8fe4-07db-41dc-b320-e02eb506e71f
+[2025-10-28 22:12:01] [INFO]     + Mapeado: paloma.zart@gmail.com → 3d040069-d3a2-4618-9071-a0d6d36c757d
+[2025-10-28 22:12:01] [INFO]     + Mapeado: olamarinacases@gmail.com → 020b14cb-b8c3-4e04-9ae9-616c1be3ed69
+[2025-10-28 22:12:01] [INFO]     + Mapeado: coelho.catarina@hotmail.com → ef05b244-87fe-441d-8d14-852551130c9d
+[2025-10-28 22:12:01] [INFO]     + Mapeado: diego@dpmrtranslations.com → c40a6ab8-b988-401a-8a7c-920e2b9c6d31
+[2025-10-28 22:12:01] [INFO]     + Mapeado: alinerlgomes@gmail.com → 35406865-f108-4ffd-babd-d7bd913ce447
+[2025-10-28 22:12:01] [INFO]     + Mapeado: aquino_marcos@yahoo.com.br → 999c9511-7364-4b0a-a125-dee311164137
+[2025-10-28 22:12:01] [INFO]     + Mapeado: raul.rocha.costa@gmail.com → 2013972a-db4c-41c7-8a9e-a048028f710a
+[2025-10-28 22:12:01] [INFO]     + Mapeado: luciano.translations@gmail.com → 1887348c-3427-4702-af0c-37001b561437
+[2025-10-28 22:12:01] [INFO]     + Mapeado: manuvanatko1976@gmail.com → 6a1f371b-b11c-48b8-b286-6f3613f5f613
+[2025-10-28 22:12:01] [INFO]     + Mapeado: marianapits@gmail.com → 71901ad9-56d1-4ca5-9ce7-65c7ff2b9b56
+[2025-10-28 22:12:01] [INFO]     + Mapeado: marinxbm@gmail.com → 466d6d0e-5c76-47c3-be3c-db6654222f64
+[2025-10-28 22:12:01] [INFO]     + Mapeado: dayanahashim@gmail.com → 616acff2-1d1f-488b-a843-fffa53c87495
+[2025-10-28 22:12:01] [INFO]     + Mapeado: robertodantas.trad@gmail.com → d8ec3b17-9ebe-46e5-8a89-c8ccc5b2ba92
+[2025-10-28 22:12:01] [INFO]     + Mapeado: marcia.desouzalino@gmail.com → c3d9be9a-097e-11e4-be45-22000b409f8a
+[2025-10-28 22:12:01] [INFO]     + Mapeado: babivpinheiro@gmail.com → d270b966-5b14-4a2f-aa6c-5d33d103de3e
+[2025-10-28 22:12:01] [INFO]     + Mapeado: magmontagnana@gmail.com → 16a56bea-1d8c-494c-81ea-bef78fb700cb
+[2025-10-28 22:12:01] [INFO]     + Mapeado: natalia.dalevedove@gmail.com → cad436be-c7bb-40a4-b469-973d3e05e68c
+[2025-10-28 22:12:01] [INFO]     + Mapeado: luisa.mendes.aguiar@gmail.com → d7f2f24d-226c-4600-b816-84da683c1eba
+[2025-10-28 22:12:01] [INFO]     + Mapeado: shaulahubner@gmail.com → 6a0a47cd-9a24-4679-a376-49b0f8014d09
+[2025-10-28 22:12:01] [INFO]     + Mapeado: sandranavarro@alumni.usp.br → 6134d011-2f28-447d-a62f-b93937f6158b
+[2025-10-28 22:12:01] [INFO]     + Mapeado: marissatranslator@gmail.com → d68eb67d-bda4-4acb-b31a-998e1ea2f0f1
+[2025-10-28 22:12:01] [INFO]     + Mapeado: barbara.anne27@hotmail.com → 7cd7a1a6-6b05-4eec-8632-2e263a68415e
+[2025-10-28 22:12:01] [INFO]     + Mapeado: renatayen@gmail.com → 9848fb3f-c5f5-4113-a101-2a4da2901e6c
+[2025-10-28 22:12:01] [INFO]     + Mapeado: beatriz.santos1@gmail.com → 877f732b-6d31-40df-93c2-dc7f006c59b8
+[2025-10-28 22:12:01] [INFO]     + Mapeado: vtradutor@gmail.com → 1252442f-de9b-49d8-bb9f-6f82d94d7028
+[2025-10-28 22:12:01] [INFO]     + Mapeado: ednadiasosorio@gmail.com → cf6bab40-afeb-4ce5-a7bd-2b744e95d383
+[2025-10-28 22:12:01] [INFO]     + Mapeado: renata.panovich@gmail.com → 9f07edd0-bda2-4a80-b546-231ceff2b7ed
+[2025-10-28 22:12:01] [INFO]   ✓ Total mapeado: 41 emails → ucode
+[2025-10-28 22:12:01] [INFO] Mapeamento criado com 41 assinaturas
+[2025-10-28 22:12:01] [INFO] Buscando usuários locais com dados Hotmart...
+[2025-10-28 22:12:01] [INFO] Usuários encontrados: 23
+[2025-10-28 22:12:01] [INFO]   - Com hotmart_subscription_id: 23
+[2025-10-28 22:12:01] [INFO]   - Com hotmart_ucode: 1
+[2025-10-28 22:12:01] [INFO]   - Com ambos: 1
+[2025-10-28 22:12:01] [INFO] Total de usuários locais com dados Hotmart: 23
+[2025-10-28 22:12:01] [INFO] Processando lote 1/1 (23 usuários)
+[2025-10-28 22:12:01] [INFO] Processando usuário: Ana Paula Viegas (anaviegas.tradutora@gmail.com)
+[2025-10-28 22:12:01] [INFO]   - hotmart_ucode: 0f2e8da7-e405-476e-bbe3-db1f91d6597a
+[2025-10-28 22:12:01] [INFO]   - email: anaviegas.tradutora@gmail.com
+[2025-10-28 22:12:01] [INFO]   ✓ Usando ucode existente: 0f2e8da7-e405-476e-bbe3-db1f91d6597a
+[2025-10-28 22:12:01] [INFO]   → Chamando getUserProgress(0f2e8da7-e405-476e-bbe3-db1f91d6597a)...
+[2025-10-28 22:12:02] [INFO]   ← Resposta da API:
+[2025-10-28 22:12:02] [INFO]     - Success: false
+[2025-10-28 22:12:02] [INFO]     - HTTP Code: N/A
+[2025-10-28 22:12:02] [INFO]     - Message: Nenhum dado de progresso encontrado
+[2025-10-28 22:12:02] [INFO]     - Sem 'data' na resposta
+[2025-10-28 22:12:02] [WARNING]   ✗ API retornou falha
+[2025-10-28 22:12:02] [INFO] Processando usuário: Herbert Bruggner Neto (bruggner@gmail.com)
+[2025-10-28 22:12:02] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:02] [INFO]   - email: bruggner@gmail.com
+[2025-10-28 22:12:02] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:02] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:02] [INFO] Processando usuário: ALINE FRETTA DE SÁ (alinefretta@hotmail.com)
+[2025-10-28 22:12:02] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:02] [INFO]   - email: alinefretta@hotmail.com
+[2025-10-28 22:12:02] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:02] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:02] [INFO] Processando usuário: Creuza Angelita da Costa (angiecostabr@gmail.com)
+[2025-10-28 22:12:02] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:02] [INFO]   - email: angiecostabr@gmail.com
+[2025-10-28 22:12:02] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:02] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:02] [INFO] Processando usuário: Eulalia Navarro (eulalia-navarro@hotmail.com)
+[2025-10-28 22:12:02] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:02] [INFO]   - email: eulalia-navarro@hotmail.com
+[2025-10-28 22:12:02] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:02] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:02] [INFO] Processando usuário: Carlos Alberto Soares (causoares@gmail.com)
+[2025-10-28 22:12:02] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:02] [INFO]   - email: causoares@gmail.com
+[2025-10-28 22:12:02] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:02] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:02] [INFO] Processando usuário: Regina Maria de Souza Correia Pinto (pintoreginamc@gmail.com)
+[2025-10-28 22:12:02] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:02] [INFO]   - email: pintoreginamc@gmail.com
+[2025-10-28 22:12:02] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:02] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:02] [INFO] Processando usuário: Filipe Rodrigues Nascimento Borges (filipenasci_@hotmail.com)
+[2025-10-28 22:12:02] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:02] [INFO]   - email: filipenasci_@hotmail.com
+[2025-10-28 22:12:02] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:02] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:03] [INFO] Processando usuário: Catharine Trepichio Araujo (catharine.tr@gmail.com)
+[2025-10-28 22:12:03] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:03] [INFO]   - email: catharine.tr@gmail.com
+[2025-10-28 22:12:03] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:03] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:03] [INFO] Processando usuário: Isabela Bizzotto Soares Barreto (bellbizzotto@gmail.com)
+[2025-10-28 22:12:03] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:03] [INFO]   - email: bellbizzotto@gmail.com
+[2025-10-28 22:12:03] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:03] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:03] [INFO] Processando usuário: Pedro Augusto Pavão Lima Zacaroni (tr.pedro.zacaroni@gmail.com)
+[2025-10-28 22:12:03] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:03] [INFO]   - email: tr.pedro.zacaroni@gmail.com
+[2025-10-28 22:12:03] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:03] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:03] [INFO] Processando usuário: Márcia Yasmin Mota Silva (marciayasminmota@gmail.com)
+[2025-10-28 22:12:03] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:03] [INFO]   - email: marciayasminmota@gmail.com
+[2025-10-28 22:12:03] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:03] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:03] [INFO] Processando usuário: Luciana Capisani (capisani.translator@gmail.com)
+[2025-10-28 22:12:03] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:03] [INFO]   - email: capisani.translator@gmail.com
+[2025-10-28 22:12:03] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:03] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:03] [INFO] Processando usuário: Felipe Luciani de Araujo (felipelatraducoes@gmail.com)
+[2025-10-28 22:12:03] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:03] [INFO]   - email: felipelatraducoes@gmail.com
+[2025-10-28 22:12:03] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:03] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:03] [INFO] Processando usuário: Brenda Triandafeledis (btrianda@hotmail.com)
+[2025-10-28 22:12:03] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:03] [INFO]   - email: btrianda@hotmail.com
+[2025-10-28 22:12:03] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:03] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:03] [INFO] Processando usuário: Kátia dos Santos Lopes (kats.lopes@gmail.com)
+[2025-10-28 22:12:03] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:03] [INFO]   - email: kats.lopes@gmail.com
+[2025-10-28 22:12:03] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:03] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:03] [INFO] Processando usuário: Lana Lim (lana.apto@gmail.com)
+[2025-10-28 22:12:03] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:03] [INFO]   - email: lana.apto@gmail.com
+[2025-10-28 22:12:03] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:03] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:03] [INFO] Processando usuário: Ana Lúcia Miranda (analuciamiranda148@gmail.com)
+[2025-10-28 22:12:03] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:03] [INFO]   - email: analuciamiranda148@gmail.com
+[2025-10-28 22:12:03] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:03] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:04] [INFO] Processando usuário: Marcus Vinicius de Almeida Lins Santos (marcusvinicius@duck.com)
+[2025-10-28 22:12:04] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:04] [INFO]   - email: marcusvinicius@duck.com
+[2025-10-28 22:12:04] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:04] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:04] [INFO] Processando usuário: Maria do Socorro Duarte Ferreira (socorroduarte21@gmail.com)
+[2025-10-28 22:12:04] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:04] [INFO]   - email: socorroduarte21@gmail.com
+[2025-10-28 22:12:04] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:04] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:04] [INFO] Processando usuário: Patrizia Cavallo (patriziacavallo.ita@gmail.com)
+[2025-10-28 22:12:04] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:04] [INFO]   - email: patriziacavallo.ita@gmail.com
+[2025-10-28 22:12:04] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:04] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:04] [INFO] Processando usuário: LocHouse (lilian.alves@loc-house.com)
+[2025-10-28 22:12:04] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:04] [INFO]   - email: lilian.alves@loc-house.com
+[2025-10-28 22:12:04] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:04] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:04] [INFO] Processando usuário: Joyce (joyce.alessandradelima@gmail.com)
+[2025-10-28 22:12:04] [INFO]   - hotmart_ucode: NULL
+[2025-10-28 22:12:04] [INFO]   - email: joyce.alessandradelima@gmail.com
+[2025-10-28 22:12:04] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-28 22:12:04] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-28 22:12:04] [INFO] Lote 1 concluído: 1 processados, 0 com progresso
+[2025-10-28 22:12:04] [INFO] Sincronização concluída em 4.91s
+[2025-10-28 22:12:04] [INFO] Usuários processados: 1
+[2025-10-28 22:12:04] [INFO] Usuários com progresso: 0
+[2025-10-28 22:12:04] [INFO] Registros de progresso: 0
+[2025-10-28 22:12:04] [INFO] Erros: 22
+[2025-10-29 17:08:19] [INFO] ========================================
+[2025-10-29 17:08:19] [INFO] Iniciando sincronização baseada em usuários locais
+[2025-10-29 17:08:19] [INFO] Buscando todas as assinaturas da Hotmart para mapear IDs...
+[2025-10-29 17:08:19] [INFO]   → Chamando getClubUsers(t101)...
+[2025-10-29 17:08:19] [INFO]   ← Resposta da API Club Users:
+[2025-10-29 17:08:19] [INFO]     - Success: true
+[2025-10-29 17:08:19] [INFO]     - Usuários encontrados no Club: 0
+[2025-10-29 17:08:19] [INFO]   → Club Users vazio, tentando Subscriptions...
+[2025-10-29 17:08:21] [INFO]   ← Resposta da API Subscriptions:
+[2025-10-29 17:08:21] [INFO]     - Success: true
+[2025-10-29 17:08:21] [INFO]     - Assinaturas encontradas: 41
+[2025-10-29 17:08:21] [INFO]     - Exemplo (primeira): {"subscriber_code":"YA01VEIH","subscription_id":39095993,"status":"ACTIVE","accession_date":1759144577000,"request_date":1759144573000,"trial":false,"plan":{"name":"Anual - Full 12x","id":1159619,"recurrency_period":360},"product":{"name":"Assinatura Premium Plus Translators101","id":4304019,"ucode":"29138ca1-3f2b-4502-b8e7-06cf058ecad7"},"price":{"currency_code":"BRL","value":330},"subscriber":{"name":"Suellen Sato","ucode":"f20287fc-cf71-4fbd-afbf-9d076b41e403","email":"suki.satou@gmail.com"},
+[2025-10-29 17:08:21] [INFO]     + Mapeado: suki.satou@gmail.com → f20287fc-cf71-4fbd-afbf-9d076b41e403
+[2025-10-29 17:08:21] [INFO]     + Mapeado: sja.paula@hotmail.com → 2daaaa97-189c-4133-af4e-761cb71072ea
+[2025-10-29 17:08:21] [INFO]     + Mapeado: wesleypatryck@gmail.com → 7b0417cc-1ef2-4111-8c6f-6163b58eff23
+[2025-10-29 17:08:21] [INFO]     + Mapeado: anaviegas.tradutora@gmail.com → 0f2e8da7-e405-476e-bbe3-db1f91d6597a
+[2025-10-29 17:08:21] [INFO]     + Mapeado: ana.furlanetto@terra.com.br → ad95c052-666d-46ad-bd15-19652c1f94cf
+[2025-10-29 17:08:21] [INFO]     + Mapeado: fs.glaucia@gmail.com → db90bc25-61e0-4ab4-8272-e3d18c220cf2
+[2025-10-29 17:08:21] [INFO]     + Mapeado: maria@transluc.id → 39a40fb5-4ec6-4a51-b574-ce9f14e60b23
+[2025-10-29 17:08:21] [INFO]     + Mapeado: lilian.akemi@gmail.com → bacdb710-5da6-4748-8fc1-0c9853402f88
+[2025-10-29 17:08:21] [INFO]     + Mapeado: mmartinsgarrido98@gmail.com → 192eb2ca-684c-47fb-904d-9da624323b5e
+[2025-10-29 17:08:21] [INFO]     + Mapeado: runasouza@gmail.com → ffc38ac7-569c-47f0-9399-77ab40dcbbd1
+[2025-10-29 17:08:21] [INFO]     + Mapeado: gabrielagcontato@gmail.com → 93a5e12d-fa22-4640-9a31-1751b0bb8806
+[2025-10-29 17:08:21] [INFO]     + Mapeado: hfsantos@uol.com.br → e41bf628-097e-11e4-be45-22000b409f8a
+[2025-10-29 17:08:21] [INFO]     + Mapeado: yumiwil@yahoo.com.br → 02be8f23-9fd4-4f4f-86b8-b39a2c9b7700
+[2025-10-29 17:08:21] [INFO]     + Mapeado: dorafrias.rocha@gmail.com → 675f8fe4-07db-41dc-b320-e02eb506e71f
+[2025-10-29 17:08:21] [INFO]     + Mapeado: paloma.zart@gmail.com → 3d040069-d3a2-4618-9071-a0d6d36c757d
+[2025-10-29 17:08:21] [INFO]     + Mapeado: olamarinacases@gmail.com → 020b14cb-b8c3-4e04-9ae9-616c1be3ed69
+[2025-10-29 17:08:21] [INFO]     + Mapeado: coelho.catarina@hotmail.com → ef05b244-87fe-441d-8d14-852551130c9d
+[2025-10-29 17:08:21] [INFO]     + Mapeado: diego@dpmrtranslations.com → c40a6ab8-b988-401a-8a7c-920e2b9c6d31
+[2025-10-29 17:08:21] [INFO]     + Mapeado: alinerlgomes@gmail.com → 35406865-f108-4ffd-babd-d7bd913ce447
+[2025-10-29 17:08:21] [INFO]     + Mapeado: aquino_marcos@yahoo.com.br → 999c9511-7364-4b0a-a125-dee311164137
+[2025-10-29 17:08:21] [INFO]     + Mapeado: raul.rocha.costa@gmail.com → 2013972a-db4c-41c7-8a9e-a048028f710a
+[2025-10-29 17:08:21] [INFO]     + Mapeado: luciano.translations@gmail.com → 1887348c-3427-4702-af0c-37001b561437
+[2025-10-29 17:08:21] [INFO]     + Mapeado: manuvanatko1976@gmail.com → 6a1f371b-b11c-48b8-b286-6f3613f5f613
+[2025-10-29 17:08:21] [INFO]     + Mapeado: marianapits@gmail.com → 71901ad9-56d1-4ca5-9ce7-65c7ff2b9b56
+[2025-10-29 17:08:21] [INFO]     + Mapeado: marinxbm@gmail.com → 466d6d0e-5c76-47c3-be3c-db6654222f64
+[2025-10-29 17:08:21] [INFO]     + Mapeado: dayanahashim@gmail.com → 616acff2-1d1f-488b-a843-fffa53c87495
+[2025-10-29 17:08:21] [INFO]     + Mapeado: robertodantas.trad@gmail.com → d8ec3b17-9ebe-46e5-8a89-c8ccc5b2ba92
+[2025-10-29 17:08:21] [INFO]     + Mapeado: marcia.desouzalino@gmail.com → c3d9be9a-097e-11e4-be45-22000b409f8a
+[2025-10-29 17:08:21] [INFO]     + Mapeado: babivpinheiro@gmail.com → d270b966-5b14-4a2f-aa6c-5d33d103de3e
+[2025-10-29 17:08:21] [INFO]     + Mapeado: magmontagnana@gmail.com → 16a56bea-1d8c-494c-81ea-bef78fb700cb
+[2025-10-29 17:08:21] [INFO]     + Mapeado: natalia.dalevedove@gmail.com → cad436be-c7bb-40a4-b469-973d3e05e68c
+[2025-10-29 17:08:21] [INFO]     + Mapeado: luisa.mendes.aguiar@gmail.com → d7f2f24d-226c-4600-b816-84da683c1eba
+[2025-10-29 17:08:21] [INFO]     + Mapeado: shaulahubner@gmail.com → 6a0a47cd-9a24-4679-a376-49b0f8014d09
+[2025-10-29 17:08:21] [INFO]     + Mapeado: sandranavarro@alumni.usp.br → 6134d011-2f28-447d-a62f-b93937f6158b
+[2025-10-29 17:08:21] [INFO]     + Mapeado: marissatranslator@gmail.com → d68eb67d-bda4-4acb-b31a-998e1ea2f0f1
+[2025-10-29 17:08:21] [INFO]     + Mapeado: barbara.anne27@hotmail.com → 7cd7a1a6-6b05-4eec-8632-2e263a68415e
+[2025-10-29 17:08:21] [INFO]     + Mapeado: renatayen@gmail.com → 9848fb3f-c5f5-4113-a101-2a4da2901e6c
+[2025-10-29 17:08:21] [INFO]     + Mapeado: beatriz.santos1@gmail.com → 877f732b-6d31-40df-93c2-dc7f006c59b8
+[2025-10-29 17:08:21] [INFO]     + Mapeado: vtradutor@gmail.com → 1252442f-de9b-49d8-bb9f-6f82d94d7028
+[2025-10-29 17:08:21] [INFO]     + Mapeado: ednadiasosorio@gmail.com → cf6bab40-afeb-4ce5-a7bd-2b744e95d383
+[2025-10-29 17:08:21] [INFO]     + Mapeado: renata.panovich@gmail.com → 9f07edd0-bda2-4a80-b546-231ceff2b7ed
+[2025-10-29 17:08:21] [INFO]   ✓ Total mapeado: 41 emails → ucode
+[2025-10-29 17:08:21] [INFO] Mapeamento criado com 41 assinaturas
+[2025-10-29 17:08:21] [INFO] Buscando usuários locais com dados Hotmart...
+[2025-10-29 17:08:21] [INFO] Usuários encontrados: 23
+[2025-10-29 17:08:21] [INFO]   - Com hotmart_subscription_id: 23
+[2025-10-29 17:08:21] [INFO]   - Com hotmart_ucode: 1
+[2025-10-29 17:08:21] [INFO]   - Com ambos: 1
+[2025-10-29 17:08:21] [INFO] Total de usuários locais com dados Hotmart: 23
+[2025-10-29 17:08:21] [INFO] Processando lote 1/1 (23 usuários)
+[2025-10-29 17:08:21] [INFO] Processando usuário: Ana Paula Viegas (anaviegas.tradutora@gmail.com)
+[2025-10-29 17:08:21] [INFO]   - hotmart_ucode: 0f2e8da7-e405-476e-bbe3-db1f91d6597a
+[2025-10-29 17:08:21] [INFO]   - email: anaviegas.tradutora@gmail.com
+[2025-10-29 17:08:21] [INFO]   ✓ Usando ucode existente: 0f2e8da7-e405-476e-bbe3-db1f91d6597a
+[2025-10-29 17:08:21] [INFO]   → Chamando getUserProgress(0f2e8da7-e405-476e-bbe3-db1f91d6597a)...
+[2025-10-29 17:08:22] [INFO]   ← Resposta da API:
+[2025-10-29 17:08:22] [INFO]     - Success: false
+[2025-10-29 17:08:22] [INFO]     - HTTP Code: N/A
+[2025-10-29 17:08:22] [INFO]     - Message: Nenhum dado de progresso encontrado
+[2025-10-29 17:08:22] [INFO]     - Sem 'data' na resposta
+[2025-10-29 17:08:22] [WARNING]   ✗ API retornou falha
+[2025-10-29 17:08:22] [INFO] Processando usuário: Herbert Bruggner Neto (bruggner@gmail.com)
+[2025-10-29 17:08:22] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:22] [INFO]   - email: bruggner@gmail.com
+[2025-10-29 17:08:22] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:22] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:22] [INFO] Processando usuário: ALINE FRETTA DE SÁ (alinefretta@hotmail.com)
+[2025-10-29 17:08:22] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:22] [INFO]   - email: alinefretta@hotmail.com
+[2025-10-29 17:08:22] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:22] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:22] [INFO] Processando usuário: Creuza Angelita da Costa (angiecostabr@gmail.com)
+[2025-10-29 17:08:22] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:22] [INFO]   - email: angiecostabr@gmail.com
+[2025-10-29 17:08:22] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:22] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:22] [INFO] Processando usuário: Eulalia Navarro (eulalia-navarro@hotmail.com)
+[2025-10-29 17:08:22] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:22] [INFO]   - email: eulalia-navarro@hotmail.com
+[2025-10-29 17:08:22] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:22] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:22] [INFO] Processando usuário: Carlos Alberto Soares (causoares@gmail.com)
+[2025-10-29 17:08:22] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:22] [INFO]   - email: causoares@gmail.com
+[2025-10-29 17:08:22] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:22] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:22] [INFO] Processando usuário: Regina Maria de Souza Correia Pinto (pintoreginamc@gmail.com)
+[2025-10-29 17:08:22] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:22] [INFO]   - email: pintoreginamc@gmail.com
+[2025-10-29 17:08:22] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:22] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:22] [INFO] Processando usuário: Filipe Rodrigues Nascimento Borges (filipenasci_@hotmail.com)
+[2025-10-29 17:08:22] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:22] [INFO]   - email: filipenasci_@hotmail.com
+[2025-10-29 17:08:22] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:22] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:23] [INFO] Processando usuário: Catharine Trepichio Araujo (catharine.tr@gmail.com)
+[2025-10-29 17:08:23] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:23] [INFO]   - email: catharine.tr@gmail.com
+[2025-10-29 17:08:23] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:23] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:23] [INFO] Processando usuário: Isabela Bizzotto Soares Barreto (bellbizzotto@gmail.com)
+[2025-10-29 17:08:23] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:23] [INFO]   - email: bellbizzotto@gmail.com
+[2025-10-29 17:08:23] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:23] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:23] [INFO] Processando usuário: Pedro Augusto Pavão Lima Zacaroni (tr.pedro.zacaroni@gmail.com)
+[2025-10-29 17:08:23] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:23] [INFO]   - email: tr.pedro.zacaroni@gmail.com
+[2025-10-29 17:08:23] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:23] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:23] [INFO] Processando usuário: Márcia Yasmin Mota Silva (marciayasminmota@gmail.com)
+[2025-10-29 17:08:23] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:23] [INFO]   - email: marciayasminmota@gmail.com
+[2025-10-29 17:08:23] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:23] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:23] [INFO] Processando usuário: Luciana Capisani (capisani.translator@gmail.com)
+[2025-10-29 17:08:23] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:23] [INFO]   - email: capisani.translator@gmail.com
+[2025-10-29 17:08:23] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:23] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:23] [INFO] Processando usuário: Felipe Luciani de Araujo (felipelatraducoes@gmail.com)
+[2025-10-29 17:08:23] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:23] [INFO]   - email: felipelatraducoes@gmail.com
+[2025-10-29 17:08:23] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:23] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:23] [INFO] Processando usuário: Brenda Triandafeledis (btrianda@hotmail.com)
+[2025-10-29 17:08:23] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:23] [INFO]   - email: btrianda@hotmail.com
+[2025-10-29 17:08:23] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:23] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:23] [INFO] Processando usuário: Kátia dos Santos Lopes (kats.lopes@gmail.com)
+[2025-10-29 17:08:23] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:23] [INFO]   - email: kats.lopes@gmail.com
+[2025-10-29 17:08:23] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:23] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:23] [INFO] Processando usuário: Lana Lim (lana.apto@gmail.com)
+[2025-10-29 17:08:23] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:23] [INFO]   - email: lana.apto@gmail.com
+[2025-10-29 17:08:23] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:23] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:23] [INFO] Processando usuário: Ana Lúcia Miranda (analuciamiranda148@gmail.com)
+[2025-10-29 17:08:23] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:23] [INFO]   - email: analuciamiranda148@gmail.com
+[2025-10-29 17:08:23] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:23] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:24] [INFO] Processando usuário: Marcus Vinicius de Almeida Lins Santos (marcusvinicius@duck.com)
+[2025-10-29 17:08:24] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:24] [INFO]   - email: marcusvinicius@duck.com
+[2025-10-29 17:08:24] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:24] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:24] [INFO] Processando usuário: Maria do Socorro Duarte Ferreira (socorroduarte21@gmail.com)
+[2025-10-29 17:08:24] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:24] [INFO]   - email: socorroduarte21@gmail.com
+[2025-10-29 17:08:24] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:24] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:24] [INFO] Processando usuário: Patrizia Cavallo (patriziacavallo.ita@gmail.com)
+[2025-10-29 17:08:24] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:24] [INFO]   - email: patriziacavallo.ita@gmail.com
+[2025-10-29 17:08:24] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:24] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:24] [INFO] Processando usuário: LocHouse (lilian.alves@loc-house.com)
+[2025-10-29 17:08:24] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:24] [INFO]   - email: lilian.alves@loc-house.com
+[2025-10-29 17:08:24] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:24] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:24] [INFO] Processando usuário: Joyce (joyce.alessandradelima@gmail.com)
+[2025-10-29 17:08:24] [INFO]   - hotmart_ucode: NULL
+[2025-10-29 17:08:24] [INFO]   - email: joyce.alessandradelima@gmail.com
+[2025-10-29 17:08:24] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-29 17:08:24] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-29 17:08:24] [INFO] Lote 1 concluído: 1 processados, 0 com progresso
+[2025-10-29 17:08:24] [INFO] Sincronização concluída em 5.27s
+[2025-10-29 17:08:24] [INFO] Usuários processados: 1
+[2025-10-29 17:08:24] [INFO] Usuários com progresso: 0
+[2025-10-29 17:08:24] [INFO] Registros de progresso: 0
+[2025-10-29 17:08:24] [INFO] Erros: 22
+[2025-10-30 15:33:03] [INFO] ========================================
+[2025-10-30 15:33:03] [INFO] Iniciando sincronização baseada em usuários locais
+[2025-10-30 15:33:03] [INFO] Buscando todas as assinaturas da Hotmart para mapear IDs...
+[2025-10-30 15:33:03] [INFO]   → Chamando getClubUsers(assinaturapremiumplustranslato)...
+[2025-10-30 15:33:04] [INFO]   ← Resposta da API Club Users:
+[2025-10-30 15:33:04] [INFO]     - Success: true
+[2025-10-30 15:33:04] [INFO]     - Usuários encontrados no Club: 0
+[2025-10-30 15:33:04] [INFO]   → Club Users vazio, tentando Subscriptions...
+[2025-10-30 15:33:05] [INFO]   ← Resposta da API Subscriptions:
+[2025-10-30 15:33:05] [INFO]     - Success: true
+[2025-10-30 15:33:05] [INFO]     - Assinaturas encontradas: 28
+[2025-10-30 15:33:05] [INFO]     - Exemplo (primeira): {"subscriber_code":"F1RC15AO","subscription_id":39116026,"status":"ACTIVE","accession_date":1759192748000,"request_date":1759192744000,"trial":false,"plan":{"name":"Anual - Full 12x","id":1159619,"recurrency_period":360},"product":{"name":"Assinatura Premium Plus Translators101","id":4304019,"ucode":"29138ca1-3f2b-4502-b8e7-06cf058ecad7"},"price":{"currency_code":"BRL","value":330},"subscriber":{"name":"Marina Cases Soares","ucode":"020b14cb-b8c3-4e04-9ae9-616c1be3ed69","email":"olamarinacases@g
+[2025-10-30 15:33:05] [INFO]     + Mapeado: olamarinacases@gmail.com → 020b14cb-b8c3-4e04-9ae9-616c1be3ed69
+[2025-10-30 15:33:05] [INFO]     + Mapeado: coelho.catarina@hotmail.com → ef05b244-87fe-441d-8d14-852551130c9d
+[2025-10-30 15:33:05] [INFO]     + Mapeado: diego@dpmrtranslations.com → c40a6ab8-b988-401a-8a7c-920e2b9c6d31
+[2025-10-30 15:33:05] [INFO]     + Mapeado: alinerlgomes@gmail.com → 35406865-f108-4ffd-babd-d7bd913ce447
+[2025-10-30 15:33:05] [INFO]     + Mapeado: aquino_marcos@yahoo.com.br → 999c9511-7364-4b0a-a125-dee311164137
+[2025-10-30 15:33:05] [INFO]     + Mapeado: raul.rocha.costa@gmail.com → 2013972a-db4c-41c7-8a9e-a048028f710a
+[2025-10-30 15:33:05] [INFO]     + Mapeado: luciano.translations@gmail.com → 1887348c-3427-4702-af0c-37001b561437
+[2025-10-30 15:33:05] [INFO]     + Mapeado: manuvanatko1976@gmail.com → 6a1f371b-b11c-48b8-b286-6f3613f5f613
+[2025-10-30 15:33:05] [INFO]     + Mapeado: marianapits@gmail.com → 71901ad9-56d1-4ca5-9ce7-65c7ff2b9b56
+[2025-10-30 15:33:05] [INFO]     + Mapeado: marinxbm@gmail.com → 466d6d0e-5c76-47c3-be3c-db6654222f64
+[2025-10-30 15:33:05] [INFO]     + Mapeado: dayanahashim@gmail.com → 616acff2-1d1f-488b-a843-fffa53c87495
+[2025-10-30 15:33:05] [INFO]     + Mapeado: robertodantas.trad@gmail.com → d8ec3b17-9ebe-46e5-8a89-c8ccc5b2ba92
+[2025-10-30 15:33:05] [INFO]     + Mapeado: marcia.desouzalino@gmail.com → c3d9be9a-097e-11e4-be45-22000b409f8a
+[2025-10-30 15:33:05] [INFO]     + Mapeado: babivpinheiro@gmail.com → d270b966-5b14-4a2f-aa6c-5d33d103de3e
+[2025-10-30 15:33:05] [INFO]     + Mapeado: magmontagnana@gmail.com → 16a56bea-1d8c-494c-81ea-bef78fb700cb
+[2025-10-30 15:33:05] [INFO]     + Mapeado: natalia.dalevedove@gmail.com → cad436be-c7bb-40a4-b469-973d3e05e68c
+[2025-10-30 15:33:05] [INFO]     + Mapeado: luisa.mendes.aguiar@gmail.com → d7f2f24d-226c-4600-b816-84da683c1eba
+[2025-10-30 15:33:05] [INFO]     + Mapeado: shaulahubner@gmail.com → 6a0a47cd-9a24-4679-a376-49b0f8014d09
+[2025-10-30 15:33:05] [INFO]     + Mapeado: sandranavarro@alumni.usp.br → 6134d011-2f28-447d-a62f-b93937f6158b
+[2025-10-30 15:33:05] [INFO]     + Mapeado: marissatranslator@gmail.com → d68eb67d-bda4-4acb-b31a-998e1ea2f0f1
+[2025-10-30 15:33:05] [INFO]     + Mapeado: barbara.anne27@hotmail.com → 7cd7a1a6-6b05-4eec-8632-2e263a68415e
+[2025-10-30 15:33:05] [INFO]     + Mapeado: renatayen@gmail.com → 9848fb3f-c5f5-4113-a101-2a4da2901e6c
+[2025-10-30 15:33:05] [INFO]     + Mapeado: beatriz.santos1@gmail.com → 877f732b-6d31-40df-93c2-dc7f006c59b8
+[2025-10-30 15:33:05] [INFO]     + Mapeado: vtradutor@gmail.com → 1252442f-de9b-49d8-bb9f-6f82d94d7028
+[2025-10-30 15:33:05] [INFO]     + Mapeado: ednadiasosorio@gmail.com → cf6bab40-afeb-4ce5-a7bd-2b744e95d383
+[2025-10-30 15:33:05] [INFO]     + Mapeado: renata.panovich@gmail.com → 9f07edd0-bda2-4a80-b546-231ceff2b7ed
+[2025-10-30 15:33:05] [INFO]     + Mapeado: frank.lopes888@gmail.com → 9f7cc8b2-ef54-4ce1-9c5c-1e48f72b0270
+[2025-10-30 15:33:05] [INFO]     + Mapeado: giovanamattoso@gmail.com → 8bb66f4b-b087-4115-afaa-650532cacf33
+[2025-10-30 15:33:05] [INFO]   ✓ Total mapeado: 28 emails → ucode
+[2025-10-30 15:33:05] [INFO] Mapeamento criado com 28 assinaturas
+[2025-10-30 15:33:05] [INFO] Buscando usuários locais com dados Hotmart...
+[2025-10-30 15:33:05] [INFO] Usuários encontrados: 23
+[2025-10-30 15:33:05] [INFO]   - Com hotmart_subscription_id: 23
+[2025-10-30 15:33:05] [INFO]   - Com hotmart_ucode: 1
+[2025-10-30 15:33:05] [INFO]   - Com ambos: 1
+[2025-10-30 15:33:05] [INFO] Total de usuários locais com dados Hotmart: 23
+[2025-10-30 15:33:05] [INFO] Processando lote 1/1 (23 usuários)
+[2025-10-30 15:33:05] [INFO] Processando usuário: Ana Paula Viegas (anaviegas.tradutora@gmail.com)
+[2025-10-30 15:33:05] [INFO]   - hotmart_ucode: 0f2e8da7-e405-476e-bbe3-db1f91d6597a
+[2025-10-30 15:33:05] [INFO]   - email: anaviegas.tradutora@gmail.com
+[2025-10-30 15:33:05] [INFO]   ✓ Usando ucode existente: 0f2e8da7-e405-476e-bbe3-db1f91d6597a
+[2025-10-30 15:33:05] [INFO]   → Chamando getUserProgress(0f2e8da7-e405-476e-bbe3-db1f91d6597a)...
+[2025-10-30 15:33:06] [INFO]   ← Resposta da API:
+[2025-10-30 15:33:06] [INFO]     - Success: false
+[2025-10-30 15:33:06] [INFO]     - HTTP Code: N/A
+[2025-10-30 15:33:06] [INFO]     - Message: Nenhum dado de progresso encontrado
+[2025-10-30 15:33:06] [INFO]     - Sem 'data' na resposta
+[2025-10-30 15:33:06] [WARNING]   ✗ API retornou falha
+[2025-10-30 15:33:06] [INFO] Processando usuário: Herbert Bruggner Neto (bruggner@gmail.com)
+[2025-10-30 15:33:06] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:06] [INFO]   - email: bruggner@gmail.com
+[2025-10-30 15:33:06] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:06] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:06] [INFO] Processando usuário: ALINE FRETTA DE SÁ (alinefretta@hotmail.com)
+[2025-10-30 15:33:06] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:06] [INFO]   - email: alinefretta@hotmail.com
+[2025-10-30 15:33:06] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:06] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:06] [INFO] Processando usuário: Creuza Angelita da Costa (angiecostabr@gmail.com)
+[2025-10-30 15:33:06] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:06] [INFO]   - email: angiecostabr@gmail.com
+[2025-10-30 15:33:06] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:06] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:06] [INFO] Processando usuário: Eulalia Navarro (eulalia-navarro@hotmail.com)
+[2025-10-30 15:33:06] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:06] [INFO]   - email: eulalia-navarro@hotmail.com
+[2025-10-30 15:33:06] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:06] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:07] [INFO] Processando usuário: Carlos Alberto Soares (causoares@gmail.com)
+[2025-10-30 15:33:07] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:07] [INFO]   - email: causoares@gmail.com
+[2025-10-30 15:33:07] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:07] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:07] [INFO] Processando usuário: Regina Maria de Souza Correia Pinto (pintoreginamc@gmail.com)
+[2025-10-30 15:33:07] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:07] [INFO]   - email: pintoreginamc@gmail.com
+[2025-10-30 15:33:07] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:07] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:07] [INFO] Processando usuário: Filipe Rodrigues Nascimento Borges (filipenasci_@hotmail.com)
+[2025-10-30 15:33:07] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:07] [INFO]   - email: filipenasci_@hotmail.com
+[2025-10-30 15:33:07] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:07] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:07] [INFO] Processando usuário: Catharine Trepichio Araujo (catharine.tr@gmail.com)
+[2025-10-30 15:33:07] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:07] [INFO]   - email: catharine.tr@gmail.com
+[2025-10-30 15:33:07] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:07] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:07] [INFO] Processando usuário: Isabela Bizzotto Soares Barreto (bellbizzotto@gmail.com)
+[2025-10-30 15:33:07] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:07] [INFO]   - email: bellbizzotto@gmail.com
+[2025-10-30 15:33:07] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:07] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:07] [INFO] Processando usuário: Pedro Augusto Pavão Lima Zacaroni (tr.pedro.zacaroni@gmail.com)
+[2025-10-30 15:33:07] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:07] [INFO]   - email: tr.pedro.zacaroni@gmail.com
+[2025-10-30 15:33:07] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:07] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:07] [INFO] Processando usuário: Márcia Yasmin Mota Silva (marciayasminmota@gmail.com)
+[2025-10-30 15:33:07] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:07] [INFO]   - email: marciayasminmota@gmail.com
+[2025-10-30 15:33:07] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:07] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:07] [INFO] Processando usuário: Luciana Capisani (capisani.translator@gmail.com)
+[2025-10-30 15:33:07] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:07] [INFO]   - email: capisani.translator@gmail.com
+[2025-10-30 15:33:07] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:07] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:07] [INFO] Processando usuário: Felipe Luciani de Araujo (felipelatraducoes@gmail.com)
+[2025-10-30 15:33:07] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:07] [INFO]   - email: felipelatraducoes@gmail.com
+[2025-10-30 15:33:07] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:07] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:07] [INFO] Processando usuário: Brenda Triandafeledis (btrianda@hotmail.com)
+[2025-10-30 15:33:07] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:07] [INFO]   - email: btrianda@hotmail.com
+[2025-10-30 15:33:07] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:07] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:08] [INFO] Processando usuário: Kátia dos Santos Lopes (kats.lopes@gmail.com)
+[2025-10-30 15:33:08] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:08] [INFO]   - email: kats.lopes@gmail.com
+[2025-10-30 15:33:08] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:08] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:08] [INFO] Processando usuário: Lana Lim (lana.apto@gmail.com)
+[2025-10-30 15:33:08] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:08] [INFO]   - email: lana.apto@gmail.com
+[2025-10-30 15:33:08] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:08] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:08] [INFO] Processando usuário: Ana Lúcia Miranda (analuciamiranda148@gmail.com)
+[2025-10-30 15:33:08] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:08] [INFO]   - email: analuciamiranda148@gmail.com
+[2025-10-30 15:33:08] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:08] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:08] [INFO] Processando usuário: Marcus Vinicius de Almeida Lins Santos (marcusvinicius@duck.com)
+[2025-10-30 15:33:08] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:08] [INFO]   - email: marcusvinicius@duck.com
+[2025-10-30 15:33:08] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:08] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:08] [INFO] Processando usuário: Maria do Socorro Duarte Ferreira (socorroduarte21@gmail.com)
+[2025-10-30 15:33:08] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:08] [INFO]   - email: socorroduarte21@gmail.com
+[2025-10-30 15:33:08] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:08] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:08] [INFO] Processando usuário: Patrizia Cavallo (patriziacavallo.ita@gmail.com)
+[2025-10-30 15:33:08] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:08] [INFO]   - email: patriziacavallo.ita@gmail.com
+[2025-10-30 15:33:08] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:08] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:08] [INFO] Processando usuário: LocHouse (lilian.alves@loc-house.com)
+[2025-10-30 15:33:08] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:08] [INFO]   - email: lilian.alves@loc-house.com
+[2025-10-30 15:33:08] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:08] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:08] [INFO] Processando usuário: Joyce (joyce.alessandradelima@gmail.com)
+[2025-10-30 15:33:08] [INFO]   - hotmart_ucode: NULL
+[2025-10-30 15:33:08] [INFO]   - email: joyce.alessandradelima@gmail.com
+[2025-10-30 15:33:08] [WARNING]   ✗ Email não encontrado no mapeamento
+[2025-10-30 15:33:08] [WARNING]   O usuário não está ativo no Club ou Subscriptions
+[2025-10-30 15:33:08] [INFO] Lote 1 concluído: 1 processados, 0 com progresso
+[2025-10-30 15:33:08] [INFO] Sincronização concluída em 5.58s
+[2025-10-30 15:33:08] [INFO] Usuários processados: 1
+[2025-10-30 15:33:08] [INFO] Usuários com progresso: 0
+[2025-10-30 15:33:08] [INFO] Registros de progresso: 0
+[2025-10-30 15:33:08] [INFO] Erros: 22

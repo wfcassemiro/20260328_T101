@@ -1,0 +1,151 @@
+{
+  "titulo": "Prompt para Geração de Página de Curso - Translators101",
+  "descricao": "Este prompt guia a criação de uma nova página de curso para o site Translators101 seguindo o modelo padrão.",
+  "etapas": [
+    {
+      "etapa": 1,
+      "titulo": "Informações Básicas do Curso",
+      "perguntas": [
+        "Qual é o nome completo do curso?",
+        "Qual é a descrição/meta do curso (1-2 frases)?",
+        "Qual é o ícone principal do curso (classe Font Awesome, ex: 'fas fa-gamepad')?",
+        "Qual é o link para compra/inscrição do curso?",
+        "Qual é o subtítulo ou descrição curta do curso (1 frase)?"
+      ]
+    },
+    {
+      "etapa": 2,
+      "titulo": "Benefícios do Curso",
+      "descricao": "Liste os principais benefícios de fazer este curso (mínimo 3, máximo 6). Para cada benefício, forneça:",
+      "perguntas": [
+        "Benefício 1 - Título:",
+        "Benefício 1 - Descrição:",
+        "Benefício 1 - Ícone (Font Awesome, ex: 'fas fa-graduation-cap'):",
+        "Benefício 2 - Título:",
+        "Benefício 2 - Descrição:",
+        "Benefício 2 - Ícone (Font Awesome):",
+        "Benefício 3 - Título:",
+        "Benefício 3 - Descrição:",
+        "Benefício 3 - Ícone (Font Awesome):"
+      ],
+      "opcional": [
+        "Benefício 4 - Título:",
+        "Benefício 4 - Descrição:",
+        "Benefício 4 - Ícone (Font Awesome):",
+        "Benefício 5 - Título:",
+        "Benefício 5 - Descrição:",
+        "Benefício 5 - Ícone (Font Awesome):",
+        "Benefício 6 - Título:",
+        "Benefício 6 - Descrição:",
+        "Benefício 6 - Ícone (Font Awesome):"
+      ]
+    },
+    {
+      "etapa": 3,
+      "titulo": "Instrutores do Curso",
+      "descricao": "Informe os dados dos instrutores do curso. Para cada instrutor, forneça:",
+      "perguntas": [
+        "Instrutor 1 - Nome:",
+        "Instrutor 1 - Título/Especialidade:",
+        "Instrutor 1 - Descrição/Bio:",
+        "Instrutor 1 - Caminho da imagem (ex: '/images/cursos/nomecurso/instrutor1.png'):",
+        "Instrutor 2 - Nome:",
+        "Instrutor 2 - Título/Especialidade:",
+        "Instrutor 2 - Descrição/Bio:",
+        "Instrutor 2 - Caminho da imagem (ex: '/images/cursos/nomecurso/instrutor2.png'):"
+      ],
+      "opcional": [
+        "Instrutor 3 - Nome:",
+        "Instrutor 3 - Título/Especialidade:",
+        "Instrutor 3 - Descrição/Bio:",
+        "Instrutor 3 - Caminho da imagem (ex: '/images/cursos/nomecurso/instrutor3.png'):"
+      ]
+    },
+    {
+      "etapa": 4,
+      "titulo": "Conteúdo do Curso",
+      "descricao": "Descreva o conteúdo programático do curso:",
+      "perguntas": [
+        "Descrição geral do conteúdo do curso:",
+        "Quantos módulos tem o curso?",
+        "Módulo 1 - Título:",
+        "Módulo 1 - Lições (separadas por vírgula):",
+        "Módulo 2 - Título:",
+        "Módulo 2 - Lições (separadas por vírgula):"
+      ],
+      "opcional": [
+        "Módulo 3 - Título:",
+        "Módulo 3 - Lições (separadas por vírgula):",
+        "Módulo 4 - Título:",
+        "Módulo 4 - Lições (separadas por vírgula):",
+        "Módulo 5 - Título:",
+        "Módulo 5 - Lições (separadas por vírgula):",
+        "Módulo 6 - Título:",
+        "Módulo 6 - Lições (separadas por vírgula):",
+        "Módulo 7 - Título:",
+        "Módulo 7 - Lições (separadas por vírgula):",
+        "Módulo 8 - Título:",
+        "Módulo 8 - Lições (separadas por vírgula):"
+      ]
+    },
+    {
+      "etapa": 5,
+      "titulo": "Público-Alvo",
+      "descricao": "Quem deve fazer este curso? Liste os perfis de público-alvo:",
+      "perguntas": [
+        "Público-alvo 1:",
+        "Público-alvo 2:",
+        "Público-alvo 3:"
+      ],
+      "opcional": [
+        "Público-alvo 4:",
+        "Público-alvo 5:"
+      ]
+    },
+    {
+      "etapa": 6,
+      "titulo": "Detalhes do Curso",
+      "descricao": "Informações práticas sobre como funciona o curso:",
+      "perguntas": [
+        "Formato do curso (ex: 'Curso online com aulas ao vivo gravadas e material de apoio'):",
+        "Carga horária (ex: '15 horas de conteúdo prático e teórico'):",
+        "Datas das aulas ao vivo (se aplicável):",
+        "Horário das aulas (ex: '19h às 22h (horário de Brasília)'):",
+        "Acesso às gravações (ex: 'Por 6 meses após o término do curso'):",
+        "Certificado (ex: 'Certificado de conclusão para comprovar sua especialização'):"
+      ]
+    },
+    {
+      "etapa": 7,
+      "titulo": "Depoimentos",
+      "descricao": "Imagens de depoimentos de alunos:",
+      "perguntas": [
+        "Caminho da imagem de depoimento 1 (ex: '/images/cursos/nomecurso/depoimentos1.png'):"
+      ],
+      "opcional": [
+        "Caminho da imagem de depoimento 2 (ex: '/images/cursos/nomecurso/depoimentos2.png'):",
+        "Caminho da imagem de depoimento 3 (ex: '/images/cursos/nomecurso/depoimentos3.png'):"
+      ]
+    },
+    {
+      "etapa": 8,
+      "titulo": "Perguntas Frequentes",
+      "descricao": "Perguntas frequentes sobre o curso:",
+      "perguntas": [
+        "FAQ 1 - Pergunta:",
+        "FAQ 1 - Resposta:",
+        "FAQ 2 - Pergunta:",
+        "FAQ 2 - Resposta:",
+        "FAQ 3 - Pergunta:",
+        "FAQ 3 - Resposta:"
+      ],
+      "opcional": [
+        "FAQ 4 - Pergunta:",
+        "FAQ 4 - Resposta:",
+        "FAQ 5 - Pergunta:",
+        "FAQ 5 - Resposta:"
+      ]
+    }
+  ],
+  "instrucoes_finais": "Com todas essas informações, gere a página PHP do curso usando o modelo fornecido. Substitua todos os placeholders entre colchetes com as informações coletadas."
+}

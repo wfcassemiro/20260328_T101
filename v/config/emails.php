@@ -1,0 +1,672 @@
+<?php
+session_start();
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/email_config.php';
+
+// Verificar se é admin
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+    header('Location: /login.php');
+    exit;
+}
+
+$page_title = 'Sistema de E-mails - Admin';
+$message = '';
+$error = '';
+
+// Processar envio de email
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
+    
+    if ($action === 'send_email') {
+        $recipient_type = $_POST['recipient_type'];
+        $subject = trim($_POST['subject']);
+        $message_body = trim($_POST['message']);
+        $access_link = trim($_POST['access_link'] ?? '');
+        $lecture_id = $_POST['lecture_id'] ?? null;
+        
+        if (empty($subject) || empty($message_body)) {
+            $error = 'Assunto e mensagem são obrigatórios.';
+        } else {
+            try {
+                // Buscar destinatários com queries corrigidas
+                if ($recipient_type === 'all') {
+                    $stmt = $pdo->query("SELECT email, name FROM users WHERE is_active = 1");
+                } elseif ($recipient_type === 'subscribers') {
+                    // Assinantes: is_subscriber = 1 OU role = 'subscriber' OU subscription_expires > NOW()
+                    $stmt = $pdo->query("
+                        SELECT email, name FROM users 
+                        WHERE is_active = 1 
+                        AND (
+                            is_subscriber = 1 
+                            OR role = 'subscriber' 
+                            OR (subscription_expires IS NOT NULL AND subscription_expires > NOW())
+                        )
+                    ");
+                } else {
+                    // Não assinantes
+                    $stmt = $pdo->query("
+                        SELECT email, name FROM users 
+                        WHERE is_active = 1 
+                        AND (is_subscriber = 0 OR is_subscriber IS NULL)
+                        AND role != 'subscriber'
+                        AND (subscription_expires IS NULL OR subscription_expires <= NOW())
+                    ");
+                }
+                
+                $recipients = $stmt->fetchAll();
+                
+                if (empty($recipients)) {
+                    $error = 'Nenhum destinatário encontrado para esta seleção.';
+                } else {
+                    // Verificar se PHPMailer está disponível
+                    $phpmailer_available = class_exists('PHPMailer\\PHPMailer\\PHPMailer');
+                    
+                    if ($phpmailer_available && isEmailConfigured()) {
+                        // Enviar emails reais usando PHPMailer
+                        require_once __DIR__ . '/vendor/autoload.php';
+                        
+                        $sent_count = 0;
+                        $failed_count = 0;
+                        
+                        foreach ($recipients as $recipient) {
+                            try {
+                                $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+                                
+                                // Configurações do servidor
+                                $mail->isSMTP();
+                                $mail->Host = SMTP_HOST;
+                                $mail->SMTPAuth = true;
+                                $mail->Username = SMTP_USERNAME;
+                                $mail->Password = SMTP_PASSWORD;
+                                
+                                // Ajuste de segurança baseado no config
+                                if (defined('SMTP_SECURE') && SMTP_SECURE === 'ssl') {
+                                    $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+                                } else {
+                                    $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+                                }
+                                
+                                $mail->Port = SMTP_PORT;
+                                $mail->CharSet = 'UTF-8';
+                                
+                                // Destinatário
+                                $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
+                                $mail->addAddress($recipient['email'], $recipient['name']);
+                                
+                                // Conteúdo
+                                $mail->isHTML(true);
+                                $mail->Subject = $subject;
+                                
+                                // Personalizar mensagem com nome do destinatário
+                                $personalized_message = str_replace('[NOME]', $recipient['name'], $message_body);
+                                if (!empty($access_link)) {
+                                    $personalized_message = str_replace('[LINK]', $access_link, $personalized_message);
+                                }
+                                
+                                $mail->Body = nl2br($personalized_message);
+                                $mail->AltBody = strip_tags($personalized_message);
+                                
+                                $mail->send();
+                                $sent_count++;
+                                
+                            } catch (Exception $e) {
+                                $failed_count++;
+                                error_log("Erro ao enviar email para {$recipient['email']}: " . $mail->ErrorInfo);
+                            }
+                        }
+                        
+                        $message = "E-mails enviados: {$sent_count} sucesso, {$failed_count} falhas.";
+                        $log_status = 'sent';
+                        
+                    } else {
+                        // Modo de simulação (sem PHPMailer configurado)
+                        $sent_count = count($recipients);
+                        $message = "⚠️ MODO SIMULAÇÃO: {$sent_count} e-mails seriam enviados. Configure o PHPMailer para envio real.";
+                        $log_status = 'pending';
+                    }
+                    
+                    // Log do envio
+                    $stmt = $pdo->prepare("
+                        INSERT INTO email_logs 
+                        (subject, message, recipient_count, recipient_type, sent_by, status, lecture_id, access_link, created_at) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())
+                    ");
+                    $stmt->execute([
+                        $subject, 
+                        $message_body, 
+                        $sent_count, 
+                        $recipient_type, 
+                        $_SESSION['user_id'], 
+                        $log_status,
+                        $lecture_id,
+                        $access_link
+                    ]);
+                }
+                
+            } catch (PDOException $e) {
+                $error = 'Erro ao processar e-mail: ' . $e->getMessage();
+            }
+        }
+    }
+}
+
+// Buscar logs de email
+try {
+    $stmt = $pdo->query("
+        SELECT el.*, u.name as sender_name 
+        FROM email_logs el 
+        LEFT JOIN users u ON el.sent_by = u.id 
+        ORDER BY el.created_at DESC 
+        LIMIT 50
+    ");
+    $email_logs = $stmt->fetchAll();
+} catch (PDOException $e) {
+    $email_logs = [];
+}
+
+// Estatísticas de usuários
+try {
+    $stmt = $pdo->query("SELECT COUNT(*) FROM users WHERE is_active = 1");
+    $total_users = $stmt->fetchColumn();
+    
+    $stmt = $pdo->query("
+        SELECT COUNT(*) FROM users 
+        WHERE is_active = 1 
+        AND (
+            is_subscriber = 1 
+            OR role = 'subscriber' 
+            OR (subscription_expires IS NOT NULL AND subscription_expires > NOW())
+        )
+    ");
+    $subscribers = $stmt->fetchColumn();
+    
+    $non_subscribers = $total_users - $subscribers;
+} catch (PDOException $e) {
+    $total_users = 0;
+    $subscribers = 0;
+    $non_subscribers = 0;
+}
+
+// Buscar próxima palestra agendada
+try {
+    $stmt = $pdo->query("
+        SELECT * FROM upcoming_announcements 
+        WHERE announcement_date >= CURDATE() 
+        AND is_active = 1
+        ORDER BY announcement_date ASC, lecture_time ASC 
+        LIMIT 1
+    ");
+    $next_lecture = $stmt->fetch();
+} catch (PDOException $e) {
+    $next_lecture = null;
+}
+
+include __DIR__ . '/../vision/includes/head.php';
+include __DIR__ . '/../vision/includes/header.php';
+include __DIR__ . '/../vision/includes/sidebar.php';
+?>
+
+<div class="main-content">
+    <div class="glass-hero">
+        <div class="hero-content">
+            <h1><i class="fas fa-envelope"></i> Sistema de E-mails</h1>
+            <p>Comunicação com usuários da plataforma</p>
+            <a href="index.php" class="cta-btn">
+                <i class="fas fa-arrow-left"></i> Voltar ao Admin
+            </a>
+        </div>
+    </div>
+
+    <?php if ($message): ?>
+        <div class="alert-success">
+            <i class="fas fa-check-circle"></i>
+            <?php echo htmlspecialchars($message); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($error): ?>
+        <div class="alert-error">
+            <i class="fas fa-exclamation-triangle"></i>
+            <?php echo htmlspecialchars($error); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!isEmailConfigured()): ?>
+        <div class="alert-warning" style="background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>Atenção:</strong> PHPMailer não está configurado. Os emails serão apenas simulados. 
+            Configure as credenciais SMTP em <code>/config/email_config.php</code> para envio real.
+        </div>
+    <?php endif; ?>
+
+    <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+        <div class="video-card stats-card">
+            <div class="stats-content">
+                <div class="stats-info">
+                    <h3>Total de Usuários</h3>
+                    <span class="stats-number"><?php echo number_format($total_users); ?></span>
+                </div>
+                <div class="stats-icon stats-icon-blue">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card stats-card">
+            <div class="stats-content">
+                <div class="stats-info">
+                    <h3>Assinantes</h3>
+                    <span class="stats-number"><?php echo number_format($subscribers); ?></span>
+                </div>
+                <div class="stats-icon stats-icon-green">
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card stats-card">
+            <div class="stats-content">
+                <div class="stats-info">
+                    <h3>Não Assinantes</h3>
+                    <span class="stats-number"><?php echo number_format($non_subscribers); ?></span>
+                </div>
+                <div class="stats-icon stats-icon-red">
+                    <i class="fas fa-user-times"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card stats-card">
+            <div class="stats-content">
+                <div class="stats-info">
+                    <h3>E-mails Enviados</h3>
+                    <span class="stats-number"><?php echo count($email_logs); ?></span>
+                </div>
+                <div class="stats-icon stats-icon-purple">
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php if ($next_lecture): ?>
+    <div class="video-card" style="background: linear-gradient(135deg, rgba(123, 97, 255, 0.1), rgba(72, 61, 139, 0.1)); border: 2px solid rgba(123, 97, 255, 0.3); margin-bottom: 30px;">
+        <h2><i class="fas fa-calendar-check"></i> Próxima Palestra Agendada</h2>
+        <div style="padding: 20px; background: rgba(0,0,0,0.2); border-radius: 10px; margin-top: 15px;">
+            <div style="display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center;">
+                <?php if ($next_lecture['image_path']): ?>
+                <img src="<?php echo htmlspecialchars($next_lecture['image_path']); ?>" 
+                     style="width: 200px; height: 112px; object-fit: cover; border-radius: 8px;" 
+                     alt="Imagem da palestra">
+                <?php endif; ?>
+                <div>
+                    <h3 style="color: #FFD700; font-size: 1.3rem; margin-bottom: 10px;">
+                        <?php echo htmlspecialchars($next_lecture['title']); ?>
+                    </h3>
+                    <p style="margin: 5px 0;"><strong>Palestrante:</strong> <?php echo htmlspecialchars($next_lecture['speaker']); ?></p>
+                    <p style="margin: 5px 0;"><strong>Data:</strong> <?php echo date('d/m/Y', strtotime($next_lecture['announcement_date'])); ?></p>
+                    <p style="margin: 5px 0;"><strong>Horário:</strong> <?php echo date('H:i', strtotime($next_lecture['lecture_time'])); ?>h</p>
+                    <?php if ($next_lecture['description']): ?>
+                    <p style="margin-top: 10px; color: #ccc;"><?php echo htmlspecialchars($next_lecture['description']); ?></p>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <button onclick="useNextLectureTemplate()" class="cta-btn" style="margin-top: 20px;">
+                <i class="fas fa-magic"></i> Usar Template de Convite para Esta Palestra
+            </button>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <div class="video-card">
+        <h2><i class="fas fa-paper-plane"></i> Enviar E-mail</h2>
+        
+        <form method="POST" class="vision-form">
+            <input type="hidden" name="action" value="send_email">
+            <input type="hidden" name="lecture_id" id="lecture_id" value="">
+            
+            <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label for="recipient_type">
+                        <i class="fas fa-users"></i> Destinatários *
+                    </label>
+                    <select id="recipient_type" name="recipient_type" required>
+                        <option value="all">Todos os usuários (<?php echo $total_users; ?>)</option>
+                        <option value="subscribers">Apenas assinantes (<?php echo $subscribers; ?>)</option>
+                        <option value="non_subscribers">Não assinantes (<?php echo $non_subscribers; ?>)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">
+                        <i class="fas fa-heading"></i> Assunto *
+                    </label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+
+                <div class="form-group" style="grid-column: span 2;">
+                    <label for="access_link">
+                        <i class="fas fa-link"></i> Link de Acesso (Opcional)
+                    </label>
+                    <input type="url" id="access_link" name="access_link" 
+                           placeholder="https://zoom.us/j/... ou link da plataforma">
+                    <small style="color: #999; display: block; margin-top: 5px;">
+                        Use [LINK] no corpo da mensagem para inserir este link automaticamente
+                    </small>
+                </div>
+
+                <div class="form-group form-group-wide" style="grid-column: span 2;">
+                    <label for="message">
+                        <i class="fas fa-edit"></i> Mensagem *
+                    </label>
+                    <textarea id="message" name="message" rows="10" required 
+                              placeholder="Digite sua mensagem aqui... Use [NOME] para personalizar com o nome do destinatário"></textarea>
+                    <small style="color: #999; display: block; margin-top: 5px;">
+                        <strong>Dicas:</strong> Use [NOME] para inserir o nome do destinatário | Use [LINK] para inserir o link de acesso
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="cta-btn" onclick="return confirm('Tem certeza que deseja enviar este e-mail?')">
+                    <i class="fas fa-paper-plane"></i> Enviar E-mail
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="video-card">
+        <div class="card-header">
+            <h2><i class="fas fa-history"></i> Histórico de Envios</h2>
+        </div>
+
+        <?php if (empty($email_logs)): ?>
+            <div class="alert-warning">
+                <i class="fas fa-info-circle"></i>
+                Nenhum e-mail enviado ainda.
+            </div>
+        <?php else: ?>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-calendar"></i> Data</th>
+                            <th><i class="fas fa-heading"></i> Assunto</th>
+                            <th><i class="fas fa-users"></i> Destinatários</th>
+                            <th><i class="fas fa-toggle-on"></i> Status</th>
+                            <th><i class="fas fa-user"></i> Enviado por</th>
+                            <th><i class="fas fa-eye"></i> Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($email_logs as $log): ?>
+                            <tr>
+                                <td><?php echo date('d/m/Y H:i', strtotime($log['created_at'])); ?></td>
+                                <td>
+                                    <span class="text-primary"><?php echo htmlspecialchars($log['subject']); ?></span>
+                                </td>
+                                <td><?php echo number_format($log['recipient_count']); ?></td>
+                                <td>
+                                    <?php 
+                                    $status_class = $log['status'] === 'sent' ? 'status-completed' : 
+                                                   ($log['status'] === 'pending' ? 'status-pending' : 'status-cancelled');
+                                    $status_text = $log['status'] === 'sent' ? 'Enviado' : 
+                                                  ($log['status'] === 'pending' ? 'Simulado' : 'Falhou');
+                                    ?>
+                                    <span class="status-badge <?php echo $status_class; ?>">
+                                        <?php echo $status_text; ?>
+                                    </span>
+                                </td>
+                                <td><?php echo htmlspecialchars($log['sender_name'] ?? 'Usuário removido'); ?></td>
+                                <td>
+                                    <button class="page-btn" onclick="showEmailContent(<?php echo htmlspecialchars(json_encode([
+                                        'subject' => $log['subject'],
+                                        'message' => $log['message'],
+                                        'access_link' => $log['access_link']
+                                    ])); ?>)" title="Ver Conteúdo">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <div class="video-card">
+        <h2><i class="fas fa-file-alt"></i> Templates Sugeridos</h2>
+        
+        <div class="quick-actions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+            <div class="quick-action-card" onclick="useTemplate('welcome')" style="cursor: pointer;">
+                <div class="quick-action-icon quick-action-icon-blue">
+                    <i class="fas fa-hand-wave"></i>
+                </div>
+                <h3>Boas-vindas</h3>
+                <p>Para novos usuários</p>
+            </div>
+
+            <div class="quick-action-card" onclick="useTemplate('newsletter')" style="cursor: pointer;">
+                <div class="quick-action-icon quick-action-icon-purple">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <h3>Newsletter</h3>
+                <p>Novidades da plataforma</p>
+            </div>
+
+            <div class="quick-action-card" onclick="useTemplate('promotion')" style="cursor: pointer;">
+                <div class="quick-action-icon quick-action-icon-green">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <h3>Promoção</h3>
+                <p>Ofertas especiais</p>
+            </div>
+
+            <div class="quick-action-card" onclick="useTemplate('reminder')" style="cursor: pointer;">
+                <div class="quick-action-icon quick-action-icon-red">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3>Lembrete</h3>
+                <p>Informações importantes</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showEmailContent(data) {
+    let content = 'Assunto: ' + data.subject + '\n\n';
+    content += 'Mensagem:\n' + data.message;
+    if (data.access_link) {
+        content += '\n\nLink de Acesso: ' + data.access_link;
+    }
+    alert(content);
+}
+
+function useTemplate(type) {
+    const templates = {
+        welcome: {
+            subject: 'Boas-vindas à Translators101!',
+            message: 'Olá [NOME],\n\nReceba as boas-vindas à nossa plataforma educacional para profissionais de tradução, interpretação e revisão!\n\nAqui você encontrará palestras exclusivas, glossários especializados e muito conteúdo para aprimorar suas habilidades profissionais.\n\nComece explorando nossa videoteca e não perca nenhuma novidade!\n\nEquipe Translators101'
+        },
+        newsletter: {
+            subject: 'Translators101 - Novidades da Semana',
+            message: 'Olá [NOME],\n\nConfira as principais novidades desta semana:\n\n• Nova palestra adicionada: [Título]\n• Glossário atualizado: [Área]\n• Certificados disponíveis para download\n\nAcesse nossa plataforma e aproveite todo o conteúdo!\n\nEquipe Translators101'
+        },
+        promotion: {
+            subject: 'Oferta Especial - Translators101',
+            message: 'Olá [NOME],\n\nTemos uma oferta especial para você!\n\n[Detalhes da promoção]\n\nEsta oferta é válida por tempo limitado. Não perca!\n\nAcesse nossa plataforma e aproveite.\n\nEquipe Translators101'
+        },
+        reminder: {
+            subject: 'Lembrete Importante - Translators101',
+            message: 'Olá [NOME],\n\nEste é um lembrete importante sobre:\n\n[Conteúdo do lembrete]\n\nPara mais informações, acesse nossa plataforma ou entre em contato conosco.\n\nEquipe Translators101'
+        }
+    };
+    
+    if (templates[type]) {
+        document.getElementById('subject').value = templates[type].subject;
+        document.getElementById('message').value = templates[type].message;
+        document.getElementById('access_link').value = '';
+        document.getElementById('lecture_id').value = '';
+    }
+}
+
+function useNextLectureTemplate() {
+    <?php if ($next_lecture): ?>
+    const template = {
+        subject: 'Convite: <?php echo addslashes($next_lecture['title']); ?>',
+        message: `Olá [NOME],
+
+Temos o prazer de convidsr você para nossa próxima palestra:
+
+📌 Título: <?php echo addslashes($next_lecture['title']); ?>
+👤 Palestrante: <?php echo addslashes($next_lecture['speaker']); ?>
+📅 Data: <?php echo date('d/m/Y', strtotime($next_lecture['announcement_date'])); ?>
+🕐 Horário: <?php echo date('H:i', strtotime($next_lecture['lecture_time'])); ?>h
+
+<?php if ($next_lecture['description']): ?>
+📝 Sobre a palestra:
+<?php echo addslashes($next_lecture['description']); ?>
+<?php endif; ?>
+
+🔗 Link de acesso: [LINK]
+
+Não perca essa oportunidade de aprendizado!
+
+Equipe Translators101`,
+        lecture_id: '<?php echo $next_lecture['id']; ?>'
+    };
+    
+    document.getElementById('subject').value = template.subject;
+    document.getElementById('message').value = template.message;
+    document.getElementById('lecture_id').value = template.lecture_id;
+    document.getElementById('access_link').focus();
+    
+    // Scroll para o formulário
+    document.querySelector('.vision-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    <?php endif; ?>
+}
+</script>
+
+<style>
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stats-card {
+    padding: 20px;
+}
+
+.stats-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stats-info h3 {
+    font-size: 0.9rem;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.stats-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.stats-icon {
+    font-size: 2.5rem;
+    opacity: 0.3;
+}
+
+.stats-icon-blue { color: #3b82f6; }
+.stats-icon-green { color: #10b981; }
+.stats-icon-red { color: #ef4444; }
+.stats-icon-purple { color: #8b5cf6; }
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.quick-action-card {
+    padding: 30px 20px;
+    text-align: center;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.quick-action-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.quick-action-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.quick-action-icon-blue { color: #3b82f6; }
+.quick-action-icon-purple { color: #8b5cf6; }
+.quick-action-icon-green { color: #10b981; }
+.quick-action-icon-red { color: #ef4444; }
+
+.alert-warning {
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: #ffd700;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<?php include __DIR__ . '/../vision/includes/footer.php'; ?>

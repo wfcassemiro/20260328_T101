@@ -1,0 +1,96 @@
+[2025-10-28 17:27:25] [INFO] ========================================
+[2025-10-28 17:27:25] [INFO] Iniciando sincronização de progresso
+[2025-10-28 17:27:25] [INFO] Tentando obter usuários do Hotmart Club...
+[2025-10-28 17:27:25] [INFO] === RESPOSTA COMPLETA DO CLUB API ===
+[2025-10-28 17:27:25] [INFO] Success: true
+[2025-10-28 17:27:25] [INFO] Response: {
+    "success": true,
+    "data": [],
+    "http_code": 200
+}
+[2025-10-28 17:27:25] [INFO] Usuários em data: 0
+[2025-10-28 17:27:25] [INFO] Total de usuários do Club: 0
+[2025-10-28 17:27:25] [WARNING] AVISO: Nenhum usuário encontrado, mas API retornou sucesso!
+[2025-10-28 17:27:25] [WARNING] Pode significar que não há usuários no Club ou estrutura diferente
+[2025-10-28 17:27:25] [INFO] === TOTAL DE USUÁRIOS PARA PROCESSAR: 0 ===
+[2025-10-28 17:27:25] [WARNING] Nenhum usuário encontrado na Hotmart
+[2025-10-28 17:50:08] [INFO] ========================================
+[2025-10-28 17:50:08] [INFO] Iniciando sincronização de progresso
+[2025-10-28 17:50:08] [INFO] Tentando obter usuários do Hotmart Club...
+[2025-10-28 17:50:09] [INFO] === RESPOSTA COMPLETA DO CLUB API ===
+[2025-10-28 17:50:09] [INFO] Success: true
+[2025-10-28 17:50:09] [INFO] Response: {
+    "success": true,
+    "data": [],
+    "http_code": 200
+}
+[2025-10-28 17:50:09] [INFO] Usuários em data: 0
+[2025-10-28 17:50:09] [INFO] Total de usuários do Club: 0
+[2025-10-28 17:50:09] [WARNING] AVISO: Nenhum usuário encontrado, mas API retornou sucesso!
+[2025-10-28 17:50:09] [WARNING] Pode significar que não há usuários no Club ou estrutura diferente
+[2025-10-28 17:50:09] [INFO] === TOTAL DE USUÁRIOS PARA PROCESSAR: 0 ===
+[2025-10-28 17:50:09] [WARNING] Nenhum usuário encontrado na Hotmart
+[2025-10-29 22:18:18] [INFO] ========================================
+[2025-10-29 22:18:18] [INFO] Iniciando sincronização de progresso
+[2025-10-29 22:18:18] [INFO] Tentando obter usuários do Hotmart Club...
+[2025-10-29 22:18:19] [INFO] === RESPOSTA COMPLETA DO CLUB API ===
+[2025-10-29 22:18:19] [INFO] Success: true
+[2025-10-29 22:18:19] [INFO] Response: {
+    "success": true,
+    "data": [],
+    "http_code": 200
+}
+[2025-10-29 22:18:19] [INFO] Usuários em data: 0
+[2025-10-29 22:18:19] [INFO] Total de usuários do Club: 0
+[2025-10-29 22:18:19] [WARNING] AVISO: Nenhum usuário encontrado, mas API retornou sucesso!
+[2025-10-29 22:18:19] [WARNING] Pode significar que não há usuários no Club ou estrutura diferente
+[2025-10-29 22:18:19] [INFO] === TOTAL DE USUÁRIOS PARA PROCESSAR: 0 ===
+[2025-10-29 22:18:19] [WARNING] Nenhum usuário encontrado na Hotmart
+[2025-10-30 12:40:26] [INFO] ========================================
+[2025-10-30 12:40:26] [INFO] Iniciando sincronização de progresso
+[2025-10-30 12:40:26] [INFO] Tentando obter usuários do Hotmart Club...
+[2025-10-30 12:40:27] [INFO] === RESPOSTA COMPLETA DO CLUB API ===
+[2025-10-30 12:40:27] [INFO] Success: true
+[2025-10-30 12:40:27] [INFO] Response: {
+    "success": true,
+    "data": [],
+    "http_code": 200
+}
+[2025-10-30 12:40:27] [INFO] Usuários em data: 0
+[2025-10-30 12:40:27] [INFO] Total de usuários do Club: 0
+[2025-10-30 12:40:27] [WARNING] AVISO: Nenhum usuário encontrado, mas API retornou sucesso!
+[2025-10-30 12:40:27] [WARNING] Pode significar que não há usuários no Club ou estrutura diferente
+[2025-10-30 12:40:27] [INFO] === TOTAL DE USUÁRIOS PARA PROCESSAR: 0 ===
+[2025-10-30 12:40:27] [WARNING] Nenhum usuário encontrado na Hotmart
+[2025-10-30 12:41:38] [INFO] ========================================
+[2025-10-30 12:41:38] [INFO] Iniciando sincronização de progresso
+[2025-10-30 12:41:38] [INFO] Tentando obter usuários do Hotmart Club...
+[2025-10-30 12:41:39] [INFO] === RESPOSTA COMPLETA DO CLUB API ===
+[2025-10-30 12:41:39] [INFO] Success: true
+[2025-10-30 12:41:39] [INFO] Response: {
+    "success": true,
+    "data": [],
+    "http_code": 200
+}
+[2025-10-30 12:41:39] [INFO] Usuários em data: 0
+[2025-10-30 12:41:39] [INFO] Total de usuários do Club: 0
+[2025-10-30 12:41:39] [WARNING] AVISO: Nenhum usuário encontrado, mas API retornou sucesso!
+[2025-10-30 12:41:39] [WARNING] Pode significar que não há usuários no Club ou estrutura diferente
+[2025-10-30 12:41:39] [INFO] === TOTAL DE USUÁRIOS PARA PROCESSAR: 0 ===
+[2025-10-30 12:41:39] [WARNING] Nenhum usuário encontrado na Hotmart
+[2025-10-30 15:13:54] [INFO] ========================================
+[2025-10-30 15:13:54] [INFO] Iniciando sincronização de progresso
+[2025-10-30 15:13:54] [INFO] Tentando obter usuários do Hotmart Club...
+[2025-10-30 15:13:55] [INFO] === RESPOSTA COMPLETA DO CLUB API ===
+[2025-10-30 15:13:55] [INFO] Success: true
+[2025-10-30 15:13:55] [INFO] Response: {
+    "success": true,
+    "data": [],
+    "http_code": 200
+}
+[2025-10-30 15:13:55] [INFO] Usuários em data: 0
+[2025-10-30 15:13:55] [INFO] Total de usuários do Club: 0
+[2025-10-30 15:13:55] [WARNING] AVISO: Nenhum usuário encontrado, mas API retornou sucesso!
+[2025-10-30 15:13:55] [WARNING] Pode significar que não há usuários no Club ou estrutura diferente
+[2025-10-30 15:13:55] [INFO] === TOTAL DE USUÁRIOS PARA PROCESSAR: 0 ===
+[2025-10-30 15:13:55] [WARNING] Nenhum usuário encontrado na Hotmart

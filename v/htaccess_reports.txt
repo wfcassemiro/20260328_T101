@@ -1,0 +1,21 @@
+# Arquivo .htaccess para colocar no diretório /reports
+# Protege os relatórios de acesso direto
+
+Order Deny,Allow
+Deny from all
+
+# Permitir apenas acesso via PHP
+<Files "*.pdf">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+# Bloquear listagem de diretório
+Options -Indexes
+
+# Configurações de segurança
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options nosniff
+    Header set X-Frame-Options DENY
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>

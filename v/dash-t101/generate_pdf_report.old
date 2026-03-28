@@ -1,0 +1,287 @@
+<?php
+session_start();
+
+// --- CORREÇÃO DE FUSO HORÁRIO ---
+// Define o fuso horário para o de São Paulo (GMT -3)
+date_default_timezone_set('America/Sao_Paulo');
+
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/dash_database.php';
+// A função isLoggedIn() deve estar disponível, por exemplo, em:
+// require_once __DIR__ . '/../config/dash_functions.php';
+
+// Verificar se o usuário está logado
+if (!function_exists('isLoggedIn') || !isLoggedIn()) {
+    die('Acesso negado. Por favor, faça login.');
+}
+
+// Verificar se TCPDF está disponível
+if (!file_exists(__DIR__ . '/../../vendor/tecnickcom/tcpdf/tcpdf.php')) {
+    die('Erro: Biblioteca TCPDF não encontrada. Por favor, instale via Composer: composer require tecnickcom/tcpdf');
+}
+require_once(__DIR__ . '/../../vendor/tecnickcom/tcpdf/tcpdf.php');
+
+/**
+ * Classe personalizada para adicionar um rodapé customizado em todas as páginas.
+ */
+class MYPDF extends TCPDF {
+    public function Footer() {
+        $this->SetY(-15);
+        $this->SetFont('helvetica', 'I', 8);
+        $this->SetTextColor(128, 128, 128);
+        $this->Cell(0, 5, 'Gerado pelo Dash-T101, o sistema de gerenciamento de projetos da Translators101', 0, 1, 'C');
+        $this->Cell(0, 5, 'Página ' . $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(), 0, 0, 'C');
+    }
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Receber parâmetros
+$filters = [
+    'start_date' => $_GET['start_date'] ?? null,
+    'end_date'   => $_GET['end_date'] ?? null,
+    'status'     => $_GET['status'] ?? 'all',
+    'client_id'  => $_GET['client_id'] ?? null,
+    'currency'   => $_GET['currency'] ?? null,
+    'min_value'  => $_GET['min_value'] ?? null,
+    'max_value'  => $_GET['max_value'] ?? null,
+];
+
+if (!$filters['start_date'] || !$filters['end_date']) {
+    die('Parâmetros de data ausentes.');
+}
+
+try {
+    global $pdo;
+
+    // --- BUSCAR NOME DO USUÁRIO ---
+    $user_name_for_file = 'usuario'; // Valor padrão
+    try {
+        // A consulta usa a tabela `users` e a coluna `name` conforme o seu banco de dados
+        $stmt_user = $pdo->prepare("SELECT name FROM users WHERE id = ?");
+        $stmt_user->execute([$user_id]);
+        $user = $stmt_user->fetch();
+        if ($user && !empty($user['name'])) {
+            // Remove espaços e caracteres especiais para um nome de arquivo seguro
+            $safe_name = str_replace(' ', '_', $user['name']);
+            $user_name_for_file = preg_replace('/[^A-Za-z0-9_]/', '', $safe_name);
+        }
+    } catch (Exception $e) {
+        error_log('Não foi possível buscar o nome do usuário para o relatório PDF: ' . $e->getMessage());
+    }
+    // --- FIM DO TRECHO ---
+    
+    // Construir query
+    $sql = "
+        FROM dash_projects p
+        LEFT JOIN dash_clients c ON c.id = p.client_id
+        WHERE p.user_id = :uid
+          AND DATE(p.created_at) BETWEEN :start AND :end
+    ";
+
+    $params = [
+        ':uid'   => $user_id,
+        ':start' => $filters['start_date'],
+        ':end'   => $filters['end_date']
+    ];
+
+    if (!empty($filters['status']) && $filters['status'] !== 'all') {
+        $sql .= " AND p.status = :status";
+        $params[':status'] = $filters['status'];
+    }
+    if (!empty($filters['client_id'])) {
+        $sql .= " AND p.client_id = :client_id";
+        $params[':client_id'] = $filters['client_id'];
+    }
+    if (!empty($filters['currency'])) {
+        $sql .= " AND p.currency = :currency";
+        $params[':currency'] = $filters['currency'];
+    }
+    if (!empty($filters['min_value'])) {
+        $sql .= " AND p.total_amount >= :min_value";
+        $params[':min_value'] = $filters['min_value'];
+    }
+    if (!empty($filters['max_value'])) {
+        $sql .= " AND p.total_amount <= :max_value";
+        $params[':max_value'] = $filters['max_value'];
+    }
+
+    // Buscar todos os projetos
+    $projects_sql = "SELECT
+                        p.id, p.title AS project_name, p.status, p.total_amount, p.created_at, p.currency,
+                        c.company AS company_name,
+                        p.source_language, p.target_language
+                    " . $sql . " ORDER BY p.created_at DESC";
+
+    $stmt = $pdo->prepare($projects_sql);
+    $stmt->execute($params);
+    $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Calcular estatísticas
+    $total_projects = count($projects);
+    $total_revenue = 0;
+    $by_status = ['pending' => 0, 'in_progress' => 0, 'completed' => 0, 'cancelled' => 0];
+    
+    foreach ($projects as $p) {
+        $total_revenue += (float)$p['total_amount'];
+        if (isset($by_status[$p['status']])) {
+            $by_status[$p['status']]++;
+        }
+    }
+    
+    // --- Início da Geração do PDF ---
+    
+    $pdf = new MYPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+
+    // Configurações do documento
+    $pdf->SetCreator('Dash-T101');
+    $pdf->SetAuthor('Translators101');
+    $pdf->SetTitle('Relatório de Projetos');
+    $pdf->SetSubject('Relatório de Projetos - Dash-T101');
+    $pdf->setPrintHeader(false);
+    $pdf->setPrintFooter(true);
+    $pdf->SetMargins(15, 15, 15);
+    $pdf->SetAutoPageBreak(true, 25);
+
+    $pdf->AddPage();
+
+    // HEADER PERSONALIZADO
+    $pdf->SetFont('helvetica', 'B', 20);
+    $pdf->SetTextColor(139, 0, 139);
+    $pdf->Cell(0, 10, 'Relatório de Projetos', 0, 1, 'C');
+    
+    $pdf->SetFont('helvetica', '', 10);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->Cell(0, 6, 'Dash-T101 - Sistema de Gerenciamento de Projetos', 0, 1, 'C');
+    $pdf->Ln(5);
+
+    // INFORMAÇÕES DO RELATÓRIO
+    $pdf->SetFillColor(240, 240, 240);
+    $pdf->SetFont('helvetica', 'B', 10);
+    $pdf->Cell(0, 8, 'Informações do Relatório', 0, 1, 'L', true);
+    $pdf->SetFont('helvetica', '', 9);
+    
+    $status_map = [
+        'all' => 'Todos', 'pending' => 'Pendente', 'in_progress' => 'Em andamento',
+        'completed' => 'Concluídos', 'cancelled' => 'Cancelados'
+    ];
+    
+    $pdf->Cell(50, 6, 'Período:', 0, 0, 'L');
+    $pdf->Cell(0, 6, date('d/m/Y', strtotime($filters['start_date'])) . ' a ' . date('d/m/Y', strtotime($filters['end_date'])), 0, 1, 'L');
+    
+    $pdf->Cell(50, 6, 'Status Filtrado:', 0, 0, 'L');
+    $pdf->Cell(0, 6, $status_map[$filters['status']] ?? 'Todos', 0, 1, 'L');
+    
+    if ($filters['client_id']) {
+        $stmt_client = $pdo->prepare("SELECT company FROM dash_clients WHERE id = ?");
+        $stmt_client->execute([$filters['client_id']]);
+        $client = $stmt_client->fetch();
+        $pdf->Cell(50, 6, 'Cliente:', 0, 0, 'L');
+        $pdf->Cell(0, 6, $client['company'] ?? 'N/A', 0, 1, 'L');
+    }
+    
+    $pdf->Cell(50, 6, 'Data de Geração:', 0, 0, 'L');
+    $pdf->Cell(0, 6, date('d/m/Y H:i'), 0, 1, 'L');
+    $pdf->Ln(5);
+
+    // ESTATÍSTICAS (KPIs)
+    $pdf->SetFillColor(139, 0, 139);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->SetFont('helvetica', 'B', 10);
+    $pdf->Cell(0, 8, 'Resumo Estatístico', 0, 1, 'L', true);
+    
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->SetFont('helvetica', '', 9);
+    $pdf->SetFillColor(245, 245, 245);
+    
+    $pdf->Cell(90, 8, 'Total de Projetos: ' . $total_projects, 1, 0, 'C', true);
+    $pdf->Cell(90, 8, 'Receita Total: R$ ' . number_format($total_revenue, 2, ',', '.'), 1, 1, 'C', true);
+    
+    $pdf->Cell(90, 8, 'Em Andamento: ' . $by_status['in_progress'], 1, 0, 'C', true);
+    $pdf->Cell(90, 8, 'Concluídos: ' . $by_status['completed'], 1, 1, 'C', true);
+    $pdf->Ln(5);
+
+    // TABELA DE PROJETOS
+    $pdf->SetFillColor(139, 0, 139);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->SetFont('helvetica', 'B', 9);
+    $pdf->Cell(0, 7, 'Detalhamento dos Projetos', 0, 1, 'L', true);
+    
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->SetFont('helvetica', 'B', 8);
+    $pdf->SetFillColor(230, 230, 230);
+    $pdf->Cell(70, 7, 'Projeto', 1, 0, 'L', true);
+    $pdf->Cell(45, 7, 'Cliente', 1, 0, 'L', true);
+    $pdf->Cell(30, 7, 'Status', 1, 0, 'C', true);
+    $pdf->Cell(35, 7, 'Valor', 1, 1, 'R', true);
+
+    $pdf->SetFont('helvetica', '', 7);
+    
+    if (empty($projects)) {
+        $pdf->Cell(180, 10, 'Nenhum projeto encontrado para os filtros selecionados.', 1, 1, 'C');
+    } else {
+        $fill = false;
+        foreach ($projects as $project) {
+            $pdf->SetFillColor($fill ? 245 : 255, 245, 255);
+            
+            $pdf->Cell(70, 6, mb_substr($project['project_name'], 0, 40, 'UTF-8'), 1, 0, 'L', true);
+            $pdf->Cell(45, 6, mb_substr($project['company_name'] ?? 'N/A', 0, 25, 'UTF-8'), 1, 0, 'L', true);
+            
+            $status_colors = [
+                'pending' => [255, 193, 7], 'in_progress' => [0, 123, 255],
+                'completed' => [40, 167, 69], 'cancelled' => [108, 117, 125]
+            ];
+            $color = $status_colors[$project['status']] ?? [0, 0, 0];
+            $pdf->SetTextColor($color[0], $color[1], $color[2]);
+            $pdf->SetFont('helvetica', 'B', 7);
+            
+            $status_labels = [
+                'pending' => 'Pendente', 'in_progress' => 'Em Andamento',
+                'completed' => 'Concluído', 'cancelled' => 'Cancelado'
+            ];
+            $pdf->Cell(30, 6, $status_labels[$project['status']] ?? $project['status'], 1, 0, 'C', true);
+            
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->SetFont('helvetica', '', 7);
+            $pdf->Cell(35, 6, 'R$ ' . number_format($project['total_amount'], 2, ',', '.'), 1, 1, 'R', true);
+            
+            $fill = !$fill;
+        }
+    }
+
+    // --- Fim da Geração do PDF ---
+
+    // Salvar arquivo no servidor
+    $reports_dir = __DIR__ . '/generated_reports/';
+    if (!file_exists($reports_dir)) {
+        mkdir($reports_dir, 0755, true);
+    }
+    
+    // --- NOME DO ARQUIVO MODIFICADO ---
+    $filename = 'Relatório_projetos_' . date('d-m-Y_H\hi') . '_' . $user_name_for_file . '.pdf';
+    $filepath = $reports_dir . $filename;
+    
+    $pdf->Output($filepath, 'F');
+
+    // Salvar registro no banco de dados
+    $file_size = filesize($filepath);
+    $stmt = $pdo->prepare(
+        "INSERT INTO dash_reports (user_id, report_name, report_type, file_path, filters_json, total_projects, total_revenue, file_size)
+         VALUES (?, ?, 'pdf', ?, ?, ?, ?, ?)"
+    );
+    $stmt->execute([
+        $user_id, $filename, 'dash-t101/generated_reports/' . $filename,
+        json_encode($filters), $total_projects, $total_revenue, $file_size
+    ]);
+
+    // Forçar download do arquivo
+    header('Content-Type: application/pdf');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Content-Length: ' . $file_size);
+    readfile($filepath);
+    exit;
+
+} catch (Exception $e) {
+    error_log('Erro ao gerar PDF: ' . $e->getMessage());
+    die('Erro ao gerar relatório PDF: ' . $e->getMessage());
+}

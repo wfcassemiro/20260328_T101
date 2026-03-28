@@ -1,0 +1,253 @@
+<?php
+/**
+ * Sistema de Autenticação OAuth 2.0 Server-to-Server do Zoom - VERSÃO CORRIGIDA
+ */
+
+require_once 'zoom_config.php';
+
+/**
+ * Função de log para debug
+ */
+function writeToZoomLog($message) {
+    $logFile = __DIR__ . '/zoom_debug_log.txt';
+    $timestamp = date('Y-m-d H:i:s');
+    $logMessage = "[{$timestamp}] " . $message . "\n";
+    file_put_contents($logFile, $logMessage, FILE_APPEND);
+}
+
+/**
+ * Obter token de acesso do Zoom - VERSÃO CORRIGIDA
+ * 
+ * Mudanças principais:
+ * - Credenciais no cabeçalho Authorization Basic
+ * - Parâmetros no corpo como application/x-www-form-urlencoded
+ * - Melhor tratamento de erros
+ */
+function getZoomAccessToken($forceRefresh = false) {
+    $cacheFile = sys_get_temp_dir() . '/zoom_token_cache.json';
+    
+    writeToZoomLog("==== NOVA REQUISIÇÃO DE TOKEN ====");
+    
+    // Verificar cache
+    if (!$forceRefresh && file_exists($cacheFile)) {
+        $cacheData = json_decode(file_get_contents($cacheFile), true);
+        if (isset($cacheData['expires_at']) && $cacheData['expires_at'] > (time() + 300)) {
+            writeToZoomLog("Token válido em cache. Expira em: " . date('Y-m-d H:i:s', $cacheData['expires_at']));
+            return $cacheData['access_token'];
+        }
+        writeToZoomLog("Token em cache expirado. Solicitando novo token.");
+    }
+    
+    // Preparar credenciais - Base64(client_id:client_secret)
+    $credentials = base64_encode(ZOOM_CLIENT_ID . ':' . ZOOM_CLIENT_SECRET);
+    
+    // Preparar dados do corpo da requisição
+    $postData = [
+        'grant_type' => 'account_credentials',
+        'account_id' => ZOOM_ACCOUNT_ID
+    ];
+    
+    writeToZoomLog("URL: " . ZOOM_OAUTH_TOKEN_URL);
+    writeToZoomLog("Grant Type: account_credentials");
+    writeToZoomLog("Account ID: " . ZOOM_ACCOUNT_ID);
+    
+    // Inicializar cURL
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+        CURLOPT_URL => ZOOM_OAUTH_TOKEN_URL,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => http_build_query($postData),
+        CURLOPT_HTTPHEADER => [
+            'Authorization: Basic ' . $credentials,
+            'Content-Type: application/x-www-form-urlencoded'
+        ],
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_SSL_VERIFYHOST => 2,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_VERBOSE => false
+    ]);
+    
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+    
+    // Verificar erros de cURL
+    if ($curlError) {
+        writeToZoomLog("ERRO cURL: " . $curlError);
+        return false;
+    }
+    
+    writeToZoomLog("HTTP Code: " . $httpCode);
+    writeToZoomLog("Resposta: " . substr($response, 0, 500));
+    
+    $data = json_decode($response, true);
+    
+    // Verificar se a requisição foi bem-sucedida
+    if ($httpCode !== 200 || !isset($data['access_token'])) {
+        $errorMsg = $data['reason'] ?? $data['error'] ?? $data['message'] ?? 'Erro desconhecido';
+        writeToZoomLog("ERRO: Falha ao obter token. HTTP: {$httpCode}, Erro: {$errorMsg}");
+        
+        if (isset($data['error_description'])) {
+            writeToZoomLog("Descrição do erro: " . $data['error_description']);
+        }
+        
+        return false;
+    }
+    
+    // Salvar token em cache
+    $cacheData = [
+        'access_token' => $data['access_token'],
+        'expires_at' => time() + ($data['expires_in'] ?? 3600),
+        'created_at' => time(),
+        'scope' => $data['scope'] ?? 'N/A'
+    ];
+    
+    file_put_contents($cacheFile, json_encode($cacheData));
+    
+    writeToZoomLog("✓ Token obtido com sucesso!");
+    writeToZoomLog("Escopos: " . ($data['scope'] ?? 'N/A'));
+    writeToZoomLog("Expira em: " . date('Y-m-d H:i:s', $cacheData['expires_at']));
+    writeToZoomLog("====");
+    
+    return $data['access_token'];
+}
+
+/**
+ * Fazer requisição à API do Zoom - VERSÃO CORRIGIDA
+ */
+function zoomApiRequest($endpoint, $method = 'GET', $data = null, $retry = true) {
+    $token = getZoomAccessToken();
+    
+    if (!$token) {
+        return [
+            'success' => false,
+            'error' => 'Não foi possível obter token de autenticação',
+            'details' => 'Verifique as credenciais do Zoom e os logs em zoom_debug_log.txt'
+        ];
+    }
+    
+    $url = ZOOM_API_BASE_URL . $endpoint;
+    
+    writeToZoomLog("API Request: {$method} {$endpoint}");
+    
+    $ch = curl_init();
+    $headers = [
+        'Authorization: Bearer ' . $token,
+        'Content-Type: application/json',
+        'Accept: application/json'
+    ];
+    
+    $curlOptions = [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_SSL_VERIFYHOST => 2,
+        CURLOPT_TIMEOUT => 30
+    ];
+    
+    // Configurar método HTTP
+    $method = strtoupper($method);
+    switch ($method) {
+        case 'POST':
+            $curlOptions[CURLOPT_POST] = true;
+            if ($data) {
+                $curlOptions[CURLOPT_POSTFIELDS] = json_encode($data);
+                writeToZoomLog("POST Data: " . json_encode($data));
+            }
+            break;
+        case 'PATCH':
+        case 'PUT':
+        case 'DELETE':
+            $curlOptions[CURLOPT_CUSTOMREQUEST] = $method;
+            if ($data && ($method === 'PATCH' || $method === 'PUT')) {
+                $curlOptions[CURLOPT_POSTFIELDS] = json_encode($data);
+                writeToZoomLog("{$method} Data: " . json_encode($data));
+            }
+            break;
+    }
+    
+    curl_setopt_array($ch, $curlOptions);
+    
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+    
+    if ($curlError) {
+        writeToZoomLog("ERRO cURL na API: " . $curlError);
+        return ['success' => false, 'error' => 'Erro de conexão: ' . $curlError];
+    }
+    
+    writeToZoomLog("API Response HTTP: {$httpCode}");
+    $responseData = json_decode($response, true);
+    
+    // Token expirado? Tentar renovar
+    if ($httpCode === 401 && $retry) {
+        writeToZoomLog("Token expirado (401). Renovando e tentando novamente...");
+        $newToken = getZoomAccessToken(true);
+        if ($newToken) {
+            return zoomApiRequest($endpoint, $method, $data, false);
+        }
+    }
+    
+    // Verificar sucesso
+    if ($httpCode >= 200 && $httpCode < 300) {
+        writeToZoomLog("✓ Requisição bem-sucedida");
+        return ['success' => true, 'data' => $responseData, 'http_code' => $httpCode];
+    }
+    
+    // Erro
+    $errorMessage = $responseData['message'] ?? $responseData['error'] ?? 'Erro desconhecido';
+    writeToZoomLog("✗ Erro na API: {$errorMessage}");
+    
+    // Mensagem adicional para erros de escopo
+    if (isset($responseData['code']) && $responseData['code'] == 124) {
+        $errorMessage .= ' | SOLUÇÃO: Verifique se todos os escopos estão ativados no Zoom Marketplace.';
+    }
+    
+    return [
+        'success' => false,
+        'error' => $errorMessage,
+        'http_code' => $httpCode,
+        'response' => $responseData
+    ];
+}
+
+/**
+ * Testar autenticação do Zoom
+ */
+function testZoomAuth() {
+    writeToZoomLog("\n\n========== TESTE DE AUTENTICAÇÃO ==========");
+    writeToZoomLog("Testando obtenção de token...");
+    
+    $token = getZoomAccessToken(true);
+    
+    if (!$token) {
+        return [
+            'success' => false,
+            'message' => 'Falha ao obter token. Verifique o log para detalhes.'
+        ];
+    }
+    
+    writeToZoomLog("Token obtido. Testando API /users/me...");
+    $result = zoomApiRequest('/users/me');
+    
+    if ($result['success']) {
+        writeToZoomLog("✓ Autenticação funcionando corretamente!");
+        return [
+            'success' => true,
+            'message' => 'Autenticação OK',
+            'user' => $result['data']
+        ];
+    }
+    
+    writeToZoomLog("✗ Erro ao testar API: " . $result['error']);
+    return [
+        'success' => false,
+        'message' => 'Token obtido mas API falhou: ' . $result['error']
+    ];
+}
+?>

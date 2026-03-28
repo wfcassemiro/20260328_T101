@@ -1,0 +1,43 @@
+[04-Oct-2025 16:01:51 UTC] === INÍCIO DA REQUISIÇÃO ===
+[04-Oct-2025 16:01:51 UTC] Timestamp: 2025-10-04 16:01:51
+[04-Oct-2025 16:01:51 UTC] Method: GET
+[04-Oct-2025 16:01:51 UTC] Query String: id=115faa0d55024b9b9670b82c4c7f9ad4
+[04-Oct-2025 16:01:51 UTC] POST Data: Array
+(
+)
+
+[04-Oct-2025 16:01:51 UTC] GET Data: Array
+(
+    [id] => 115faa0d55024b9b9670b82c4c7f9ad4
+)
+
+[04-Oct-2025 16:01:51 UTC] Sessão - user_id: debug-user
+[04-Oct-2025 16:01:51 UTC] Sessão - is_admin: 1
+[04-Oct-2025 16:01:51 UTC] SUCCESS: Usuário autorizado como admin
+[04-Oct-2025 16:01:51 UTC] SUCCESS: Database incluído
+[04-Oct-2025 16:01:51 UTC] Processando method: GET
+[04-Oct-2025 16:01:51 UTC] === PROCESSANDO GET ===
+[04-Oct-2025 16:01:51 UTC] Buscando anúncio com ID: 115faa0d55024b9b9670b82c4c7f9ad4
+[04-Oct-2025 16:01:51 UTC] Resultado da query: Array
+(
+    [id] => 115faa0d55024b9b9670b82c4c7f9ad4
+    [title] => Fluência do idioma em dia. Mas como anda sua fluência cultural?
+    [speaker] => Denise Bobadilha
+    [announcement_date] => 2025-10-08
+    [lecture_time] => 19:00:00
+    [description] => Interpretar e traduzir vai além das palavras. Para garantir uma comunicação fluida, é essencial conhecer as dimensões culturais de cada grupo. Isso evita embaraços — engraçados na mesa do bar, mas desastrosos para o cliente.
+    [image_path] => /images/announcements/announcement_68dfdb38ca91f_2025-10-03.png
+)
+
+[04-Oct-2025 16:01:51 UTC] Dados formatados: Array
+(
+    [id] => 115faa0d55024b9b9670b82c4c7f9ad4
+    [title] => Fluência do idioma em dia. Mas como anda sua fluência cultural?
+    [speaker] => Denise Bobadilha
+    [lecture_time] => 19:00:00
+    [description] => Interpretar e traduzir vai além das palavras. Para garantir uma comunicação fluida, é essencial conhecer as dimensões culturais de cada grupo. Isso evita embaraços — engraçados na mesa do bar, mas desastrosos para o cliente.
+    [image_path] => /images/announcements/announcement_68dfdb38ca91f_2025-10-03.png
+    [lecture_date] => 2025-10-08
+)
+
+[04-Oct-2025 16:01:51 UTC] === FIM DA REQUISIÇÃO ===

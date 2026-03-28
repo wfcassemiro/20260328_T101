@@ -1,0 +1,211 @@
+<?php
+/**
+ * Relatório Time Tracker
+ * Dashboard de visualização de horas
+ */
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// --- Autenticação e Banco ---
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+$config_paths = [
+    __DIR__ . '/config/database.php',
+    $_SERVER['DOCUMENT_ROOT'] . '/dash-t101/config/database.php'
+];
+foreach ($config_paths as $path) {
+    if (file_exists($path)) { require_once $path; break; }
+}
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /login.php');
+    exit;
+}
+$user_id = $_SESSION['user_id'];
+
+// --- Funções de Helper ---
+function formatSecs($seconds) {
+    $h = floor($seconds / 3600);
+    $m = floor(($seconds % 3600) / 60);
+    return sprintf("%02dh %02dm", $h, $m);
+}
+
+// --- Queries de Estatísticas ---
+
+// 1. Total Hoje
+$stmt = $pdo->prepare("SELECT SUM(duration) FROM time_entries WHERE user_id = ? AND DATE(start_time) = CURDATE() AND is_running = 0");
+$stmt->execute([$user_id]);
+$totalToday = $stmt->fetchColumn() ?: 0;
+
+// 2. Total Este Mês
+$stmt = $pdo->prepare("SELECT SUM(duration) FROM time_entries WHERE user_id = ? AND MONTH(start_time) = MONTH(CURRENT_DATE()) AND YEAR(start_time) = YEAR(CURRENT_DATE()) AND is_running = 0");
+$stmt->execute([$user_id]);
+$totalMonth = $stmt->fetchColumn() ?: 0;
+
+// 3. Top Projeto (Mês)
+$stmt = $pdo->prepare("
+    SELECT p.title, SUM(e.duration) as total 
+    FROM time_entries e 
+    JOIN dash_projects p ON e.project_id = p.id 
+    WHERE e.user_id = ? AND e.is_running = 0
+    GROUP BY p.id 
+    ORDER BY total DESC 
+    LIMIT 1
+");
+$stmt->execute([$user_id]);
+$topProject = $stmt->fetch();
+
+// 4. Lista de Entradas Recentes (Últimas 100)
+$stmt = $pdo->prepare("
+    SELECT e.*, p.title as project_name, t.name as task_name
+    FROM time_entries e
+    LEFT JOIN dash_projects p ON e.project_id = p.id
+    LEFT JOIN time_tasks t ON e.task_id = t.id
+    WHERE e.user_id = ? AND e.is_running = 0
+    ORDER BY e.start_time DESC
+    LIMIT 100
+");
+$stmt->execute([$user_id]);
+$entries = $stmt->fetchAll();
+
+$page_title = "Relatório de Horas";
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title><?php echo $page_title; ?></title>
+    <link rel="stylesheet" href="/vision/assets/css/style.css">
+    <link rel="stylesheet" href="vision/assets/css/time-tracker.css" onerror="this.href='/vision/assets/css/time-tracker.css'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .stat-label { font-size: 0.9rem; color: #666; margin-bottom: 5px; }
+        .stat-value { font-size: 1.8rem; font-weight: 700; color: #333; }
+        
+        .report-table-container {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 12px; border-bottom: 2px solid #eee; color: #666; }
+        td { padding: 12px; border-bottom: 1px solid #eee; color: #333; }
+        .tag-project {
+            background: #f0f0f0; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<?php 
+$header_path = $_SERVER['DOCUMENT_ROOT'] . '/vision/includes/header.php';
+if (file_exists($header_path)) include $header_path;
+?>
+
+<div class="time-tracker-container">
+    <div class="tracker-header">
+        <div class="header-content">
+            <h1><i class="fas fa-chart-pie"></i> Relatórios de Tempo</h1>
+            <div class="header-actions">
+                <a href="time-tracker.php" class="btn btn-primary">
+                    <i class="fas fa-stopwatch"></i> Voltar ao Tracker
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="report-grid">
+        <div class="stat-card">
+            <div class="stat-label"><i class="fas fa-calendar-day"></i> Hoje</div>
+            <div class="stat-value"><?php echo formatSecs($totalToday); ?></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label"><i class="fas fa-calendar-alt"></i> Este Mês</div>
+            <div class="stat-value"><?php echo formatSecs($totalMonth); ?></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label"><i class="fas fa-trophy"></i> Projeto Principal</div>
+            <div class="stat-value" style="font-size: 1.2rem;">
+                <?php echo $topProject ? htmlspecialchars($topProject['title']) : '-'; ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="report-table-container">
+        <h3><i class="fas fa-history"></i> Histórico Detalhado (Últimos 100)</h3>
+        <br>
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Projeto</th>
+                        <th>Descrição</th>
+                        <th>Duração</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (count($entries) > 0): ?>
+                        <?php foreach ($entries as $row): ?>
+                            <tr>
+                                <td>
+                                    <?php echo date('d/m/Y', strtotime($row['start_time'])); ?>
+                                    <br>
+                                    <small style="color:#999"><?php echo date('H:i', strtotime($row['start_time'])); ?></small>
+                                </td>
+                                <td>
+                                    <?php if ($row['project_name']): ?>
+                                        <span class="tag-project"><?php echo htmlspecialchars($row['project_name']); ?></span>
+                                    <?php else: ?>
+                                        <span style="color:#ccc">-</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php echo htmlspecialchars($row['description']); ?>
+                                    <?php if ($row['task_name']): ?>
+                                        <br><small><i class="fas fa-check"></i> <?php echo htmlspecialchars($row['task_name']); ?></small>
+                                    <?php endif; ?>
+                                </td>
+                                <td style="font-weight: bold; font-family: monospace;">
+                                    <?php echo formatSecs($row['duration']); ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 30px;">
+                                Nenhum registro encontrado.
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<?php 
+$footer_path = $_SERVER['DOCUMENT_ROOT'] . '/vision/includes/footer.php';
+if (file_exists($footer_path)) include $footer_path;
+?>
+
+</body>
+</html>

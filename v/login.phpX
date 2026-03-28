@@ -1,0 +1,85 @@
+<?php
+require_once __DIR__ . '/config/database.php';
+
+// Se já está logado, redireciona para a página correta baseado no papel
+if (isset($_SESSION['user_id'])) {
+    if (isAdmin()) {
+        $redirect = $_GET['redirect'] ?? '/admin/index.php';
+    } elseif (isSubscriber()) {
+        $redirect = $_GET['redirect'] ?? '/videoteca.php';
+    } else {
+        $redirect = $_GET['redirect'] ?? '/faq.php';
+    }
+    header('Location: ' . $redirect);
+    exit;
+}
+
+// --- PROCESSO NORMAL DE LOGIN ---
+
+// Se recebeu envio de formulário de login
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+
+    if ($email && $password) {
+        // Busca usuário no banco
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
+
+        if ($user && password_verify($password, $user['password'])) {
+            // Registra sessão
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['user_role'] = $user['role'];
+            $_SESSION['is_subscriber'] = $user['is_subscriber'] ?? 0;
+            $_SESSION['subscription_active'] = $user['subscription_active'] ?? false;
+            $_SESSION['subscription_expires'] = $user['subscription_expires'] ?? null;
+
+            // Decide redirecionamento baseado na role
+            if (isAdmin()) {
+                $redirect = '/admin/index.php';
+            } elseif (isSubscriber()) {
+                $redirect = '/videoteca.php';
+            } else {
+                $redirect = '/faq.php';
+            }
+
+            header("Location: " . $redirect);
+            exit;
+        } else {
+            $error = "E-mail ou senha inválidos.";
+        }
+    } else {
+        $error = "Preencha todos os campos.";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Translators101</title>
+  <link rel="stylesheet" href="/vision/assets/css/style.css?v=22">
+</head>
+<body class="with-sidebar">
+  <main class="form-container">
+    <h1>Login</h1>
+    <?php if (!empty($error)): ?>
+      <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
+    <?php endif; ?>
+    <form method="POST">
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Entrar</button>
+    </form>
+  </main>
+</body>
+</html>

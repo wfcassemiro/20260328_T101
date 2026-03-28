@@ -1,0 +1,33 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <?php echo isset($page_title) ? $page_title . ' - Translators101' : 'Translators101 - Educação Continuada para Tradutores'; ?>
+    </title>
+    <meta name="description" content="<?php echo isset($page_description) ? $page_description : 'Plataforma de streaming educacional para profissionais de tradução, interpretação e revisão. Quase 400 palestras especializadas.'; ?>">
+    
+    <style>
+      /* ===================================
+         CRITICAL CSS - index.php
+         Translators101 - Apple Vision Style
+         =================================== */
+      :root{--brand-purple:#8e44ad;--brand-purple-dark:#5e3370;--accent-gold:#f39c12;--text-primary:#fff;--text-secondary:#f0f0f0;--glass-bg:rgba(255,255,255,0.05);--glass-border:rgba(255,255,255,0.15)}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:var(--text-primary);line-height:1.6;overflow-x:hidden}.main-content{width:100%;min-height:100vh}.glass-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:30px;margin:20px}.hero-logo{margin-bottom:40px}.main-logo{max-width:280px;height:auto;filter:drop-shadow(0 8px 25px rgba(142,68,173,0.6))}.hero-content-conversion{max-width:1000px;margin:0 auto;text-align:center}.hero-headline{font-size:3.5rem;font-weight:800;color:var(--text-primary);text-align:center;margin-bottom:30px;line-height:1.2;text-shadow:0 4px 20px rgba(142,68,173,0.6)}.hero-subheadline{font-size:1.4rem;color:var(--text-secondary);text-align:center;margin-bottom:40px;line-height:1.6;max-width:800px;margin-left:auto;margin-right:auto}.social-proof-hero{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin:40px auto;max-width:700px}.proof-item{display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(255,255,255,0.1);padding:15px;border-radius:12px;font-weight:500}.proof-item i{color:var(--accent-gold);font-size:1.2rem}.hero-cta-section{margin-top:50px;margin-bottom:80px}.cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:20px 40px;font-size:1.3rem;font-weight:700;border-radius:30px;background:linear-gradient(135deg,var(--brand-purple),var(--brand-purple-dark));color:#fff;text-decoration:none;box-shadow:0 6px 18px rgba(142,68,173,0.6);transition:transform .3s ease,box-shadow .3s ease;border:none;cursor:pointer}.cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(142,68,173,0.8)}.pulse-animation{animation:pulse 2s infinite}@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}.hero-guarantee{margin-top:30px;font-size:1.1rem;color:var(--accent-green);font-weight:600}.glass-section{background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:30px;padding:60px 40px;margin:40px 20px}.fade-item{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}.fade-item.visible{opacity:1;transform:translateY(0)}@media (max-width:768px){.hero-headline{font-size:2.2rem}.hero-subheadline{font-size:1.1rem}.social-proof-hero{grid-template-columns:1fr;gap:15px}.cta-btn{font-size:1.1rem;padding:16px 32px}.glass-hero{min-height:auto;padding:30px 15px}}@media (max-width:480px){.hero-headline{font-size:1.8rem}.main-logo{max-width:200px}}
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <noscript>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="/css/style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    </noscript>
+    
+    <link rel="icon" href="/images/favicon.ico">
+</head>

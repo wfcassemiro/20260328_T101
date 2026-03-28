@@ -1,0 +1,652 @@
+<?php
+/**
+ * Time Tracker - Interface Principal (Visual Dash-T101)
+ * Integrado com includes do sistema Vision
+ */
+
+// --- 1. Configurações PHP e Autenticação ---
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Tenta localizar o arquivo de verificação de login
+$paths_to_check = [
+    __DIR__ . '/includes/auth_check.php', 
+    __DIR__ . '/auth_check.php', 
+    $_SERVER['DOCUMENT_ROOT'] . '/dash-t101/includes/auth_check.php'
+];
+
+$auth_loaded = false;
+foreach ($paths_to_check as $path) { 
+    if (file_exists($path)) { require_once $path; $auth_loaded = true; break; } 
+}
+
+// Verifica login
+if ($auth_loaded && function_exists('requireAuth')) { 
+    requireAuth(); 
+} else { 
+    if (session_status() === PHP_SESSION_NONE) session_start(); 
+    if (!isset($_SESSION['user_id'])) { header('Location: /login.php'); exit; } 
+}
+
+$page_title = 'Time Tracker';
+
+// --- 2. INCLUDES DO SISTEMA (Caminhos Corrigidos) ---
+include __DIR__ . '/../../vision/includes/head.php';
+include __DIR__ . '/../../vision/includes/header.php';
+include __DIR__ . '/../../vision/includes/sidebar.php';
+?>
+
+<style>
+    /* Adaptação para o container principal do Dashboard */
+    .main-content {
+        padding-bottom: 50px;
+    }
+
+    /* Estilo do Card Principal (Timer) */
+    .timer-section {
+        text-align: center;
+        padding: 40px 20px;
+        margin-bottom: 30px;
+        /* Reutiliza estilos de video-card se existirem, ou define base */
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+    }
+
+    /* Display do Tempo */
+    .time-digits {
+        font-size: 80px;
+        font-weight: 200;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -2px;
+        line-height: 1;
+        margin-bottom: 10px;
+        color: var(--text-primary, #fff); /* Usa variável do tema ou branco */
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    
+    .timer-info { 
+        font-size: 16px; 
+        color: var(--text-secondary, #aaa); 
+        height: 24px; 
+        margin-bottom: 30px;
+    }
+    .timer-info span { font-weight: 500; color: #fff; }
+
+    /* Controles (Inputs e Botões) */
+    .timer-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .timer-input-group {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    /* Inputs estilo Vision (Copiado do index.php) */
+    .timer-input, .timer-select {
+        background: rgba(255, 255, 255, 0.05) !important;
+        backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 16px !important;
+        padding: 15px 20px !important;
+        color: #fff !important;
+        font-size: 1rem !important;
+        outline: none !important;
+        flex: 1;
+    }
+    
+    .timer-input::placeholder { color: rgba(255,255,255,0.4); }
+    .timer-select option { background: #1a1a2e; color: #fff; }
+
+    /* Botões */
+    .timer-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    /* Botão Principal (Roxo/Lilás - Identidade Dash T101) */
+    .btn-timer-primary {
+        background: linear-gradient(135deg, #7c4dff, #b388ff);
+        color: #fff;
+        font-weight: 800;
+        border: 0;
+        padding: 15px 40px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
+    }
+    .btn-timer-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(124, 77, 255, 0.5);
+    }
+
+    /* Botões de Ação Secundária */
+    .btn-timer-action {
+        padding: 15px 30px;
+        border-radius: 30px;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #fff;
+        transition: all 0.2s;
+    }
+    
+    .btn-stop { background: rgba(220, 53, 69, 0.2); border: 1px solid rgba(220, 53, 69, 0.5); color: #ff6b6b; }
+    .btn-stop:hover { background: rgba(220, 53, 69, 0.4); color: #fff; }
+    
+    .btn-pause { background: rgba(255, 193, 7, 0.2); border: 1px solid rgba(255, 193, 7, 0.5); color: #ffc107; }
+    .btn-pause:hover { background: rgba(255, 193, 7, 0.4); color: #fff; }
+    
+    .btn-resume { background: rgba(40, 167, 69, 0.2); border: 1px solid rgba(40, 167, 69, 0.5); color: #28a745; }
+    .btn-resume:hover { background: rgba(40, 167, 69, 0.4); color: #fff; }
+
+    .btn-icon-small {
+        width: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transition: all 0.2s;
+    }
+    .btn-icon-small:hover { background: rgba(255, 255, 255, 0.2); }
+
+    /* Lista de Histórico */
+    .entries-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .entry-item {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 15px 20px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: transform 0.2s, background 0.2s;
+    }
+    .entry-item:hover { transform: translateX(5px); background: rgba(255, 255, 255, 0.06); }
+    
+    .entry-color { width: 4px; height: 40px; border-radius: 4px; background: var(--brand-purple, #7c4dff); }
+    .entry-details { flex: 1; }
+    .entry-description { font-weight: 600; font-size: 1rem; color: #fff; margin-bottom: 4px; }
+    .entry-meta { font-size: 0.85rem; color: rgba(255,255,255,0.6); display: flex; gap: 15px; align-items: center; }
+    .entry-meta i { color: #FFD700; }
+    .entry-duration { font-family: monospace; font-size: 1.1rem; font-weight: 700; color: #fff; }
+
+    /* Modal */
+    .modal {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+        z-index: 9999; display: none; align-items: center; justify-content: center;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+        background: linear-gradient(160deg, #1b0033, #0e001a);
+        padding: 30px; border-radius: 24px;
+        width: 100%; max-width: 450px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        border: 1px solid rgba(180, 120, 255, 0.25);
+    }
+    .modal-header { display: flex; justify-content: space-between; margin-bottom: 20px; color: #fff; }
+    .modal-close { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+
+    /* Toasts */
+    .toast-notification {
+        position: fixed; top: 20px; right: 20px;
+        padding: 16px 20px; background: rgba(255,255,255,0.95);
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        z-index: 10000;
+        display: flex; align-items: center; gap: 10px;
+        transform: translateX(120%); transition: 0.3s;
+        font-weight: 600; color: #333;
+    }
+    .toast-notification.show { transform: translateX(0); }
+    .toast-success { border-left: 5px solid #34c759; }
+    .toast-error { border-left: 5px solid #ff3b30; }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .time-digits { font-size: 50px; }
+        .timer-input-group { flex-direction: column; }
+        .btn-timer-primary { width: 100%; justify-content: center; }
+        .timer-buttons { flex-wrap: wrap; }
+    }
+</style>
+
+<div class="main-content">
+
+    <div class="video-card profile-header-card" style="background: linear-gradient(135deg, var(--brand-purple), #4a148c); border: none; margin-bottom: 25px;">
+        <div class="header-icon-container" style="background: rgba(255, 255, 255, 0.1); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <i class="fas fa-stopwatch" style="font-size: 1.8rem; color: #fff;"></i>
+        </div>
+        <div class="header-text-container" style="margin-left: 20px;">
+            <h2 style="margin: 0 0 5px 0; padding: 0; font-size: 1.5rem; color: #fff; font-weight: 600; border: none;">Time Tracker</h2>
+            <p style="margin: 0; color: rgba(255, 255, 255, 0.8); font-size: 1rem;">Gerencie o tempo dos seus projetos em tempo real.</p>
+        </div>
+    </div>
+
+    <div class="timer-section">
+        <div class="timer-display">
+            <div class="time-digits">00:00:00</div>
+            <div class="timer-info" id="timerInfo"></div>
+        </div>
+        
+        <div class="timer-controls">
+            <div class="timer-input-group">
+                <input type="text" id="timerDescription" class="timer-input" placeholder="O que você está fazendo agora?">
+                
+                <select id="timerProject" class="timer-select">
+                    <option value="">Carregando projetos...</option>
+                </select>
+                
+                <select id="timerTask" class="timer-select" disabled>
+                    <option value="">Selecione um projeto</option>
+                </select>
+                
+                <button class="btn-icon-small" onclick="openQuickProjectModal()" title="Novo Projeto Rápido">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            <div class="timer-buttons">
+                <button id="startButton" class="btn-timer-primary">
+                    <i class="fas fa-play"></i> INICIAR TIMER
+                </button>
+                
+                <button id="pauseButton" class="btn-timer-action btn-pause" style="display: none;">
+                    <i class="fas fa-pause"></i> PAUSAR
+                </button>
+                
+                <button id="resumeButton" class="btn-timer-action btn-resume" style="display: none;">
+                    <i class="fas fa-play"></i> RETOMAR
+                </button>
+                
+                <button id="stopButton" class="btn-timer-action btn-stop" style="display: none;">
+                    <i class="fas fa-stop"></i> PARAR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card" style="padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin:0; font-size: 1.2rem; color: #fff;"><i class="fas fa-history"></i> Histórico Recente</h2>
+            
+            <div style="display: flex; gap: 10px;">
+                <a href="report_time_tracker.php" class="filter-btn active" style="text-decoration: none;">
+                    <i class="fas fa-chart-bar"></i> Relatórios Detalhados
+                </a>
+                <button class="filter-btn" onclick="loadEntries()" style="background: none; border: none; cursor: pointer;">
+                    <i class="fas fa-sync"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="filter-group" style="margin-bottom: 20px;">
+            <select id="filterProject" class="vision-select" onchange="loadEntries()" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 10px;">
+                <option value="">Todos os Projetos</option>
+            </select>
+        </div>
+
+        <div id="entriesList" class="entries-list">
+            <div class="loading-spinner" style="text-align: center; color: #aaa; padding: 20px;">Carregando histórico...</div>
+        </div>
+    </div>
+
+</div>
+
+<div id="quickProjectModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-folder-plus"></i> Novo Projeto</h3>
+            <button class="modal-close" onclick="closeQuickProjectModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="quickProjectForm">
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="color: #ccc; margin-bottom: 10px; display: block;">Nome do Projeto *</label>
+                    <input type="text" id="quickProjectName" class="timer-input" required placeholder="Ex: Tradução Jurídica">
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="btn-timer-action" onclick="closeQuickProjectModal()" style="margin-right: 10px;">Cancelar</button>
+                    <button type="submit" class="btn-timer-primary" style="padding: 10px 25px; font-size: 0.9rem;">Criar Projeto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php 
+// --- 4. FOOTER ---
+include __DIR__ . '/../../vision/includes/footer.php';
+?>
+
+<script>
+/**
+ * Time Tracker - Lógica Integrada V3
+ */
+
+// 1. Configuração Automática da API
+let currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+if (currentPath === '/') currentPath = '';
+const API_URL = window.location.origin + currentPath + '/api_time_tracker.php';
+console.log('[TT] API Definida:', API_URL);
+
+// 2. Estado Global
+const state = {
+    runningEntry: null,
+    timerInterval: null,
+    isPaused: false,
+    projects: [],
+    localStartTime: null,
+    serverDurationAtStart: 0
+};
+
+// 3. Inicialização
+document.addEventListener('DOMContentLoaded', () => {
+    loadProjects();
+    loadEntries();
+    checkRunningTimer();
+    setupEventListeners();
+    
+    // Loop visual de 1s
+    if (state.timerInterval) clearInterval(state.timerInterval);
+    state.timerInterval = setInterval(updateTimerTick, 1000);
+});
+
+// ==== LÓGICA DO CRONÔMETRO ====
+function updateTimerTick() {
+    if (!state.runningEntry || state.isPaused) return;
+
+    const now = Date.now();
+    const secondsPassedLocally = Math.floor((now - state.localStartTime) / 1000);
+    const totalSeconds = state.serverDurationAtStart + secondsPassedLocally;
+
+    const formatted = formatDuration(totalSeconds);
+    const display = document.querySelector('.time-digits');
+    if(display) {
+        display.textContent = formatted;
+        display.style.opacity = '1';
+        // Cor dinâmica enquanto roda
+        display.style.textShadow = '0 0 20px rgba(124, 77, 255, 0.4)';
+    }
+    document.title = `${formatted} - Time Tracker`;
+}
+
+function applyRunningState(entry) {
+    state.runningEntry = entry;
+    state.isPaused = entry.is_paused || false;
+    
+    // Sincronização
+    state.localStartTime = Date.now();
+    state.serverDurationAtStart = parseInt(entry.duration) || 0;
+    
+    updateTimerUI();
+    const display = document.querySelector('.time-digits');
+    if(display) display.textContent = formatDuration(state.serverDurationAtStart);
+}
+
+// ==== API FETCH WRAPPER ====
+async function apiCall(action, data = null) {
+    let body;
+    let url = API_URL + '?action=' + action;
+    
+    if (data) {
+        const fd = new FormData();
+        fd.append('action', action);
+        for (const key in data) fd.append(key, data[key]);
+        body = fd;
+        url = API_URL; 
+    }
+
+    try {
+        const response = await fetch(url, { method: data ? 'POST' : 'GET', body: body });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.error('[TT Error]', error);
+        showNotification('Erro de conexão com API', 'error');
+        return { success: false };
+    }
+}
+
+// ==== AÇÕES ====
+async function startTimer() {
+    const desc = document.getElementById('timerDescription').value;
+    const pid = document.getElementById('timerProject').value;
+    const tid = document.getElementById('timerTask').value;
+
+    showLoading(true);
+    const res = await apiCall('entry_start', { description: desc, project_id: pid, task_id: tid });
+    showLoading(false);
+
+    if (res.success) {
+        if (res.entry) {
+            applyRunningState(res.entry);
+            showNotification('Cronômetro Iniciado!', 'success');
+        } else {
+            checkRunningTimer();
+        }
+    } else {
+        showNotification(res.error || 'Erro ao iniciar', 'error');
+    }
+}
+
+async function pauseTimer() {
+    if (!state.runningEntry) return;
+    const res = await apiCall('entry_pause', { id: state.runningEntry.id });
+    if (res.success) { state.isPaused = true; updateTimerUI(); }
+}
+
+async function resumeTimer() {
+    if (!state.runningEntry) return;
+    const res = await apiCall('entry_resume', { id: state.runningEntry.id });
+    if (res.success) { checkRunningTimer(); }
+}
+
+async function stopTimer() {
+    if (!state.runningEntry) return;
+    if (!confirm('Parar cronômetro?')) return;
+    
+    const res = await apiCall('entry_stop', { id: state.runningEntry.id });
+    if (res.success) {
+        state.runningEntry = null;
+        resetTimerUI();
+        loadEntries();
+        document.title = 'Time Tracker';
+        showNotification('Finalizado: ' + res.duration_formatted, 'success');
+    }
+}
+
+async function checkRunningTimer() {
+    const res = await apiCall('entry_running');
+    if (res.success && res.entry) {
+        applyRunningState(res.entry);
+    } else {
+        state.runningEntry = null;
+        resetTimerUI();
+    }
+}
+
+async function loadProjects() {
+    const res = await apiCall('project_list');
+    if (res.success) {
+        state.projects = res.projects;
+        const s = document.getElementById('timerProject');
+        const f = document.getElementById('filterProject');
+        const current = s.value;
+        
+        const opts = '<option value="">Selecione um projeto</option>' + 
+            res.projects.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');
+        
+        s.innerHTML = opts;
+        f.innerHTML = '<option value="">Todos os Projetos</option>' + 
+            res.projects.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');
+            
+        if (current) s.value = current;
+    }
+}
+
+async function loadEntries() {
+    const pid = document.getElementById('filterProject').value;
+    const url = pid ? `entry_list&project_id=${pid}&limit=50` : 'entry_list&limit=50';
+    
+    try {
+        const r = await fetch(API_URL + '?action=' + url);
+        const d = await r.json();
+        if (d.success) renderEntries(d.entries);
+    } catch(e) { console.error(e); }
+}
+
+async function createQuickProject(e) {
+    e.preventDefault();
+    const name = document.getElementById('quickProjectName').value;
+    const res = await apiCall('project_create_quick', { name: name });
+    
+    if (res.success) {
+        closeQuickProjectModal();
+        await loadProjects();
+        showNotification('Projeto Criado!', 'success');
+        setTimeout(() => {
+            const s = document.getElementById('timerProject');
+            if (s) s.value = res.project_id;
+        }, 500);
+    } else {
+        showNotification(res.error, 'error');
+    }
+}
+
+async function deleteEntry(id) {
+    if(!confirm('Apagar registro?')) return;
+    const res = await apiCall('entry_delete', { id: id });
+    if(res.success) loadEntries();
+}
+
+async function loadTasks(pid) {
+    const res = await fetch(API_URL + '?action=task_list&project_id=' + pid).then(r=>r.json());
+    if(res.success) {
+        const s = document.getElementById('timerTask');
+        s.innerHTML = '<option value="">Selecione Tarefa</option>' + res.tasks.map(t=>`<option value="${t.id}">${escapeHtml(t.name)}</option>`).join('');
+    }
+}
+
+// ==== UI UTILS ====
+function updateTimerUI() {
+    if (state.runningEntry) {
+        document.getElementById('startButton').style.display = 'none';
+        document.getElementById('stopButton').style.display = 'inline-flex';
+        document.getElementById('timerDescription').value = state.runningEntry.description || '';
+        
+        const ps = document.getElementById('timerProject');
+        if (ps && state.runningEntry.project_id) { ps.value = state.runningEntry.project_id; ps.disabled = true; }
+        
+        const ts = document.getElementById('timerTask');
+        if (ts) ts.disabled = true;
+
+        let info = '';
+        if (state.runningEntry.project_name) info += `<span style="color:#7c4dff">● ${escapeHtml(state.runningEntry.project_name)}</span>`;
+        document.getElementById('timerInfo').innerHTML = info;
+
+        if (state.isPaused) {
+            document.getElementById('pauseButton').style.display = 'none';
+            document.getElementById('resumeButton').style.display = 'inline-flex';
+            document.querySelector('.time-digits').style.opacity = '0.5';
+            document.querySelector('.time-digits').style.textShadow = 'none';
+        } else {
+            document.getElementById('pauseButton').style.display = 'inline-flex';
+            document.getElementById('resumeButton').style.display = 'none';
+            document.querySelector('.time-digits').style.opacity = '1';
+        }
+    } else {
+        resetTimerUI();
+    }
+}
+
+function resetTimerUI() {
+    const d = document.querySelector('.time-digits');
+    if(d) { d.textContent = '00:00:00'; d.style.opacity = '1'; d.style.textShadow = 'none'; }
+    document.getElementById('timerInfo').innerHTML = '';
+    document.getElementById('timerDescription').value = '';
+    document.getElementById('timerProject').disabled = false;
+    document.getElementById('timerTask').disabled = true;
+    document.getElementById('startButton').style.display = 'inline-flex';
+    document.getElementById('pauseButton').style.display = 'none';
+    document.getElementById('resumeButton').style.display = 'none';
+    document.getElementById('stopButton').style.display = 'none';
+}
+
+function renderEntries(entries) {
+    const c = document.getElementById('entriesList');
+    if (!entries || entries.length === 0) {
+        c.innerHTML = '<div style="padding:30px;text-align:center;color:#999">Nenhum registro encontrado.</div>';
+        return;
+    }
+    
+    c.innerHTML = entries.map(e => `
+        <div class="entry-item">
+            <div class="entry-color" style="background:${e.project_color || '#7c4dff'}"></div>
+            <div class="entry-details">
+                <div class="entry-description">${escapeHtml(e.description || 'Sem descrição')}</div>
+                <div class="entry-meta">
+                    ${e.project_name ? `<span><i class="fas fa-folder"></i> ${escapeHtml(e.project_name)}</span>` : ''}
+                    <span><i class="fas fa-clock"></i> ${new Date(e.start_time.replace(' ','T')).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span>
+                </div>
+            </div>
+            <div class="entry-duration">${e.duration_formatted}</div>
+            <button class="btn-icon-small" onclick="deleteEntry('${e.id}')" style="width:36px;height:36px;margin-left:10px;color:#ff3b30;border-color:rgba(255,59,48,0.3);background:rgba(255,59,48,0.1)"><i class="fas fa-trash"></i></button>
+        </div>
+    `).join('');
+}
+
+// Helpers
+function formatDuration(s) { const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60; return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0'); }
+function escapeHtml(t) { return t ? t.replace(/&/g,'&amp;').replace(/</g,'&lt;') : ''; }
+function showLoading(show) { 
+    const b = document.getElementById('startButton'); 
+    if(b) { 
+        b.disabled = show; 
+        b.innerHTML = show ? '<i class="fas fa-spinner fa-spin"></i>' : '<i class="fas fa-play"></i> INICIAR TIMER'; 
+    } 
+}
+function showNotification(msg, type) { const d = document.createElement('div'); d.className = `toast-notification toast-${type} show`; d.innerHTML = msg; document.body.appendChild(d); setTimeout(()=>d.remove(), 3000); }
+function openQuickProjectModal() { document.getElementById('quickProjectModal').classList.add('active'); }
+function closeQuickProjectModal() { document.getElementById('quickProjectModal').classList.remove('active'); }
+
+// Eventos
+function setupEventListeners() {
+    document.getElementById('startButton')?.addEventListener('click', startTimer);
+    document.getElementById('pauseButton')?.addEventListener('click', pauseTimer);
+    document.getElementById('resumeButton')?.addEventListener('click', resumeTimer);
+    document.getElementById('stopButton')?.addEventListener('click', stopTimer);
+    document.getElementById('quickProjectForm')?.addEventListener('submit', createQuickProject);
+    document.getElementById('timerProject')?.addEventListener('change', function() {
+        const pid = this.value;
+        const ts = document.getElementById('timerTask');
+        ts.disabled = !pid;
+        if(pid) loadTasks(pid);
+    });
+}
+</script>

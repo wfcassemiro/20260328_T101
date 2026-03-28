@@ -1,0 +1,3 @@
+# Colocar este arquivo na pasta uploads/
+Order Deny,Allow
+Deny from all

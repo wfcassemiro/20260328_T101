@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "Translators 101 Dashboard",
+    "description": "Nombre de la extensión"
+  },
+  "extDescription": {
+    "message": "Tu panel con actualizaciones sobre traducción e interpretación. Eventos, noticias, herramientas y charlas de la comunidad Translators101.",
+    "description": "Descripción de la extensión"
+  }
+}

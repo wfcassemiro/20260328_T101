@@ -1,0 +1,15 @@
+﻿"RELATÓRIO DE PROJETOS - DASH-T101"
+"Gerado pelo Dash-T101, o sistema de gerenciamento de projetos da Translators101"
+
+Período;"01/09/2025 a 07/11/2025"
+"Data de Geração";"06/11/2025 21:32"
+
+ESTATÍSTICAS
+"Total de Projetos";3
+"Receita Total";"R$ 3.350,00"
+
+
+Projeto;Cliente;Status;"Idioma Origem";"Idioma Destino";Valor;Moeda;"Data de Criação"
+"Teste de adição de projeto";"Empresa 3";Concluído;IT;RU;250,00;USD;17/10/2025
+"Teste de gráfico";"Empresa 2";Concluído;FR;PT;2.300,00;BRL;16/10/2025
+"Teste de relatório";"Empresa 1";"Em Andamento";EN;PT;800,00;BRL;15/10/2025
