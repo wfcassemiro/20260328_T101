@@ -1,76 +1,60 @@
 # DASH-T101 - PRD (Product Requirements Document)
 
 ## Problema Original
-O usuário relatou que ao tentar incluir um serviço no Dash-T101, ele não estava sendo salvo. Especificamente, serviços como DTP (Desktop Publishing) sem idiomas especificados não eram persistidos no banco de dados.
+Correções e melhorias no sistema Dash-T101 (PHP + MySQL) para gestão de tradução e interpretação.
 
-## O Que Foi Implementado
+## O Que Foi Implementado (Abril 2026)
 
-### Data: Abril 2026
+### 1. Correção do Bug de Salvamento (DTP)
+- Idiomas opcionais para qualquer serviço (lang_from/lang_to NULLable)
 
-### 1. Correção do Bug de Salvamento
-- Idiomas agora são completamente OPCIONAIS para qualquer serviço
-- Serviços como DTP, Diagramação, etc. podem ser salvos sem idioma
+### 2. Melhorias em Fornecedores (freelancers.php / freelancers_list.php)
+- Botão "Adicionar novo fornecedor"
+- Campo WhatsApp (código de país + checkbox)
+- Ícone WhatsApp na lista (abre wa.me)
+- Botão "Copiar E-mail" com toast
+- Busca em observações
+- Ordenação por colunas (Nome, País, Moeda)
 
-### 2. Botão "Adicionar novo fornecedor"
-- Adicionado ao lado de "Voltar" e "Ver lista" em freelancers.php e freelancers_list.php
-
-### 3. Campo WhatsApp
-- Seletor de código de país com 18 países suportados
-- Checkbox "É WhatsApp" com ícone verde
-
-### 4. Ícone WhatsApp na Lista
-- Botão verde que abre `https://wa.me/` diretamente
-
-### 5. Botão Copiar E-mail
-- Botão ao lado do e-mail na lista com toast "E-mail copiado!"
-
-### 6. Busca em Observações
-- Campo `notes` incluído na busca de fornecedores
-
-### 7. Modal de Despesas de Interpretação
-- Botão "Incluir despesas da interpretação" abaixo dos campos da tarefa (largura total)
-- Aparece apenas quando serviço = Interpretação
-- Modal com tabela: Viagem, Hospedagem, Alimentação, Equipamento
-- Toggle Cliente (verde = faturamento) / Intérprete (laranja = controle interno)
-- Despesas do Cliente somadas ao total do projeto
-- Suporte completo a edição de projetos existentes
+### 3. Modal de Despesas de Interpretação (projects.php)
+- Botão "Incluir despesas da interpretação" (largura total, abaixo dos campos)
+- Modal com 4 tipos: Viagem, Hospedagem, Alimentação, Equipamento
+- Toggle Cliente (faturamento) / Intérprete (controle interno)
 - Unidade "Diária" pré-selecionada ao escolher Interpretação
+- Checkbox "Monolíngue" reposicionada no topo do card
 
-### 8. Coluna "Despesas" na Lista de Projetos
-- Nova coluna na tabela de projects_list.php
-- Mostra total de despesas do Cliente (verde) e do Intérprete (laranja) separadamente
-- Query otimizada com GROUP BY para buscar totais por projeto
-- Exclusão de despesas ao deletar projeto
+### 4. Lista de Projetos (projects_list.php)
+- Coluna "Despesas" com totais Cliente/Intérprete
+- Ordenação por colunas (Projeto, Cliente, Status, Prazo, Valor, Despesas)
 
-## Alterações de Banco de Dados
-```sql
--- Parte 1: Idiomas opcionais
-ALTER TABLE `dash_freelancer_rates` MODIFY COLUMN `lang_from` VARCHAR(100) NULL DEFAULT NULL;
-ALTER TABLE `dash_freelancer_rates` MODIFY COLUMN `lang_to` VARCHAR(100) NULL DEFAULT NULL;
+### 5. Lista de Faturas (invoices_list.php)
+- Botões Editar e Excluir adicionados
+- Exclusão com remoção de itens e vínculos
+- Ordenação por colunas (Número, Cliente, Data, Vencimento, Status, Valor)
 
--- Parte 2: WhatsApp
-ALTER TABLE `dash_freelancers` ADD COLUMN `phone_country_code` VARCHAR(10) DEFAULT '+55';
-ALTER TABLE `dash_freelancers` ADD COLUMN `is_whatsapp` TINYINT(1) DEFAULT 0;
+### 6. Relatório de Despesas de Interpretação (interpretation_expenses_report.php) - NOVO
+- Filtros: período (de/até), cliente, tipo de despesa, responsável
+- Cards de resumo: total geral, total cliente, total intérprete, por tipo de despesa
+- Tabela detalhada com link para o projeto
+- Rodapé com totais consolidados
+- Ordenação por colunas (7 colunas)
+- Estado vazio quando não há resultados
 
--- Parte 3: Despesas de Interpretação
-CREATE TABLE IF NOT EXISTS `dash_interpretation_expenses` (...);
-```
+## Banco de Dados
+- `dash_freelancer_rates`: lang_from/lang_to NULLable
+- `dash_freelancers`: phone_country_code, is_whatsapp
+- `dash_interpretation_expenses`: nova tabela (expense_type, description, amount, paid_by)
 
 ## Arquivos Gerados
 - `/app/Abril/v/dash-t101/freelancers.php`
 - `/app/Abril/v/dash-t101/freelancers_list.php`
 - `/app/Abril/v/dash-t101/projects.php`
 - `/app/Abril/v/dash-t101/projects_list.php`
+- `/app/Abril/v/dash-t101/invoices_list.php`
+- `/app/Abril/v/dash-t101/interpretation_expenses_report.php`
 - `/app/Abril/database_update_abril_2026.sql`
-- `/app/Abril/README.md`
 
-## Backlog / Próximas Tarefas
-- P0: Nenhuma pendência crítica
-- P1: Testes de integração após aplicação em produção
-- P2: Relatório de despesas de interpretação por período
-- P2: Mais códigos de país para WhatsApp
-
-## Personas de Usuário
-- **Tradutor Freelancer**: Gerencia fornecedores/parceiros de tradução
-- **Agência de Tradução**: Gerencia múltiplos fornecedores com diferentes serviços e tarifas
-- **Gestor de Projetos**: Cria projetos com tarefas de interpretação e controla despesas
+## Backlog
+- P1: Adicionar link para o relatório de despesas no menu/sidebar/index
+- P2: Exportar relatório de despesas para CSV/Excel
+- P2: Favicon no head.php (tag link rel="icon" faltando)
