@@ -260,7 +260,7 @@ include __DIR__ . '/../vision/includes/sidebar.php';
     
     .task-label { font-size: 0.8rem; color: #aaa; font-weight: 500; }
 
-    .mono-check-wrapper { margin-top: 8px; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #aaa; cursor: pointer; }
+    .mono-check-wrapper { flex-basis: 100%; margin-top: 0; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #aaa; cursor: pointer; }
     .mono-check-wrapper input { accent-color: var(--brand-purple); width: 16px; height: 16px; cursor: pointer; }
 
     .vision-btn { background: var(--brand-purple); color: #fff; border: 0; border-radius: 20px; padding: 12px 24px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
@@ -465,6 +465,11 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                             $is_interpretation = ($job['service'] === 'Interpretação');
                         ?>
                         <div class="task-row">
+                            <label class="mono-check-wrapper">
+                                <input type="checkbox" class="mono-check" name="job_is_monolingual_chk[]" <?php echo $is_mono ? 'checked' : ''; ?>>
+                                <input type="hidden" name="job_is_monolingual[]" class="mono-val" value="<?php echo $is_mono ? '1' : '0'; ?>">
+                                <span>Monolíngue</span>
+                            </label>
                             <div class="task-group task-group-large">
                                 <label class="task-label">Serviço</label>
                                 <div class="input-with-btn">
@@ -478,11 +483,6 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                                     </select>
                                     <button type="button" class="btn-add-mini btn-add-service">+</button>
                                 </div>
-                                <label class="mono-check-wrapper">
-                                    <input type="checkbox" class="mono-check" name="job_is_monolingual_chk[]" <?php echo $is_mono ? 'checked' : ''; ?>>
-                                    <input type="hidden" name="job_is_monolingual[]" class="mono-val" value="<?php echo $is_mono ? '1' : '0'; ?>">
-                                    <span>Monolíngue</span>
-                                </label>
                             </div>
 
                             <div class="task-group group-from" style="<?php echo $is_mono ? 'display:none' : ''; ?>">
@@ -563,6 +563,11 @@ include __DIR__ . '/../vision/includes/sidebar.php';
 <!-- Template de Tarefa -->
 <template id="job_row_template">
     <div class="task-row">
+        <label class="mono-check-wrapper">
+            <input type="checkbox" class="mono-check">
+            <input type="hidden" name="job_is_monolingual[]" class="mono-val" value="0">
+            <span>Monolíngue</span>
+        </label>
         <div class="task-group task-group-large">
             <label class="task-label">Serviço</label>
             <div class="input-with-btn">
@@ -572,11 +577,6 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                 </select>
                 <button type="button" class="btn-add-mini btn-add-service">+</button>
             </div>
-            <label class="mono-check-wrapper">
-                <input type="checkbox" class="mono-check">
-                <input type="hidden" name="job_is_monolingual[]" class="mono-val" value="0">
-                <span>Monolíngue</span>
-            </label>
         </div>
         <div class="task-group group-from">
             <label class="task-label">De</label>
