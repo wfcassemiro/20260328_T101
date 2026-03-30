@@ -26,7 +26,7 @@ $existing_expenses = [];
 // Listas Padrão
 $default_services = ['Tradução', 'Revisão', 'Interpretação', 'Localização', 'MTPE', 'Legendagem'];
 $default_languages = ['Português', 'Inglês', 'Espanhol', 'Francês', 'Alemão', 'Italiano', 'Chinês'];
-$default_units = ['Palavra', 'Hora', 'Lauda', 'Minuto', 'Projeto'];
+$default_units = ['Palavra', 'Hora', 'Lauda', 'Minuto', 'Diária', 'Projeto'];
 $default_currencies = ['BRL', 'USD', 'EUR', 'GBP'];
 
 $expense_types = [
@@ -351,16 +351,18 @@ include __DIR__ . '/../vision/includes/sidebar.php';
     .expenses-summary-row .label-client { color: #81c784; }
     .expenses-summary-row .label-interpreter { color: #ffb74d; }
 
-    /* Botão Despesas de Interpretação na task row */
+    /* Botão Despesas de Interpretação - full width abaixo dos campos */
     .btn-interpretation-expenses {
         display: none;
-        margin-top: 6px; padding: 5px 12px; font-size: 0.78rem;
-        background: rgba(255, 152, 0, 0.15); border: 1px solid rgba(255, 152, 0, 0.3);
-        color: #ffb74d; border-radius: 8px; cursor: pointer; transition: 0.2s;
-        align-items: center; gap: 5px; white-space: nowrap;
+        width: 100%; flex-basis: 100%;
+        margin-top: 2px; padding: 10px 16px; font-size: 0.85rem;
+        background: rgba(255, 152, 0, 0.12); border: 1px dashed rgba(255, 152, 0, 0.35);
+        color: #ffb74d; border-radius: 10px; cursor: pointer; transition: 0.2s;
+        align-items: center; justify-content: center; gap: 8px; white-space: nowrap;
+        text-align: center;
     }
-    .btn-interpretation-expenses.visible { display: inline-flex; }
-    .btn-interpretation-expenses:hover { background: rgba(255, 152, 0, 0.3); }
+    .btn-interpretation-expenses.visible { display: flex; }
+    .btn-interpretation-expenses:hover { background: rgba(255, 152, 0, 0.25); border-style: solid; }
     .btn-interpretation-expenses .expense-badge {
         background: #ff9800; color: #000; font-size: 0.7rem; font-weight: 700;
         padding: 1px 6px; border-radius: 10px; margin-left: 4px;
@@ -481,10 +483,6 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                                     <input type="hidden" name="job_is_monolingual[]" class="mono-val" value="<?php echo $is_mono ? '1' : '0'; ?>">
                                     <span>Monolíngue</span>
                                 </label>
-                                <button type="button" class="btn-interpretation-expenses <?php echo $is_interpretation ? 'visible' : ''; ?>" title="Gerenciar despesas de interpretação">
-                                    <i class="fas fa-receipt"></i> Despesas
-                                    <span class="expense-badge" style="display:none;">0</span>
-                                </button>
                             </div>
 
                             <div class="task-group group-from" style="<?php echo $is_mono ? 'display:none' : ''; ?>">
@@ -532,8 +530,11 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                                 <input type="text" name="job_price[]" class="vision-input job-price" placeholder="0.00" value="<?php echo number_format($job['price_per_unit'], 2, ',', '.'); ?>" oninput="calculateRow(this)">
                             </div>
                             <button type="button" class="btn-remove-task" title="Remover"><i class="fas fa-trash"></i></button>
+                            <button type="button" class="btn-interpretation-expenses <?php echo $is_interpretation ? 'visible' : ''; ?>" title="Gerenciar despesas de interpretação">
+                                <i class="fas fa-receipt"></i> Incluir despesas da interpretação
+                                <span class="expense-badge" style="display:none;">0</span>
+                            </button>
                         </div>
-                        <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
 
@@ -575,10 +576,6 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                 <input type="hidden" name="job_is_monolingual[]" class="mono-val" value="0">
                 <span>Monolíngue</span>
             </label>
-            <button type="button" class="btn-interpretation-expenses" title="Gerenciar despesas de interpretação">
-                <i class="fas fa-receipt"></i> Despesas
-                <span class="expense-badge" style="display:none;">0</span>
-            </button>
         </div>
         <div class="task-group group-from">
             <label class="task-label">De</label>
@@ -612,6 +609,10 @@ include __DIR__ . '/../vision/includes/sidebar.php';
             <input type="text" name="job_price[]" class="vision-input job-price" placeholder="0.00" oninput="calculateRow(this)">
         </div>
         <button type="button" class="btn-remove-task" title="Remover"><i class="fas fa-trash"></i></button>
+        <button type="button" class="btn-interpretation-expenses" title="Gerenciar despesas de interpretação">
+            <i class="fas fa-receipt"></i> Incluir despesas da interpretação
+            <span class="expense-badge" style="display:none;">0</span>
+        </button>
     </div>
 </template>
 
@@ -819,12 +820,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // Quando muda o serviço, mostrar/ocultar botão de despesas
+        // Quando muda o serviço, mostrar/ocultar botão de despesas + auto-selecionar Diária
         if (e.target.classList.contains('service-select')) {
             const row = e.target.closest('.task-row');
             const btn = row.querySelector('.btn-interpretation-expenses');
+            const unitSelect = row.querySelector('.unit-select');
             if (e.target.value === 'Interpretação') {
                 btn.classList.add('visible');
+                // Auto-selecionar "Diária" na unidade
+                if (unitSelect) {
+                    const diariaOpt = Array.from(unitSelect.options).find(o => o.value === 'Diária');
+                    if (diariaOpt) unitSelect.value = 'Diária';
+                }
             } else {
                 btn.classList.remove('visible');
             }
