@@ -3,14 +3,14 @@
 ## Resumo das Alterações
 
 ### 1. Correção do Bug de Salvamento de Serviços
-**Problema:** Ao adicionar tarifas/serviços a um fornecedor, os serviços "Monolíngues" (como DTP) não estavam sendo salvos corretamente.
+**Problema:** Ao adicionar tarifas/serviços a um fornecedor, serviços como DTP não estavam sendo salvos porque os campos de idioma estavam vazios.
 
-**Causa:** O código PHP não processava corretamente os índices dos campos `rates_is_monolingual[]` quando eram enviados via POST, causando falha na validação.
+**Causa:** O código PHP exigia que pelo menos o campo "idioma destino" (`lang_to`) fosse preenchido para salvar uma tarifa.
 
 **Solução:** 
-- Corrigida a lógica de processamento do array `rates_is_monolingual` no `freelancers.php`
-- Adicionada verificação para serviços monolíngues que não necessitam de idioma de destino obrigatório
-- O campo `lang_to` agora recebe o nome do serviço quando é monolíngue e o idioma não é especificado
+- Idiomas agora são **completamente opcionais** para qualquer tipo de serviço
+- Serviços como DTP, Diagramação, etc. podem ser salvos sem especificar idioma algum
+- A única validação é: nome do serviço preenchido + valor >= 0
 
 ### 2. Botão "Adicionar novo fornecedor"
 - Adicionado botão verde "Adicionar novo fornecedor" na barra de navegação de ambas as páginas

@@ -81,10 +81,10 @@ if (!empty($search_term)) {
     array_push($params, $search_like, $search_like, $search_like, $search_like, $search_like, $search_like, $search_like);
 }
 
-// --- Buscar Fornecedores (SQL CORRIGIDO PARA MONOLÍNGUE + WhatsApp) ---
+// --- Buscar Fornecedores (SQL CORRIGIDO - Idiomas opcionais) ---
 $freelancers = [];
 try {
-    // O CASE abaixo garante que se lang_from for NULL, a concatenação não falha e exibe formato correto
+    // O CASE garante exibição correta para serviços com ou sem idiomas
     $sql = "
         SELECT 
             f.*,
@@ -92,6 +92,7 @@ try {
                 DISTINCT CONCAT(
                     r.service, 
                     CASE 
+                        WHEN (r.lang_from IS NULL OR r.lang_from = '') AND (r.lang_to IS NULL OR r.lang_to = '') THEN ''
                         WHEN r.lang_from IS NULL OR r.lang_from = '' THEN CONCAT(' (', r.lang_to, ')')
                         ELSE CONCAT(' (', r.lang_from, ' > ', r.lang_to, ')')
                     END

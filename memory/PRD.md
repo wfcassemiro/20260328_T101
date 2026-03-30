@@ -1,22 +1,19 @@
 # DASH-T101 - PRD (Product Requirements Document)
 
 ## Problema Original
-O usuário relatou que ao tentar incluir um serviço no Dash-T101, ele não estava sendo salvo. Especificamente, serviços como DTP (Desktop Publishing) com checkbox "Monolíngue" marcado não eram persistidos no banco de dados após salvar.
+O usuário relatou que ao tentar incluir um serviço no Dash-T101, ele não estava sendo salvo. Especificamente, serviços como DTP (Desktop Publishing) sem idiomas especificados não eram persistidos no banco de dados.
 
 ## Causa Raiz Identificada
-O bug estava no arquivo `freelancers.php`, na lógica de processamento do formulário POST. O problema ocorria porque:
-
-1. O campo `rates_is_monolingual[]` era enviado como array associativo com índices, mas o código tentava acessá-lo como array sequencial
-2. Para serviços monolíngues (onde o campo "De (Origem)" fica oculto), a validação exigia `lang_to` preenchido, mas o select estava com valor "Selecione" (vazio)
-3. Isso fazia com que a condição `if (!empty($service) && !empty($lang_to) && $rate >= 0)` falhasse para serviços monolíngues
+O bug estava no arquivo `freelancers.php`, na lógica de validação para salvar tarifas. O código exigia que pelo menos o campo `lang_to` (idioma destino) estivesse preenchido, mas serviços como DTP não precisam de idioma.
 
 ## O Que Foi Implementado
 
 ### Data: Abril 2026
 
 ### 1. Correção do Bug de Salvamento ✅
-- Corrigida a lógica de processamento do array `rates_is_monolingual`
-- Serviços monolíngues agora podem ter `lang_to` vazio (usa o nome do serviço como identificador)
+- **Idiomas agora são completamente OPCIONAIS** para qualquer serviço
+- Regra simplificada: salvar se tem nome do serviço + valor >= 0
+- Serviços como DTP, Diagramação, etc. podem ser salvos sem idioma
 
 ### 2. Botão "Adicionar novo fornecedor" ✅
 - Adicionado ao lado de "Voltar" e "Ver lista"

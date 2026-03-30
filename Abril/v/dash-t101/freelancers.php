@@ -75,7 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt_del->execute([$freelancer_id, $user_id]);
             }
             
-            // --- Salvar Tarifas (CORREÇÃO DO BUG) ---
+            // --- Salvar Tarifas (CORREÇÃO DO BUG - Abril 2026) ---
+            // Idiomas agora são OPCIONAIS para qualquer tipo de serviço (DTP, etc.)
             $stmt_rate = $pdo->prepare("INSERT INTO dash_freelancer_rates (user_id, freelancer_id, service, lang_from, lang_to, rate, unit, currency) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             
             if (isset($_POST['rates_service'])) {
@@ -84,51 +85,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $service = $_POST['rates_service'][$i] ?? '';
                     $unit = $_POST['rates_unit'][$i] ?? 'Palavra';
                     
-                    // Monolíngue Check - CORREÇÃO: verificar se existe no índice
+                    // Monolíngue Check
                     $is_mono = false;
                     if (isset($_POST['rates_is_monolingual']) && isset($_POST['rates_is_monolingual'][$i])) {
                         $is_mono = $_POST['rates_is_monolingual'][$i] == '1';
                     }
                     
-                    // Idiomas
+                    // Idioma de Origem (pode ser vazio)
                     $lang_from = null;
-                    if (!$is_mono) {
-                        $lang_from = $_POST['rates_lang_from'][$i] ?? '';
+                    if (!$is_mono && isset($_POST['rates_lang_from'][$i])) {
+                        $lang_from = $_POST['rates_lang_from'][$i];
                         if ($lang_from === 'other' && isset($_POST['rates_lang_from_other'][$i])) {
                             $lang_from = trim($_POST['rates_lang_from_other'][$i]);
                         }
+                        // Se for vazio ou "Selecione", deixar como NULL
+                        if (empty($lang_from) || $lang_from === '') {
+                            $lang_from = null;
+                        }
                     }
                     
-                    $lang_to = $_POST['rates_lang_to'][$i] ?? '';
-                    if ($lang_to === 'other' && isset($_POST['rates_lang_to_other'][$i])) {
-                        $lang_to = trim($_POST['rates_lang_to_other'][$i]);
+                    // Idioma de Destino (pode ser vazio)
+                    $lang_to = null;
+                    if (isset($_POST['rates_lang_to'][$i])) {
+                        $lang_to = $_POST['rates_lang_to'][$i];
+                        if ($lang_to === 'other' && isset($_POST['rates_lang_to_other'][$i])) {
+                            $lang_to = trim($_POST['rates_lang_to_other'][$i]);
+                        }
+                        // Se for vazio ou "Selecione", deixar como NULL
+                        if (empty($lang_to) || $lang_to === '') {
+                            $lang_to = null;
+                        }
                     }
                     
                     // Valor
                     $rate_str = str_replace(',', '.', $_POST['rates_rate'][$i] ?? '0');
                     $rate = (float)$rate_str;
                     
-                    // CORREÇÃO: Para serviços monolíngues, lang_to pode ser vazio
-                    // Só salvar se tem serviço e valor >= 0
-                    // Para não-monolíngue, precisa de lang_to
-                    // Para monolíngue, lang_to é opcional
-                    $should_save = false;
-                    
-                    if (!empty($service) && $rate >= 0) {
-                        if ($is_mono) {
-                            // Serviços monolíngues não precisam de idiomas
-                            $should_save = true;
-                            // Se lang_to estiver vazio, usar o nome do serviço ou "N/A"
-                            if (empty($lang_to)) {
-                                $lang_to = $service; // Usar o nome do serviço como idioma para identificação
-                            }
-                        } else {
-                            // Serviços bilíngues precisam de idioma destino
-                            if (!empty($lang_to)) {
-                                $should_save = true;
-                            }
-                        }
-                    }
+                    // REGRA SIMPLIFICADA: Salvar se tem serviço e valor >= 0
+                    // Idiomas são OPCIONAIS - serviços como DTP não precisam de idioma
+                    $should_save = (!empty($service) && $rate >= 0);
                     
                     if ($should_save) {
                         $stmt_rate->execute([
