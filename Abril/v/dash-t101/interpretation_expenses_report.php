@@ -75,6 +75,52 @@ $clients = $stmt_cli->fetchAll(PDO::FETCH_ASSOC);
 // Labels
 $type_labels = ['travel' => 'Viagem', 'accommodation' => 'Hospedagem', 'food' => 'Alimentação', 'equipment' => 'Equipamento'];
 $type_icons  = ['travel' => 'fa-plane', 'accommodation' => 'fa-hotel', 'food' => 'fa-utensils', 'equipment' => 'fa-tools'];
+$paid_labels = ['client' => 'Cliente', 'interpreter' => 'Intérprete'];
+
+// --- EXPORTAÇÃO CSV / EXCEL ---
+$export = $_GET['export'] ?? '';
+if ($export === 'csv' || $export === 'excel') {
+    $separator = ($export === 'csv') ? ',' : "\t";
+    $ext = ($export === 'csv') ? 'csv' : 'xls';
+    $mime = ($export === 'csv') ? 'text/csv' : 'application/vnd.ms-excel';
+    
+    $filename = 'despesas_interpretacao_' . date('Y-m-d') . '.' . $ext;
+    
+    header('Content-Type: ' . $mime . '; charset=utf-8');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    
+    // BOM para UTF-8 no Excel
+    echo "\xEF\xBB\xBF";
+    
+    // Cabeçalho
+    $headers = ['Projeto', 'Cliente', 'Tipo', 'Descrição', 'Valor', 'Moeda', 'Responsável', 'Data Projeto'];
+    echo implode($separator, $headers) . "\n";
+    
+    // Dados
+    foreach ($expenses as $exp) {
+        $row = [
+            '"' . str_replace('"', '""', $exp['project_title']) . '"',
+            '"' . str_replace('"', '""', $exp['client_name'] ?? '-') . '"',
+            $type_labels[$exp['expense_type']] ?? $exp['expense_type'],
+            '"' . str_replace('"', '""', $exp['description'] ?: '-') . '"',
+            number_format($exp['amount'], 2, ',', ''),
+            $exp['currency'],
+            $paid_labels[$exp['paid_by']] ?? $exp['paid_by'],
+            date('d/m/Y', strtotime($exp['start_date']))
+        ];
+        echo implode($separator, $row) . "\n";
+    }
+    
+    // Totais
+    echo "\n";
+    echo implode($separator, ['', '', '', 'Total Geral', number_format($total_all, 2, ',', ''), '', '', '']) . "\n";
+    echo implode($separator, ['', '', '', 'Total Cliente', number_format($total_client, 2, ',', ''), '', '', '']) . "\n";
+    echo implode($separator, ['', '', '', 'Total Intérprete', number_format($total_interpreter, 2, ',', ''), '', '', '']) . "\n";
+    
+    exit;
+}
 
 $page_title = 'Relatório de Despesas - Dash-T101';
 include __DIR__ . '/../vision/includes/head.php';
@@ -149,6 +195,12 @@ include __DIR__ . '/../vision/includes/sidebar.php';
     .table-footer { display: flex; justify-content: flex-end; gap: 25px; padding: 18px 25px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; }
     .table-footer span { color: #aaa; }
     .table-footer strong { font-family: monospace; font-size: 1rem; }
+    /* Botões de Exportação */
+    .btn-export { font-size: 0.85rem; padding: 8px 16px; border-radius: 10px; }
+    .btn-csv { background: rgba(76, 175, 80, 0.15); border: 1px solid rgba(76, 175, 80, 0.3); color: #81c784; }
+    .btn-csv:hover { background: rgba(76, 175, 80, 0.3); transform: translateY(-1px); }
+    .btn-excel { background: rgba(64, 196, 255, 0.15); border: 1px solid rgba(64, 196, 255, 0.3); color: #40c4ff; }
+    .btn-excel:hover { background: rgba(64, 196, 255, 0.3); transform: translateY(-1px); }
 </style>
 
 <div class="main-content">
@@ -161,9 +213,25 @@ include __DIR__ . '/../vision/includes/sidebar.php';
         </div>
     </div>
 
-    <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+    <?php
+    // Montar query string atual para exportação (manter filtros)
+    $export_params = [];
+    if ($date_from) $export_params[] = 'date_from=' . urlencode($date_from);
+    if ($date_to) $export_params[] = 'date_to=' . urlencode($date_to);
+    if ($client_id) $export_params[] = 'client=' . urlencode($client_id);
+    if ($expense_type) $export_params[] = 'type=' . urlencode($expense_type);
+    if ($paid_by) $export_params[] = 'paid_by=' . urlencode($paid_by);
+    $export_qs = !empty($export_params) ? '&' . implode('&', $export_params) : '';
+    ?>
+    <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; align-items:center;">
         <a href="index.php" class="vision-btn vision-btn-secondary"><i class="fas fa-home"></i> Voltar</a>
+        <a href="reports.php" class="vision-btn vision-btn-secondary"><i class="fas fa-chart-line"></i> Relatórios</a>
         <a href="projects_list.php" class="vision-btn vision-btn-secondary"><i class="fas fa-folder-open"></i> Projetos</a>
+        <?php if (!empty($expenses)): ?>
+            <span style="color:#555; margin: 0 5px;">|</span>
+            <a href="?export=csv<?php echo $export_qs; ?>" class="vision-btn btn-export btn-csv"><i class="fas fa-file-csv"></i> Exportar CSV</a>
+            <a href="?export=excel<?php echo $export_qs; ?>" class="vision-btn btn-export btn-excel"><i class="fas fa-file-excel"></i> Exportar Excel</a>
+        <?php endif; ?>
     </div>
 
     <!-- FILTROS -->
