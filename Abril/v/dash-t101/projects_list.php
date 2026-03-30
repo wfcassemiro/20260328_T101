@@ -144,6 +144,13 @@ include __DIR__ . '/../vision/includes/sidebar.php';
     .expense-client { color: #81c784; }
     .expense-interpreter { color: #ffb74d; }
     .expense-none { color: #666; font-style: italic; font-size: 0.8rem; }
+
+    /* Ordenação de colunas */
+    .vision-table th[data-sort] { cursor: pointer; user-select: none; position: relative; padding-right: 28px; transition: color 0.2s; }
+    .vision-table th[data-sort]:hover { color: #fff; }
+    .vision-table th[data-sort]::after { content: '\f0dc'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.7rem; color: rgba(255,255,255,0.2); transition: color 0.2s; }
+    .vision-table th[data-sort].asc::after { content: '\f0de'; color: var(--brand-purple-light, #b388ff); }
+    .vision-table th[data-sort].desc::after { content: '\f0dd'; color: var(--brand-purple-light, #b388ff); }
 </style>
 
 <div class="main-content">
@@ -180,12 +187,12 @@ include __DIR__ . '/../vision/includes/sidebar.php';
             <table class="vision-table">
                 <thead>
                     <tr>
-                        <th>Projeto</th>
-                        <th>Cliente</th>
-                        <th>Status</th>
-                        <th>Prazo</th>
-                        <th>Valor</th>
-                        <th>Despesas</th>
+                        <th data-sort="string">Projeto</th>
+                        <th data-sort="string">Cliente</th>
+                        <th data-sort="string">Status</th>
+                        <th data-sort="date">Prazo</th>
+                        <th data-sort="number">Valor</th>
+                        <th data-sort="number">Despesas</th>
                         <th style="text-align:right;">Ações</th>
                     </tr>
                 </thead>
@@ -200,15 +207,15 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                             $exp_interpreter = $has_expenses ? ($project_expenses[$pid]['interpreter'] ?? 0) : 0;
                         ?>
                         <tr>
-                            <td>
+                            <td data-sort-value="<?php echo htmlspecialchars($p['title']); ?>">
                                 <strong style="display:block; margin-bottom:3px;"><?php echo htmlspecialchars($p['title']); ?></strong>
                                 <?php if($p['po_number']): ?><small style="color:#888;">PO: <?php echo htmlspecialchars($p['po_number']); ?></small><?php endif; ?>
                             </td>
-                            <td><?php echo htmlspecialchars($p['client_name'] ?? '-'); ?></td>
-                            <td><span class="status-badge status-<?php echo $p['status']; ?>"><?php echo ucfirst(str_replace('_', ' ', $p['status'])); ?></span></td>
-                            <td><?php echo date('d/m/Y', strtotime($p['deadline'])); ?></td>
-                            <td style="font-family:monospace; font-weight:bold;"><?php echo number_format($p['total_amount'], 2, ',', '.') . ' ' . $p['currency']; ?></td>
-                            <td class="expense-cell">
+                            <td data-sort-value="<?php echo htmlspecialchars($p['client_name'] ?? ''); ?>"><?php echo htmlspecialchars($p['client_name'] ?? '-'); ?></td>
+                            <td data-sort-value="<?php echo $p['status']; ?>"><span class="status-badge status-<?php echo $p['status']; ?>"><?php echo ucfirst(str_replace('_', ' ', $p['status'])); ?></span></td>
+                            <td data-sort-value="<?php echo $p['deadline']; ?>"><?php echo date('d/m/Y', strtotime($p['deadline'])); ?></td>
+                            <td data-sort-value="<?php echo $p['total_amount']; ?>" style="font-family:monospace; font-weight:bold;"><?php echo number_format($p['total_amount'], 2, ',', '.') . ' ' . $p['currency']; ?></td>
+                            <td data-sort-value="<?php echo ($exp_client + $exp_interpreter); ?>" class="expense-cell">
                                 <?php if ($has_expenses): ?>
                                     <?php if ($exp_client > 0): ?>
                                         <div class="expense-client"><i class="fas fa-user-tie" style="width:14px;"></i> <?php echo number_format($exp_client, 2, ',', '.'); ?></div>
@@ -249,5 +256,55 @@ include __DIR__ . '/../vision/includes/sidebar.php';
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const table = document.querySelector('.vision-table');
+    if (!table) return;
+    const headers = table.querySelectorAll('th[data-sort]');
+    const tbody = table.querySelector('tbody');
+
+    headers.forEach((th, colIdx) => {
+        th.addEventListener('click', () => {
+            const type = th.getAttribute('data-sort');
+            const isAsc = th.classList.contains('asc');
+            const dir = isAsc ? 'desc' : 'asc';
+
+            // Limpar classes dos outros headers
+            headers.forEach(h => h.classList.remove('asc', 'desc'));
+            th.classList.add(dir);
+
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            rows.sort((a, b) => {
+                const cellA = a.cells[colIdx];
+                const cellB = b.cells[colIdx];
+                if (!cellA || !cellB) return 0;
+
+                let valA = cellA.getAttribute('data-sort-value') || cellA.textContent.trim();
+                let valB = cellB.getAttribute('data-sort-value') || cellB.textContent.trim();
+
+                if (type === 'number') {
+                    valA = parseFloat(valA) || 0;
+                    valB = parseFloat(valB) || 0;
+                    return dir === 'asc' ? valA - valB : valB - valA;
+                }
+                if (type === 'date') {
+                    valA = new Date(valA) || 0;
+                    valB = new Date(valB) || 0;
+                    return dir === 'asc' ? valA - valB : valB - valA;
+                }
+                // string
+                valA = valA.toLowerCase();
+                valB = valB.toLowerCase();
+                if (valA < valB) return dir === 'asc' ? -1 : 1;
+                if (valA > valB) return dir === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            rows.forEach(r => tbody.appendChild(r));
+        });
+    });
+});
+</script>
 
 <?php include __DIR__ . '/../vision/includes/footer.php'; ?>
