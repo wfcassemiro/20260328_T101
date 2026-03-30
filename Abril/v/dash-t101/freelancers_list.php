@@ -181,10 +181,10 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                 <table class="vision-table">
                     <thead>
                         <tr>
-                            <th><i class="fas fa-user"></i> Nome</th>
+                            <th data-sort="string"><i class="fas fa-user"></i> Nome</th>
                             <th><i class="fas fa-envelope"></i> Contato</th>
-                            <th><i class="fas fa-globe"></i> País</th>
-                            <th><i class="fas fa-money-bill-wave"></i> Moeda</th>
+                            <th data-sort="string"><i class="fas fa-globe"></i> País</th>
+                            <th data-sort="string"><i class="fas fa-money-bill-wave"></i> Moeda</th>
                             <th><i class="fas fa-tags"></i> Serviços</th>
                             <th><i class="fas fa-tools"></i> Ações</th>
                         </tr>
@@ -192,7 +192,7 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                     <tbody>
                         <?php foreach ($freelancers as $freelancer): ?>
                             <tr>
-                                <td>
+                                <td data-sort-value="<?php echo htmlspecialchars($freelancer['name']); ?>">
                                     <a href="freelancers.php?edit=<?php echo $freelancer['id']; ?>" class="project-name-refined" style="color: var(--brand-purple-light); text-decoration: none;">
                                         <?php echo htmlspecialchars($freelancer['name']); ?>
                                     </a>
@@ -222,8 +222,8 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                                         <?php endif; ?>
                                     </div>
                                 </td>
-                                <td><?php echo htmlspecialchars($freelancer['country'] ?? '-'); ?></td>
-                                <td><span class="status-badge-refined status-pending" style="font-weight: 600;"><?php echo htmlspecialchars($freelancer['currency'] ?? 'BRL'); ?></span></td>
+                                <td data-sort-value="<?php echo htmlspecialchars($freelancer['country'] ?? ''); ?>"><?php echo htmlspecialchars($freelancer['country'] ?? '-'); ?></td>
+                                <td data-sort-value="<?php echo htmlspecialchars($freelancer['currency'] ?? 'BRL'); ?>"><span class="status-badge-refined status-pending" style="font-weight: 600;"><?php echo htmlspecialchars($freelancer['currency'] ?? 'BRL'); ?></span></td>
                                 <td class="value-cell-refined" style="width: 35%;">
                                     <?php 
                                     if (!empty($freelancer['services_tags'])) {
@@ -426,6 +426,13 @@ include __DIR__ . '/../vision/includes/sidebar.php';
 
 .card-header-refined { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding: 25px 30px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
 .card-header-refined h2 { margin: 0; font-size: 1.3rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 12px; }
+
+/* Ordenação de colunas */
+.vision-table th[data-sort] { cursor: pointer; user-select: none; position: relative; padding-right: 28px; transition: color 0.2s; }
+.vision-table th[data-sort]:hover { color: #fff; }
+.vision-table th[data-sort]::after { content: '\f0dc'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.7rem; color: rgba(255,255,255,0.2); transition: color 0.2s; }
+.vision-table th[data-sort].asc::after { content: '\f0de'; color: var(--brand-purple-light, #b388ff); }
+.vision-table th[data-sort].desc::after { content: '\f0dd'; color: var(--brand-purple-light, #b388ff); }
 </style>
 
 <script>
@@ -465,6 +472,45 @@ function copyToClipboard(text, button) {
         alert('Não foi possível copiar o e-mail. Por favor, copie manualmente.');
     });
 }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const table = document.querySelector('.vision-table');
+    if (!table) return;
+    const headers = table.querySelectorAll('th[data-sort]');
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+
+    headers.forEach((th, colIdx) => {
+        th.addEventListener('click', () => {
+            const type = th.getAttribute('data-sort');
+            const isAsc = th.classList.contains('asc');
+            const dir = isAsc ? 'desc' : 'asc';
+
+            headers.forEach(h => h.classList.remove('asc', 'desc'));
+            th.classList.add(dir);
+
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            rows.sort((a, b) => {
+                const cellA = a.cells[colIdx];
+                const cellB = b.cells[colIdx];
+                if (!cellA || !cellB) return 0;
+
+                let valA = cellA.getAttribute('data-sort-value') || cellA.textContent.trim();
+                let valB = cellB.getAttribute('data-sort-value') || cellB.textContent.trim();
+
+                valA = valA.toLowerCase();
+                valB = valB.toLowerCase();
+                if (valA < valB) return dir === 'asc' ? -1 : 1;
+                if (valA > valB) return dir === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            rows.forEach(r => tbody.appendChild(r));
+        });
+    });
+});
 </script>
 
 <?php include __DIR__ . '/../vision/includes/footer.php'; ?>
