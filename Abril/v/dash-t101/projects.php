@@ -535,6 +535,7 @@ include __DIR__ . '/../vision/includes/sidebar.php';
                                 <span class="expense-badge" style="display:none;">0</span>
                             </button>
                         </div>
+                        <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
 
