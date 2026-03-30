@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 import os
 
 # Configuration
-BASE_URL = "https://apple-vision-php.preview.emergentagent.com"
+BASE_URL = "https://dash-service-save.preview.emergentagent.com"
 PROJECTS_URL = f"{BASE_URL}/dash-t101/projects.php"
 
 class ProjectTestSuite:
