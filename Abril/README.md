@@ -117,5 +117,61 @@ ADD COLUMN `is_whatsapp` TINYINT(1) DEFAULT 0 AFTER `phone_country_code`;
 
 ---
 
+### 7. Modal de Despesas de Interpretação (NOVO)
+**Funcionalidade:** Quando o serviço "Interpretação" é selecionado em uma tarefa do projeto, um botão "Despesas" aparece. Ao clicar, abre-se um modal para gerenciar custos adicionais.
+
+**Tipos de despesa:**
+- Viagem (travel)
+- Hospedagem (accommodation)
+- Alimentação (food)
+- Equipamento (equipment)
+
+**Responsável pelo pagamento:**
+- **Cliente:** O valor é somado ao total do projeto (faturamento)
+- **Intérprete:** O valor é salvo apenas para controle interno (não afeta o total)
+
+**Campos por despesa:** Tipo, Descrição, Valor, Responsável (Cliente/Intérprete)
+
+### `/v/dash-t101/projects.php`
+- Modal de despesas de interpretação
+- Botão "Despesas" visível quando serviço = Interpretação
+- Toggle Cliente/Intérprete para cada despesa
+- Resumo com totais por responsável
+- Despesas do Cliente são somadas ao total do projeto
+- Suporte a edição (carrega despesas existentes)
+- Hidden fields sincronizados antes do submit
+
+### Alteração no Banco de Dados (Parte 3)
+```sql
+CREATE TABLE IF NOT EXISTS `dash_interpretation_expenses` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NOT NULL,
+    `project_id` INT NOT NULL,
+    `expense_type` ENUM('travel', 'accommodation', 'food', 'equipment') NOT NULL,
+    `description` VARCHAR(255) DEFAULT NULL,
+    `amount` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    `paid_by` ENUM('client', 'interpreter') NOT NULL DEFAULT 'client',
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX `idx_project_id` (`project_id`),
+    INDEX `idx_user_id` (`user_id`)
+);
+```
+
+### Instruções Adicionais
+
+4. **Substitua/Adicione o arquivo PHP:**
+   - Faça upload de `v/dash-t101/projects.php`
+
+5. **Teste a funcionalidade de Interpretação:**
+   - Crie um novo projeto
+   - Adicione uma tarefa e selecione "Interpretação" como serviço
+   - Clique no botão "Despesas" que aparece
+   - Adicione despesas de viagem, hospedagem, alimentação e/ou equipamento
+   - Alterne entre Cliente e Intérprete para cada despesa
+   - Verifique que as despesas do Cliente são somadas ao total
+   - Salve o projeto e verifique os registros na tabela `dash_interpretation_expenses`
+
+---
+
 **Data:** Abril 2026
 **Desenvolvido por:** Emergent Agent

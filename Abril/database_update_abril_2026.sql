@@ -32,6 +32,24 @@ ALTER TABLE `dash_freelancers`
 ADD COLUMN IF NOT EXISTS `is_whatsapp` TINYINT(1) DEFAULT 0 AFTER `phone_country_code`;
 
 -- =====================================================
+-- PARTE 3: Tabela de Despesas de Interpretação
+-- (Viagem, Hospedagem, Alimentação, Equipamento)
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS `dash_interpretation_expenses` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NOT NULL,
+    `project_id` INT NOT NULL,
+    `expense_type` ENUM('travel', 'accommodation', 'food', 'equipment') NOT NULL,
+    `description` VARCHAR(255) DEFAULT NULL,
+    `amount` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    `paid_by` ENUM('client', 'interpreter') NOT NULL DEFAULT 'client',
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX `idx_project_id` (`project_id`),
+    INDEX `idx_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- =====================================================
 -- VERIFICAÇÃO (Opcional - Execute para confirmar)
 -- =====================================================
 -- SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_DEFAULT 
@@ -43,3 +61,5 @@ ADD COLUMN IF NOT EXISTS `is_whatsapp` TINYINT(1) DEFAULT 0 AFTER `phone_country
 -- FROM INFORMATION_SCHEMA.COLUMNS 
 -- WHERE TABLE_NAME = 'dash_freelancers' 
 -- AND COLUMN_NAME IN ('phone_country_code', 'is_whatsapp');
+--
+-- SELECT * FROM dash_interpretation_expenses LIMIT 5;
