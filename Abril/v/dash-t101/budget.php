@@ -58,7 +58,9 @@ try {
     $stmt = $pdo->prepare("SELECT setting_value FROM dash_settings WHERE user_id = ? AND setting_key = 'custom_services_list'");
     $stmt->execute([$currentUserId]);
     $res = $stmt->fetchColumn();
-    $servicesList = $res ? json_decode($res, true) : ['Tradução', 'Revisão', 'Pós-edição', 'Legendagem', 'Transcrição'];
+    $servicesList = $res ? json_decode($res, true) : ['Tradução', 'Revisão', 'Interpretação', 'Pós-edição', 'Legendagem', 'Transcrição'];
+    // Garantir que Interpretação está sempre disponível
+    if (!in_array('Interpretação', $servicesList)) $servicesList[] = 'Interpretação';
     sort($servicesList);
 
 } catch (Exception $e) {
@@ -263,6 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
         elseif ($act === 'update_client_session') {
             $service = $_POST['service'];
             $isRevisao = (mb_stripos($service, 'revis', 0, 'UTF-8') !== false);
+            $isInterpretacao = (mb_stripos($service, 'interpret', 0, 'UTF-8') !== false);
             
             $_SESSION['budget_client'] = [
                 'client_id' => $_POST['client_id'],
@@ -270,7 +273,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
                 'company_name' => '',
                 'service' => $service,
                 'lang_from' => $_POST['lang_from'],
-                'lang_to' => $isRevisao ? '' : $_POST['lang_to'],
+                'lang_to' => ($isRevisao || $isInterpretacao) ? '' : $_POST['lang_to'],
                 'currency' => $_POST['currency'],
                 'contact_name' => '',
                 'client_email' => '',
@@ -302,13 +305,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
                 }
             }
             
-            if ($isRevisao) {
+            if ($isRevisao || $isInterpretacao) {
                 $_SESSION['budget_flow_step'] = 4;
             } else {
                 $_SESSION['budget_flow_step'] = max($_SESSION['budget_flow_step'], 2);
             }
             
-            $res = ['success' => true, 'isRevisao' => $isRevisao];
+            $res = ['success' => true, 'isRevisao' => $isRevisao, 'isInterpretacao' => $isInterpretacao];
         }
 
         elseif ($act === 'update_weights') {
@@ -343,6 +346,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
             
             $service = $_SESSION['budget_client']['service'] ?? '';
             $isRevisao = (mb_stripos($service, 'revis', 0, 'UTF-8') !== false);
+            $isInterpretacao = (mb_stripos($service, 'interpret', 0, 'UTF-8') !== false);
             $skipWeights = $_SESSION['budget_params']['skip_weights'] ?? false;
             
             $item = [
@@ -352,8 +356,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
                 'unit_cost' => ceilTo2(parseBRLFloat($_POST['cost_value']))
             ];
             
-            if ($isRevisao) {
-                $item['unidade'] = $_POST['unidade'] ?? 'Palavra';
+            if ($isRevisao || $isInterpretacao) {
+                $item['unidade'] = $_POST['unidade'] ?? ($isInterpretacao ? 'Diária' : 'Palavra');
                 $item['quantidade'] = parseBRLFloat($_POST['quantidade'] ?? '1');
                 
                 if ($item['unidade'] === 'Lauda') {
@@ -389,6 +393,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
                 
                 $service = $_SESSION['budget_client']['service'] ?? '';
                 $isRevisao = (mb_stripos($service, 'revis', 0, 'UTF-8') !== false);
+                $isInterpretacao = (mb_stripos($service, 'interpret', 0, 'UTF-8') !== false);
                 
                 $item = [
                     'provider_id' => $pid, 
@@ -397,8 +402,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
                     'unit_cost' => ceilTo2(parseBRLFloat($_POST['cost_value']))
                 ];
                 
-                if ($isRevisao) {
-                    $item['unidade'] = $_POST['unidade'] ?? 'Palavra';
+                if ($isRevisao || $isInterpretacao) {
+                    $item['unidade'] = $_POST['unidade'] ?? ($isInterpretacao ? 'Diária' : 'Palavra');
                     $item['quantidade'] = parseBRLFloat($_POST['quantidade'] ?? '1');
                     
                     if ($item['unidade'] === 'Lauda') {
@@ -487,11 +492,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
             
             $service = $_SESSION['budget_client']['service'] ?? '';
             $isRevisao = (mb_stripos($service, 'revis', 0, 'UTF-8') !== false);
+            $isInterpretacao = (mb_stripos($service, 'interpret', 0, 'UTF-8') !== false);
             $skipWeights = $_SESSION['budget_params']['skip_weights'] ?? false;
             
             $ws = 0; $tw = 0; $ts = 0;
             
-            if ($skipWeights) {
+            if ($isInterpretacao) {
+                // Interpretação: sem contagem de palavras, usar quantidade direto
+            } elseif ($skipWeights) {
                 // Modo sem pesos: totalizar palavras dos itens de custo
                 foreach ($_SESSION['budget_costs']['items'] as $c) {
                     if (isset($c['total_palavras'])) {
@@ -511,7 +519,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
             foreach ($_SESSION['budget_costs']['items'] as $c) {
                 $u = $c['unit_cost'];
                 
-                if ($isRevisao) {
+                if ($isRevisao || $isInterpretacao) {
                     $qtd = $c['quantidade'] ?? 1;
                     $costTotal += $u * $qtd;
                 } elseif ($skipWeights && isset($c['total_palavras'])) {
@@ -605,6 +613,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $langFrom = $_SESSION['budget_client']['lang_from'] ?? '';
     $langTo = $_SESSION['budget_client']['lang_to'] ?? '';
     $isRevisao = (mb_stripos($service, 'revis', 0, 'UTF-8') !== false);
+    $isInterpretacao = (mb_stripos($service, 'interpret', 0, 'UTF-8') !== false);
 
     // Calcular desconto em R$ e em % baseado no valor ORIGINAL
     $descontoReais = 0;
@@ -696,7 +705,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     // Remover idioma se já existir na descrição (evitar duplicação)
     $descText = preg_replace('/\s*\|\s*Idioma:.*$/', '', $descText);
     // Adicionar idioma apenas se não for revisão
-    if (!$isRevisao && $langFrom) {
+    if (!$isRevisao && !$isInterpretacao && $langFrom) {
         $descText .= " | Idioma: " . $langFrom;
         if ($langTo) $descText .= " → " . $langTo;
     }
@@ -870,6 +879,9 @@ $bParams = $_SESSION['budget_params'] ?? ['markup_pct' => 30.0, 'tax_pct' => 11.
 
 // Verifica se é revisão
 $isRevisao = (mb_stripos($bClient['service'] ?? '', 'revis', 0, 'UTF-8') !== false);
+$isInterpretacao = (mb_stripos($bClient['service'] ?? '', 'interpret', 0, 'UTF-8') !== false);
+// Para o template: Interpretação segue o mesmo layout de Revisão (unidade + quantidade)
+$isRevisaoLayout = $isRevisao || $isInterpretacao;
 
 // Preparar lista de clientes para JSON
 $clientsJson = json_encode($clientsList);
@@ -1298,7 +1310,7 @@ input[type="date"] {
             </form>
         </div>
 
-        <div class="video-card <?= $isRevisao ? 'skipped' : ($step >= 3 ? 'completed' : ($step < 2 ? 'disabled' : '')) ?>" id="cardWeights">
+        <div class="video-card <?= $isRevisaoLayout ? 'skipped' : ($step >= 3 ? 'completed' : ($step < 2 ? 'disabled' : '')) ?>" id="cardWeights">
             <h2><span><i class="fas fa-sliders-h"></i> Configuração de pesos</span></h2>
             <form id="fWeights" class="vision-form-refined">
                 <div class="skip-weights-option">
@@ -1337,7 +1349,7 @@ input[type="date"] {
         </div>
     </div>
 
-    <div class="video-card <?= ($isRevisao || ($bParams['skip_weights'] ?? false)) ? 'skipped' : ($step >= 4 ? 'completed' : ($step < 3 ? 'disabled' : '')) ?>" id="cardAnalysis">
+    <div class="video-card <?= ($isRevisaoLayout || ($bParams['skip_weights'] ?? false)) ? 'skipped' : ($step >= 4 ? 'completed' : ($step < 3 ? 'disabled' : '')) ?>" id="cardAnalysis">
         <h2><span><i class="fas fa-file-csv"></i> Análise da CAT Tool</span></h2>
         <div class="vision-form-refined">
             <form id="fUpload">
@@ -1368,15 +1380,15 @@ input[type="date"] {
         </div>
     </div>
 
-    <div class="video-card <?= ($isRevisao && $step >= 2) || $step >= 4 ? '' : ($step < 4 && !$isRevisao ? 'disabled' : '') ?>" id="cardCosts">
+    <div class="video-card <?= ($isRevisaoLayout && $step >= 2) || $step >= 4 ? '' : ($step < 4 && !$isRevisaoLayout ? 'disabled' : '') ?>" id="cardCosts">
         <h2><span><i class="fas fa-coins"></i> Composição dos custos</span></h2>
         <div class="vision-form-refined">
             <table class="vision-table">
                 <thead>
                     <tr>
-                        <?php if ($isRevisao): ?>
+                        <?php if ($isRevisaoLayout): ?>
                         <th>Unidade</th>
-                        <th>Quantidade</th>
+                        <th><?= $isInterpretacao ? 'Quantidade de diárias ou horas' : 'Quantidade' ?></th>
                         <?php else: ?>
                         <?php $skipW = ($bParams['skip_weights'] ?? false); ?>
                         <th><?= $skipW ? 'Total de palavras' : 'Serviço' ?></th>
@@ -1388,12 +1400,12 @@ input[type="date"] {
                 </thead>
                 <tbody>
                     <?php if (empty($_SESSION['budget_costs']['items'])): ?>
-                    <tr><td colspan="<?= $isRevisao ? 5 : 4 ?>" class="text-center" style="padding:20px; color:#64748b;">Nenhum custo adicionado.</td></tr>
+                    <tr><td colspan="<?= $isRevisaoLayout ? 5 : 4 ?>" class="text-center" style="padding:20px; color:#64748b;">Nenhum custo adicionado.</td></tr>
                     <?php else: foreach ($_SESSION['budget_costs']['items'] as $idx => $c): ?>
                     <tr>
-                        <?php if ($isRevisao): ?>
+                        <?php if ($isRevisaoLayout): ?>
                         <td>
-                            <strong><?= $c['unidade'] ?? 'Palavra' ?></strong>
+                            <strong><?= $c['unidade'] ?? ($isInterpretacao ? 'Diária' : 'Palavra') ?></strong>
                             <?php if (($c['unidade'] ?? '') === 'Lauda'): ?>
                             <small style="display:block; color:#94a3b8; font-size:0.75rem;">
                                 (<?= $c['por_lauda'] ?? 0 ?> <?= ($c['lauda_base'] ?? 'caracteres') === 'caracteres' ? 'caract.' : 'palavras' ?>/lauda<?php if (($c['lauda_base'] ?? '') === 'caracteres'): ?><?= ($c['inclui_espacos'] ?? false) ? ', c/ espaços' : ', s/ espaços' ?><?php endif; ?>)
@@ -1422,18 +1434,24 @@ input[type="date"] {
             <form id="fAddCost" class="mt-20" style="background:rgba(0,0,0,0.2); padding:20px; border-radius:10px;">
                 <input type="hidden" name="edit_index" id="editIndex" value="-1">
                 
-                <?php if ($isRevisao): ?>
+                <?php if ($isRevisaoLayout): ?>
                 <div class="grid-4" style="align-items:end;">
                     <div class="form-group">
                         <label>Unidade</label>
                         <select name="unidade" id="selUnidade" class="vision-select">
+                            <?php if ($isInterpretacao): ?>
+                            <option value="Diária" selected>Diária</option>
+                            <option value="Hora">Hora</option>
+                            <option value="Projeto">Projeto</option>
+                            <?php else: ?>
                             <option value="Lauda">Lauda</option>
                             <option value="Palavra">Palavra</option>
                             <option value="Hora">Hora</option>
+                            <?php endif; ?>
                         </select>
                     </div>
                     <div class="form-group" id="qtdGroup">
-                        <label>Quantidade</label>
+                        <label><?= $isInterpretacao ? 'Quantidade de diárias ou horas' : 'Quantidade' ?></label>
                         <input type="text" name="quantidade" id="inpQuantidade" class="vision-input" placeholder="0">
                     </div>
                     <div class="form-group">
@@ -1823,6 +1841,8 @@ input[type="date"] {
 
 <script>
 const isRevisao = <?= $isRevisao ? 'true' : 'false' ?>;
+const isInterpretacao = <?= $isInterpretacao ? 'true' : 'false' ?>;
+const isRevisaoLayout = isRevisao || isInterpretacao;
 const skipWeightsInit = <?= ($bParams['skip_weights'] ?? false) ? 'true' : 'false' ?>;
 const clientName = "<?= addslashes($bClient['company_name'] ?? $bClient['client_name'] ?? '') ?>";
 const clientContact = "<?= addslashes($bClient['contact_name'] ?? '') ?>";
@@ -1959,8 +1979,8 @@ function editCost(idx, data) {
     document.getElementById('btnSubmitText').textContent = 'Salvar alterações';
     document.getElementById('btnCancelEdit').style.display = 'inline-flex';
     
-    if (isRevisao) {
-        document.getElementById('selUnidade').value = data.unidade || 'Palavra';
+    if (isRevisaoLayout) {
+        document.getElementById('selUnidade').value = data.unidade || (isInterpretacao ? 'Diária' : 'Palavra');
         document.getElementById('inpQuantidade').value = data.quantidade || '';
         
         if (data.unidade === 'Lauda') {
@@ -1986,7 +2006,7 @@ function cancelEdit() {
     document.getElementById('btnCancelEdit').style.display = 'none';
     document.getElementById('fAddCost').reset();
     
-    if (isRevisao) {
+    if (isRevisaoLayout) {
         document.getElementById('laudaInfoDisplay').style.display = 'none';
     }
 }
@@ -2087,7 +2107,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Pegar apenas o nome do serviço (sem idioma se já estiver incluído)
             let desc = serviceName.split(' | Idioma:')[0].trim();
             // Não mostrar idioma se for revisão
-            if (!isRevisao && langFrom) {
+            if (!isRevisaoLayout && langFrom) {
                 desc += ' | Idioma: ' + langFrom;
                 if (langTo) desc += ' → ' + langTo;
             }
@@ -2126,8 +2146,8 @@ document.getElementById('fProject').onsubmit = (e) => {
     fd.append('ajax_action', 'update_client_session');
     fetch('', {method:'POST', body:fd}).then(r=>r.json()).then(r => {
         if(r.success) {
-            if (r.isRevisao) {
-                // Só scrollar para custos se for revisão
+            if (r.isRevisao || r.isInterpretacao) {
+                // Pular pesos e análise — ir direto para custos
                 window.location.href = window.location.pathname + '#cardCosts';
                 location.reload();
             } else {
