@@ -57,13 +57,14 @@ $expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $total_all = 0;
 $total_client = 0;
 $total_interpreter = 0;
-$totals_by_type = ['travel' => 0, 'accommodation' => 0, 'food' => 0, 'equipment' => 0];
+$totals_by_type = [];
 
 foreach ($expenses as $exp) {
     $amt = (float)$exp['amount'];
     $total_all += $amt;
     if ($exp['paid_by'] === 'client') { $total_client += $amt; }
     else { $total_interpreter += $amt; }
+    if (!isset($totals_by_type[$exp['expense_type']])) $totals_by_type[$exp['expense_type']] = 0;
     $totals_by_type[$exp['expense_type']] += $amt;
 }
 
@@ -76,6 +77,14 @@ $clients = $stmt_cli->fetchAll(PDO::FETCH_ASSOC);
 $type_labels = ['travel' => 'Viagem', 'accommodation' => 'Hospedagem', 'food' => 'Alimentação', 'equipment' => 'Equipamento'];
 $type_icons  = ['travel' => 'fa-plane', 'accommodation' => 'fa-hotel', 'food' => 'fa-utensils', 'equipment' => 'fa-tools'];
 $paid_labels = ['client' => 'Cliente', 'interpreter' => 'Intérprete'];
+
+// Descobrir tipos customizados existentes nos dados
+foreach ($expenses as $exp) {
+    if (!isset($type_labels[$exp['expense_type']])) {
+        $type_labels[$exp['expense_type']] = ucfirst(str_replace(['custom_', '_'], ['', ' '], $exp['expense_type']));
+        $type_icons[$exp['expense_type']] = 'fa-tag';
+    }
+}
 
 // --- EXPORTAÇÃO CSV / EXCEL ---
 $export = $_GET['export'] ?? '';

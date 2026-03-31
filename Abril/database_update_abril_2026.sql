@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `dash_interpretation_expenses` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `user_id` INT NOT NULL,
     `project_id` INT NOT NULL,
-    `expense_type` ENUM('travel', 'accommodation', 'food', 'equipment') NOT NULL,
+    `expense_type` VARCHAR(100) NOT NULL DEFAULT 'travel',
     `description` VARCHAR(255) DEFAULT NULL,
     `amount` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     `paid_by` ENUM('client', 'interpreter') NOT NULL DEFAULT 'client',
@@ -48,6 +48,9 @@ CREATE TABLE IF NOT EXISTS `dash_interpretation_expenses` (
     INDEX `idx_project_id` (`project_id`),
     INDEX `idx_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Se a tabela já existir com ENUM, alterar para VARCHAR:
+-- ALTER TABLE `dash_interpretation_expenses` MODIFY COLUMN `expense_type` VARCHAR(100) NOT NULL DEFAULT 'travel';
 
 -- =====================================================
 -- VERIFICAÇÃO (Opcional - Execute para confirmar)

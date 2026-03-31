@@ -370,6 +370,12 @@ include __DIR__ . '/../vision/includes/sidebar.php';
 
     /* Seção de Despesas (dentro do form, hidden fields) */
     #expensesHiddenContainer { display: none; }
+
+    /* Botão + para tipo customizado de despesa */
+    .input-with-plus { display: flex; gap: 6px; width: 100%; }
+    .input-with-plus .vision-select { flex: 1; }
+    .btn-add-exp-type { width: 38px; height: 38px; flex-shrink: 0; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: 0.2s; }
+    .btn-add-exp-type:hover { background: var(--brand-purple); border-color: var(--brand-purple); }
 </style>
 
 <div class="main-content">
@@ -709,6 +715,21 @@ include __DIR__ . '/../vision/includes/sidebar.php';
     </div>
 </div>
 
+<!-- MODAL: Novo Tipo de Despesa -->
+<div id="newExpenseTypeModal" class="modal">
+    <div class="modal-box">
+        <h3>Novo tipo de despesa</h3>
+        <div class="form-group">
+            <label>Nome do tipo</label>
+            <input type="text" id="newExpenseTypeName" class="vision-input" placeholder="Ex: Transporte Local">
+        </div>
+        <div class="modal-actions">
+            <button type="button" class="vision-btn vision-btn-secondary" onclick="closeNewExpTypeModal()">Cancelar</button>
+            <button type="button" class="vision-btn" id="btnSaveNewExpType">Adicionar</button>
+        </div>
+    </div>
+</div>
+
 <script>
 // =============================================
 // DADOS DE DESPESAS EXISTENTES (para edição)
@@ -726,6 +747,8 @@ const expenseTypeLabels = {
     'food': 'Alimentação',
     'equipment': 'Equipamento'
 };
+let customExpenseTypes = [];
+let pendingExpTypeIdx = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('jobs_container');
@@ -926,7 +949,51 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target == customModal) closeCustomModal();
         if (event.target == clientModal) closeClientModal();
         if (event.target == document.getElementById('interpretationExpensesModal')) closeExpensesModal();
+        if (event.target == document.getElementById('newExpenseTypeModal')) closeNewExpTypeModal();
     };
+
+    // --- TIPOS CUSTOMIZADOS DE DESPESA ---
+    function buildExpTypeOptions(selectedType) {
+        let html = '';
+        const defaults = {
+            'travel': 'Viagem', 'accommodation': 'Hospedagem',
+            'food': 'Alimentação', 'equipment': 'Equipamento'
+        };
+        for (const [key, label] of Object.entries(defaults)) {
+            html += '<option value="' + key + '"' + (selectedType === key ? ' selected' : '') + '>' + label + '</option>';
+        }
+        customExpenseTypes.forEach((label, i) => {
+            const key = 'custom_' + (i + 1);
+            html += '<option value="' + key + '"' + (selectedType === key ? ' selected' : '') + '>' + escapeHtml(label) + '</option>';
+        });
+        return html;
+    }
+
+    const newExpTypeModal = document.getElementById('newExpenseTypeModal');
+    
+    window.openNewExpTypeModal = function(idx) {
+        pendingExpTypeIdx = idx;
+        document.getElementById('newExpenseTypeName').value = '';
+        newExpTypeModal.classList.add('active');
+        setTimeout(() => document.getElementById('newExpenseTypeName').focus(), 100);
+    };
+
+    window.closeNewExpTypeModal = function() {
+        newExpTypeModal.classList.remove('active');
+    };
+
+    document.getElementById('btnSaveNewExpType').addEventListener('click', function() {
+        const name = document.getElementById('newExpenseTypeName').value.trim();
+        if (!name) return alert('Digite o nome do tipo.');
+        customExpenseTypes.push(name);
+        const key = 'custom_' + customExpenseTypes.length;
+        if (pendingExpTypeIdx !== null && interpretationExpenses[pendingExpTypeIdx]) {
+            interpretationExpenses[pendingExpTypeIdx].type = key;
+        }
+        renderExpensesTable();
+        updateExpensesSummary();
+        closeNewExpTypeModal();
+    });
 
     // =============================================
     // MODAL DE DESPESAS DE INTERPRETAÇÃO
@@ -985,12 +1052,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             row.innerHTML = 
                 '<td>' +
+                    '<div class="input-with-plus">' +
                     '<select class="vision-select exp-type" data-idx="' + idx + '">' +
-                        '<option value="travel"' + (exp.type === 'travel' ? ' selected' : '') + '>Viagem</option>' +
-                        '<option value="accommodation"' + (exp.type === 'accommodation' ? ' selected' : '') + '>Hospedagem</option>' +
-                        '<option value="food"' + (exp.type === 'food' ? ' selected' : '') + '>Alimentação</option>' +
-                        '<option value="equipment"' + (exp.type === 'equipment' ? ' selected' : '') + '>Equipamento</option>' +
+                        buildExpTypeOptions(exp.type) +
                     '</select>' +
+                    '<button type="button" class="btn-add-exp-type" title="Novo tipo" onclick="openNewExpTypeModal(' + idx + ')">+</button>' +
+                    '</div>' +
                 '</td>' +
                 '<td>' +
                     '<input type="text" class="vision-input exp-desc" data-idx="' + idx + '" value="' + escapeHtml(exp.description) + '" placeholder="Ex: Passagem aérea SP-RJ">' +
