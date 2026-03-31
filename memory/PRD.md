@@ -36,9 +36,21 @@
 ### 9. Central de Relatórios (reports.php)
 - Link "Despesas de interpretação"
 
-## Arquivos (10)
+### 10. Certificados para Convidados (certificados.php) - NOVO
+- **Emissão Unitária**: Formulário manual (Nome, E-mail, Palestra, Palestrante, Duração)
+- **Importação CSV em Lote**: Upload de CSV (Nome;Email;Data) com modal de conferência
+- **Tabela de Histórico Unificada**: UNION entre `certificates` e `guest_certificates` com badges "Assinante"/"Convidado"
+- **Filtros**: Botões para filtrar por tipo (Todos/Assinantes/Convidados)
+- **Estatísticas atualizadas**: Total geral, assinantes, convidados, emitidos hoje
+- **Deletar convidado**: Modal de confirmação com input "DELETE"
+- **Tabela SQL**: `guest_certificates` adicionada ao `database_update_abril_2026.sql`
+- **SMTP**: Reutiliza `sendCertificateEmailNotification` existente
+- **PNG**: Reutiliza `generateAndSaveCertificatePng` existente
+
+## Arquivos (11)
 freelancers.php, freelancers_list.php, projects.php, projects_list.php, invoices_list.php,
-interpretation_expenses_report.php, reports.php, budget.php, database_update_abril_2026.sql, README.md
+interpretation_expenses_report.php, reports.php, budget.php, certificados.php,
+database_update_abril_2026.sql, README.md
 
 ## Backlog
 - P2: Incluir despesas de interpretação no PDF do orçamento

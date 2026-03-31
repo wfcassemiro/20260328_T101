@@ -53,6 +53,27 @@ CREATE TABLE IF NOT EXISTS `dash_interpretation_expenses` (
 -- ALTER TABLE `dash_interpretation_expenses` MODIFY COLUMN `expense_type` VARCHAR(100) NOT NULL DEFAULT 'travel';
 
 -- =====================================================
+-- PARTE 4: Tabela de Certificados para Convidados
+-- (Usuários não-assinantes que recebem certificado manual)
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS `guest_certificates` (
+    `id` VARCHAR(36) PRIMARY KEY,
+    `guest_name` VARCHAR(255) NOT NULL,
+    `guest_email` VARCHAR(255) NOT NULL,
+    `lecture_title` VARCHAR(500) NOT NULL,
+    `speaker_name` VARCHAR(255) NOT NULL,
+    `duration_hours` DECIMAL(3,1) NOT NULL DEFAULT 1.0,
+    `issued_at` DATETIME NOT NULL,
+    `certificate_file` VARCHAR(255) DEFAULT NULL,
+    `email_sent` TINYINT(1) DEFAULT 0,
+    `admin_id` INT DEFAULT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX `idx_guest_email` (`guest_email`),
+    INDEX `idx_issued_at` (`issued_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- =====================================================
 -- VERIFICAÇÃO (Opcional - Execute para confirmar)
 -- =====================================================
 -- SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_DEFAULT 
@@ -66,3 +87,5 @@ CREATE TABLE IF NOT EXISTS `dash_interpretation_expenses` (
 -- AND COLUMN_NAME IN ('phone_country_code', 'is_whatsapp');
 --
 -- SELECT * FROM dash_interpretation_expenses LIMIT 5;
+--
+-- SELECT * FROM guest_certificates LIMIT 5;
